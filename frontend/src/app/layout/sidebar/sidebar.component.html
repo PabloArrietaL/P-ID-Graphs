@@ -1,0 +1,40 @@
+<aside class="sidebar shadow-sm menu">
+
+  <nav class="sidebar-menu pt-5 pb-3 mt-5 mx-3">
+    <ul class="menu-items">
+      <li>
+        <a routerLink="/home" routerLinkActive="active" class="menu-inicio p-0"
+          style="border-bottom: 1.5px solid #fff;">
+          <span class="link-side">Inicio</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/nodes" routerLinkActive="active" class="menu-inicio p-0"
+          style="border-bottom: 1.5px solid #fff;">
+          <span class="link-side">Nodos</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/graphs" routerLinkActive="active" class="menu-inicio p-0"
+          style="border-bottom: 1.5px solid #fff;">
+          <span class="link-side">Ver grafos</span>
+        </a>
+      </li>
+      <li>
+        <a routerLink="/create-graph" routerLinkActive="active" class="menu-inicio p-0"
+          style="border-bottom: 1.5px solid #fff;">
+          <span class="link-side">Crear grafo</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <div class="d-flex justify-content-center mt-2 content-boton">
+    <button class="bg-transparent border-0 boton-toggle" (click)="toggleSidebarPin()">
+      <div class="rounded-circle px-2 py-2">
+        <i id="icon-sidebar">
+          <img src="../../../assets/images/sidebar/arrow_left.svg" alt="">
+        </i>
+      </div>
+    </button>
+  </div>
+</aside>

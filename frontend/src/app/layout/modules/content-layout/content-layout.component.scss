@@ -1,0 +1,11 @@
+.pages::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 4px;
+}
+.pages::-webkit-scrollbar {
+  width: 8px;     /* Tamaño del scroll en vertical */
+  background-color: transparent;  /* Ocultar scroll */
+}
+.breadcrumb{
+  background-color: red !important;
+}

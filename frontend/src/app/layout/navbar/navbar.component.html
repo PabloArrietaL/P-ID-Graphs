@@ -1,0 +1,18 @@
+<nav class="navbar navbar-expand-md fixed-top navbar-dark flex-fill" [ngStyle]="{ background: background }">
+
+  <!-- header -->
+  <div class="navbar-header pl-2 pr-2 ml-3 text-center">
+    <!-- 
+    <img src="../../../assets/images/navbar/logoutb_blanco.png" alt="" srcset=""> -->
+    <a class="navbar-brand m-0 w-100 h-100" routerLink="/home">
+      <img src="../../../assets/images/navbar/logoutb_blanco.png" alt="" srcset="">
+
+      <!-- <img src="" alt="" width="170px" class="logo-completo" *ngIf="sidebarShowIcon" /> -->
+    </a>
+  </div>
+  <!-- sidebar toggler -->
+  <div class="sidebar-toggler ml-auto mr-3" id="ul-icon">
+    <a class="btn nav-link" (click)="toggleSidebar()"><i class="fa fa-bars"></i></a>
+  </div>
+
+</nav>

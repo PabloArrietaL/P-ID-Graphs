@@ -1,0 +1,77 @@
+.rol {
+  border: #c1272d solid 1.5px;
+  padding: 5px;
+  border-radius: 20px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+.text-center {
+  img {
+    width: 65%;
+  }
+}
+.barra {
+  background-color: #c1272d;
+  height: 1px;
+}
+.fa-tv {
+  color: #c1272d;
+}
+
+.name {
+  font-family: "Montserrat-bold";
+  color: #d6c2c2;
+}
+.cc {
+  font-family: "Montserrat-ligth";
+  font-size: 12px;
+  color: #b3b3b3;
+}
+.link-side {
+  font-size: 15px;
+  font-family: "Montserrat-regular";
+  color: #fff;
+}
+
+.boton-toggle {
+  outline: none;
+}
+.boton-toggle:focus {
+  outline: none;
+  box-shadow: 0;
+}
+#submenu-inicio {
+  height: 0;
+  overflow: hidden;
+}
+.sub-activado {
+  height: auto !important;
+  // transition: 0.3s !important;
+}
+.sidebar-profile {
+  margin-top: 24px;
+  height: 80px;
+}
+@media screen and (max-width: 767px) {
+  .sidebar-profile {
+    margin-top: 60px;
+  }
+  .boton-toggle {
+    display: none;
+  }
+}
+.submenu-menucerrado {
+  position: absolute;
+  z-index: 10;
+  margin-top: -30px;
+  margin-left: 65px;
+}
+.icono-activo {
+  transform: rotate(180deg);
+}
+.rounded-circle {
+  background-color: #005ecb;
+}
+#icon-sidebar {
+  display: flex;
+}

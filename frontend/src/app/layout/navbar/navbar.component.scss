@@ -1,0 +1,30 @@
+#ul-icon {
+  display: none;
+}
+
+.nombre {
+  line-height: 1rem;
+  text-align: right;
+}
+
+@media screen and (max-width: 767px) {
+  #ul-icon {
+    display: block;
+  }
+}
+
+.logout {
+  color: white;
+  width: 30px;
+  cursor: pointer;
+  margin-left: 1.3rem;
+  margin-right: 1rem;
+}
+
+.lenguage {
+  color: white;
+  width: 30px;
+  cursor: pointer;
+  margin-left: 1.3rem;
+  margin-right: 1rem;
+}

@@ -1,0 +1,78 @@
+.logo_redondo {
+  width: 30px;
+}
+.home {
+  margin-top: 3rem;
+}
+
+p {
+  color: #808080;
+  font-family: "Montserrat-ligth";
+  font-size: 12px;
+}
+
+.titulo {
+  font-family: "Montserrat-regular";
+  margin-top: 18px;
+  color: #808080;
+  font-size: 18px;
+}
+
+.logo {
+  height: 4rem;
+  width: 4rem;
+  background-color: #b3b3b3;
+  margin: 0.7rem;
+  border-radius: 250px;
+  padding: 9px;
+  border: 2px solid #808080;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.logo:hover {
+  background-color: #808080;
+  border: 2px #4d4d4d solid;
+}
+
+.logos {
+  padding: 0px;
+}
+
+.cardHome {
+  height: 100px;
+  border-left: 5px solid transparent;
+  border-image: linear-gradient(to bottom, #3acfd5 0%, #3a4ed5 100%) 1;
+  border-top-width: 0px;
+  border-right-width: 0px;
+  border-bottom-width: 0px;
+  box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.75);
+}
+
+.titulo-caja {
+  color: #8b8b8b;
+  font-size: 24px;
+  font-family: "Nunito", sans-serif;
+}
+
+.style_prevu_kit:hover {
+  z-index: 3000;
+  -webkit-transition: all 200ms ease-in;
+  -webkit-transform: scale(1.5);
+  -ms-transition: all 200ms ease-in;
+  -ms-transform: scale(1.5);
+  -moz-transition: all 200ms ease-in;
+  -moz-transform: scale(1.5);
+  transition: all 200ms ease-in;
+  transform: scale(1.05);
+}
+
+.row {
+  justify-content: center;
+}

@@ -1,0 +1,40 @@
+span{
+  color: #9A9A9A;
+}
+.info {
+  font-size: 10px;
+  font-family: "Montserrat-Regular";
+
+}
+.page-footer{
+ bottom: 0;
+ right: 0;
+}
+@media screen and (max-width: 767px){
+  .page-footer{
+      width: 100%;
+  }
+}
+.phone {
+  width: 100%;
+}
+.email {
+  width: 100%;
+}
+.icons {
+  width: 20px;
+  height: 20px;
+  margin-left:12px;
+}
+.icon{
+  margin-right: 10px;
+}
+.copyright{
+  width: 100%;
+
+
+}
+.social{
+display:flex;
+justify-content: center;
+}
