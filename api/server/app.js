@@ -7,6 +7,7 @@ const app = express();
 
 // routes
 const node_routes = require('./routes/node');
+const image_routes = require('./routes/image');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
@@ -22,5 +23,6 @@ app.use((req, res, next) => {
 });
 
 app.use('/api', node_routes);
+app.use('/api', image_routes);
 
 module.exports = app;

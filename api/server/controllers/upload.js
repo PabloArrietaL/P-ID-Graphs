@@ -33,11 +33,11 @@ const uploadImageById = (req, res) => {
         }
         validationImage(file, res); // validate file extension type.
 
-        imgProduct(id, res, file); // <-- Add the image to the product referenced by the id.
+        imgNode(id, res, file); // <-- Add the image to the product referenced by the id.
     });
 };
 
-validationImage = (file, res) => {
+const validationImage = (file, res) => {
     let CutName = file.originalname.split(".");
     let extension = CutName[CutName.length - 1];
 
@@ -57,7 +57,7 @@ validationImage = (file, res) => {
     }
 }
 
-imgNode = (id, res, file) => {
+const imgNode = (id, res, file) => {
     Node.findById(id, (err, nodeDB) => {
         if (err) {
             // Nota: even if an error occurs, the image is uploaded. deleteFile is the solution
@@ -96,7 +96,7 @@ imgNode = (id, res, file) => {
     });
 };
 
-deleteFile = fileName => {
+const deleteFile = fileName => {
     // Path to the existing image in the uploads folder
     let pathImage = path.resolve(__dirname, `../../uploads/${fileName}`);
 
@@ -105,3 +105,5 @@ deleteFile = fileName => {
         fs.unlinkSync(pathImage);
     }
 };
+
+module.exports = { deleteFile, uploadImageById };
