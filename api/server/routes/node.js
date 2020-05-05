@@ -6,8 +6,8 @@ const { createNode } = require('../middlewares/createNode');
 
 const api = express.Router();
 
-
-api.post('/node', [createNode] ,NodeController.createNode);
+api.get('/node', NodeController.getNodes);
+api.post('/node', [createNode], NodeController.createNode);
 api.delete('/node/:id', NodeController.deleteNode);
 api.put('/node/:id', NodeController.updateNode);
 

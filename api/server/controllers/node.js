@@ -3,9 +3,10 @@
 const _ = require("underscore");
 const moment = require("moment");
 const Node = require("../models/node");
+const NodeGraph = require("../models/node_graphs");
 const multer = require("multer");
 const { upload } = require("../middlewares/multer");
-const { deleteFile, uploadImageById } = require("./upload");
+const { deleteFile } = require("./upload");
 
 const createNode = (req, res) => {
     upload(req, res, function (err) {
@@ -22,27 +23,26 @@ const createNode = (req, res) => {
             if (err.code == "LIMIT_UNEXPECTED_FILE") {
                 err.message = "La imagen no se ha cargado correctamente";
 
-                res.status(500).json({
+                return res.status(500).json({
                     message: err.message
                 });
             }
-            res.status(500).json({
+            return res.status(500).json({
                 message: err
             });
         }
 
         if (file !== undefined) {
-            // validate file extension type.
+
             let CutName = file.originalname.split(".");
             let extension = CutName[CutName.length - 1].toLowerCase();
 
-            // Allowed extensions
-            let ExtensionsValidated = ["png", "jpg", "jpeg"];
+            let ExtensionsValidated = ["png", "jpg", "jpeg", "svg"];
 
             if (ExtensionsValidated.indexOf(extension) < 0) {
                 let extensions = ExtensionsValidated.join(", ");
                 fs.unlink(file.path);
-                res.status(400).json({
+                return res.status(400).json({
                     message: `Las extensiones permitidas son ${extensions}`,
                 });
             }
@@ -51,12 +51,11 @@ const createNode = (req, res) => {
 
         node.save((err, nodeStored) => {
             if (err) {
-                res.status(500).send({ message: "Se ha producido un error" });
+                deleteFile(node.img);
+                return res.status(500).json({ message: "Ha ocurrido un error" });
             }
 
-            res
-                .status(200)
-                .send({ message: "Nodo creado correctamente", data: nodeStored });
+            return res.status(200).json({ message: "Nodo creado correctamente", data: nodeStored });
         });
     });
 };
@@ -69,46 +68,83 @@ const updateNode = (req, res) => {
     ]);
 
     Node.findByIdAndUpdate(id, body,
-        { new: true, runValidators: true, useFindAndModify: false }, (err, nodeDB) => {
+        { new: true, runValidators: true, useFindAndModify: false }, (err, updatedNode) => {
             if (err) {
-                res.status(500).json({ message: '' });
+                return res.status(500).json({ message: 'Ha ocurrido un error' });
             }
 
-            if (!nodeDB) {
-                res.status(400).json({ message: "Nodo no encontrado" });
+            if (!updatedNode) {
+                return res.status(400).json({ message: "Nodo no encontrado" });
             }
 
-            res.status(200).json({
+            return res.status(200).json({
                 message: 'Nodo actualizado correctamente',
-                data: nodeDB
+                data: updatedNode
             });
-        })
+        });
 }
 
 const deleteNode = (req, res) => {
-    let id = req.params.id;
 
-    Node.findByIdAndRemove(id, (err, deletedNode) => {
-        if (err) {
-            return res.status(500).json({
-                message: err
-            });
-        }
+    const id = req.params.id;
 
-        if (!deletedNode) {
-            res.status(400).json({
-                message: "Nodo no encontrado"
-            });
+    NodeGraph.find({
+        $or: [{ node_source: id }, { node_target: id }]
+    },
+        (err, nodeGraphs) => {
+            if (err) {
+                return res.status(500).json({
+                    message: "Ha ocurrido un error"
+                });
+            }
+            if (nodeGraphs.length == 0) {
+                Node.findOneAndDelete(id, (err, deletedNode) => {
+                    if (err) {
+                        return res.status(500).json({
+                            message: "Ha ocurrido un error"
+                        });
+                    }
+                    if (!deletedNode) {
+                        return res.status(400).json({
+                            message: "Nodo no encontrado"
+                        });
+                    }
+                    deleteFile(deletedNode.img)
+                    return res.json({
+                        message: "Nodo eliminado correctamente"
+                    });
+                });
+            }
+
+            if (nodeGraphs.length > 0) {
+                return res.status(400).json({
+                    message: "El nodo ya está asociado a un grafo"
+                });
+            }
         }
-        deleteFile(deletedNode.img)
-        res.json({
-            message: "Nodo eliminado correctamente"
-        });
-    });
+    );
+
+
 };
+
+const getNodes = (req, res) => {
+
+    Node.find({}, (err, nodes) => {
+        if (err) {
+            return res.status(500).json({ message: 'Ha ocurrido un error' });
+        }
+        if (!nodes.length) {
+            return res.status(400).json({ message: 'No hay nodos disponibles' });
+        }
+
+        return res.status(200).json({ message: 'ok', data: nodes });
+
+    });
+}
 
 module.exports = {
     createNode,
     deleteNode,
-    updateNode
+    updateNode,
+    getNodes
 };
