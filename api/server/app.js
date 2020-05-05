@@ -8,11 +8,11 @@ const app = express();
 // routes
 const node_routes = require('./routes/node');
 const graph_routes = require('./routes/graph');
+const nodeGraph_routes = require('./routes/node_graph');
 const image_routes = require('./routes/image');
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
@@ -26,5 +26,6 @@ app.use((req, res, next) => {
 app.use('/api', node_routes);
 app.use('/api', graph_routes);
 app.use('/api', image_routes);
+app.use('/api', nodeGraph_routes);
 
 module.exports = app;

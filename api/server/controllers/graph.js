@@ -10,10 +10,10 @@ function deletedGraph(id, res) {
     Graph.findOneAndDelete(id, (err, delGraph) => {
         if (err) {
             return res.status(500).json({
-                message: err
+                message: "Ha ocurrido un error"
             });
         }
-        
+
         if (!delGraph) {
             return res.status(400).json({
                 message: "Grafo no encontrado"
@@ -34,7 +34,7 @@ const createGraph = (req, res) => {
     const graph = new Graph({
         name: body.name,
         description: body.description,
-        created_date: moment().format("YYYY MM DD HH:mm:ss"),
+        created_date: moment().format("YYYY MM DD HH:mm:ss")
     });
 
     graph.save((err, graphStored) => {

@@ -10,53 +10,65 @@ const { deleteFile } = require("./upload");
 
 const createNode = (req, res) => {
     upload(req, res, function (err) {
-        let file = req.file;
-        let body = req.body;
+
+        const file = req.file;
+        const body = req.body;
+
 
         let node = new Node({
             name: body.name,
             description: body.description,
-            created_date: moment().format("YYYY MM DD HH:mm:ss"),
+            created_date: moment().format("YYYY MM DD HH:mm:ss")
         });
 
-        if (err instanceof multer.MulterError) {
-            if (err.code == "LIMIT_UNEXPECTED_FILE") {
-                err.message = "La imagen no se ha cargado correctamente";
+        Node.find({ name: node.name }, (err, nodes) => {
+            if (nodes.length) {
+                deleteFile(file.filename);
+                return res.status(500).json({ message: 'El nombre del nodo no está disponible' });
+            }
+            else {
+                if (err instanceof multer.MulterError) {
+                    if (err.code == "LIMIT_UNEXPECTED_FILE") {
+                        err.message = "La imagen no se ha cargado correctamente";
 
-                return res.status(500).json({
-                    message: err.message
+                        return res.status(500).json({
+                            message: err.message
+                        });
+                    }
+                    return res.status(500).json({
+                        message: err
+                    });
+                }
+
+                if (file !== undefined) {
+
+                    let CutName = file.originalname.split(".");
+                    let extension = CutName[CutName.length - 1].toLowerCase();
+
+                    let ExtensionsValidated = ["png", "jpg", "jpeg", "svg"];
+
+                    if (ExtensionsValidated.indexOf(extension) < 0) {
+                        let extensions = ExtensionsValidated.join(", ");
+                        fs.unlink(file.path);
+                        return res.status(400).json({
+                            message: `Las extensiones permitidas son ${extensions}`,
+                        });
+                    }
+                    node.img = file.filename;
+                }
+
+
+                node.save((err, nodeStored) => {
+                    if (err) {
+                        deleteFile(node.img);
+                        return res.status(500).json({ message: "Ha ocurrido un error" });
+                    }
+
+                    return res.status(200).json({ message: "Nodo creado correctamente", data: nodeStored });
                 });
             }
-            return res.status(500).json({
-                message: err
-            });
-        }
-
-        if (file !== undefined) {
-
-            let CutName = file.originalname.split(".");
-            let extension = CutName[CutName.length - 1].toLowerCase();
-
-            let ExtensionsValidated = ["png", "jpg", "jpeg", "svg"];
-
-            if (ExtensionsValidated.indexOf(extension) < 0) {
-                let extensions = ExtensionsValidated.join(", ");
-                fs.unlink(file.path);
-                return res.status(400).json({
-                    message: `Las extensiones permitidas son ${extensions}`,
-                });
-            }
-            node.img = file.filename;
-        }
-
-        node.save((err, nodeStored) => {
-            if (err) {
-                deleteFile(node.img);
-                return res.status(500).json({ message: "Ha ocurrido un error" });
-            }
-
-            return res.status(200).json({ message: "Nodo creado correctamente", data: nodeStored });
         });
+
     });
 };
 
@@ -116,7 +128,7 @@ const deleteNode = (req, res) => {
                 });
             }
 
-            if (nodeGraphs.length > 0) {
+            else {
                 return res.status(400).json({
                     message: "El nodo ya está asociado a un grafo"
                 });

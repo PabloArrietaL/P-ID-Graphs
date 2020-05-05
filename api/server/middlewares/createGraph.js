@@ -8,7 +8,7 @@ const createGraph = (req, res, next) => {
 
     Graph.find({ name: name }, (err, graphs) => {
         if (graphs.length) {
-            res.status(500).send({ message: 'El nombre del grafo no está disponible'});
+            return res.status(500).json({ message: 'El nombre del grafo no está disponible'});
         }
         else {
             next();
