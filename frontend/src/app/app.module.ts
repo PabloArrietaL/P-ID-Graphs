@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { ReactiveFormsModule } from '@angular/forms';
 
 // Layouts
 import { ContentLayoutComponent } from './layout/modules/content-layout/content-layout.component';
@@ -15,7 +14,6 @@ import { FooterComponent } from './layout/footer/footer.component';
 
 // Modules
 import { CoreModule } from '@app/core.module';
-import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({
@@ -31,9 +29,7 @@ import { SharedModule } from '@shared/shared.module';
     CommonModule,
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
     BrowserAnimationsModule,
-    SharedModule,
     CoreModule,
   ],
   bootstrap: [AppComponent]

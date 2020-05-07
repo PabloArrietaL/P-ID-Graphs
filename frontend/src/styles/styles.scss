@@ -3,6 +3,7 @@
 @import "./navbar/sidebar";
 @import "./navbar/themes";
 @import "./navbar/dashboard";
+@import "./tables/tables";
 
 .icon-style {
   width: 35px;
@@ -62,4 +63,13 @@ body {
       }
     }
   }
+}
+
+.spinner {
+  display: flex;
+  justify-content: center;
+}
+
+.mat-dialog-container {
+  padding: 0px !important;
 }

@@ -1,0 +1,85 @@
+@mixin frame {
+  padding: 3px 8px;
+  line-height: 13px;
+  color: #fff;
+  font-weight: 400;
+  border-radius: 0.25rem;
+  font-size: 75%;
+  // display: flex;
+  // justify-content: center;
+  // flex-grow: 2;
+}
+
+.cont {
+  display: flex;
+  justify-content: center;
+}
+
+
+table {
+  width: 100%;
+}
+
+table th,
+table td {
+  padding: 0.75rem !important;
+}
+
+
+th {
+  font-family: "Nunito-regular" !important;
+  text-align: center !important;
+}
+
+td {
+  font-family: "Montserrat-ligth";
+}
+
+td img {
+  width: 2rem;
+}
+
+.edit {
+  background: url("assets/images/icons/edit.svg");
+  width: 2rem;
+  cursor: pointer;
+  height: 2rem;
+}
+
+
+.delete {
+  background: url("assets/images/icons/delete.svg");
+  width: 2rem;
+  cursor: pointer;
+  height: 2rem;
+}
+
+.add {
+  background: url("assets/images/icons/add.svg");
+  width: 2rem;
+  cursor: pointer;
+  height: 2rem;
+  background-repeat: no-repeat;
+}
+
+thead {
+  text-align: center;
+}
+
+tbody {
+  text-align: center;
+}
+
+button {
+  outline: none !important;
+}
+
+.mat-dialog-container {
+  padding: 0px !important;
+}
+
+th {
+  color: black !important;
+  font-size: small !important;
+  font-weight: bold !important;
+}

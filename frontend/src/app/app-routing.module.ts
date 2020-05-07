@@ -3,9 +3,8 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 import { ContentLayoutComponent } from './layout/modules/content-layout/content-layout.component';
 import { HomeLayoutComponent } from './layout/modules/home-layout/home-layout.component';
-import { NodesComponent } from '@app/components/nodes/nodes.component';
-import { GraphsComponent } from '@app/components/graphs/graphs.component';
-import { CreateGraphComponent } from '@app/components/create-graph/create-graph.component';
+import { NodesComponent } from '@app/components/nodes_module/nodes/nodes.component';
+import { GraphsComponent } from '@app/components/graphs_module/graphs/graphs.component';
 
 const routes: Routes = [
 
@@ -24,10 +23,6 @@ const routes: Routes = [
       {
         path: 'graphs',
         component: GraphsComponent
-      },
-      {
-        path: 'create-graph',
-        component: CreateGraphComponent
       }
     ]
   },

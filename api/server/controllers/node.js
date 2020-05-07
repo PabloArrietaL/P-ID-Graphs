@@ -149,7 +149,7 @@ const getNodes = (req, res) => {
             return res.status(400).json({ message: 'No hay nodos disponibles' });
         }
 
-        return res.status(200).json({ message: 'ok', data: nodes });
+        return res.status(200).send(nodes);
 
     });
 }

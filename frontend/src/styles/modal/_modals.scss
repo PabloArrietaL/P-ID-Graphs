@@ -1,0 +1,25 @@
+.title-modal {
+  //   justify-content: space-between;
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.24);
+}
+
+.title-info {
+  margin-bottom: 0px;
+  color: #202124;
+}
+
+.button-modal {
+  margin: 0.5rem !important;
+}
+
+.button-close {
+  background: none;
+  border: none;
+  img {
+    height: 1.5rem;
+  }
+}
+

@@ -5,7 +5,7 @@ const Schema = mongoose.Schema;
 
 const NodeSchema = Schema({
     name: { type: String, required: [true, "El nombre es requerido"], unique: true },
-    description: { type: String, required: true },
+    description: { type: String, required: false },
     img: { type: String, required: true },
     created_date: { type: Date, default: Date.now() }
 });
