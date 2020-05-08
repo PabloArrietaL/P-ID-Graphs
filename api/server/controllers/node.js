@@ -57,14 +57,13 @@ const createNode = (req, res) => {
                     node.img = file.filename;
                 }
 
-
                 node.save((err, nodeStored) => {
                     if (err) {
                         deleteFile(node.img);
                         return res.status(500).json({ message: "Ha ocurrido un error" });
                     }
 
-                    return res.status(200).json({ message: "Nodo creado correctamente", data: nodeStored });
+                    return res.status(200).send(nodeStored);
                 });
             }
         });
@@ -89,10 +88,7 @@ const updateNode = (req, res) => {
                 return res.status(400).json({ message: "Nodo no encontrado" });
             }
 
-            return res.status(200).json({
-                message: 'Nodo actualizado correctamente',
-                data: updatedNode
-            });
+            return res.status(200).send(updatedNode);
         });
 }
 
@@ -110,7 +106,7 @@ const deleteNode = (req, res) => {
                 });
             }
             if (nodeGraphs.length == 0) {
-                Node.findOneAndDelete(id, (err, deletedNode) => {
+                Node.findByIdAndDelete(id, (err, deletedNode) => {
                     if (err) {
                         return res.status(500).json({
                             message: "Ha ocurrido un error"

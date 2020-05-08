@@ -5,10 +5,11 @@ import { MatPaginator } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
 import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { DeviceDetectorService } from 'ngx-device-detector';
-
 import { CreateNodeComponent } from '../create-node/create-node.component';
 import { Node } from '@data/schema/node.interface';
 import { NodeService } from '@data/service/node.service';
+import { ViewNodeComponent } from '../view-node/view-node.component';
+import { EditNodeComponent } from '../edit-node/edit-node.component';
 
 @Component({
   selector: 'app-nodes',
@@ -40,7 +41,7 @@ export class NodesComponent implements OnInit {
     this.service.getAll(`${this.api}node`).subscribe(
       response => {
         if (response.length > 0) {
-          this.dataSource = new MatTableDataSource(response);
+          this.dataSource = new MatTableDataSource(response.reverse());
           this.dataSource.paginator = this.paginator;
           this.showSpinner = false;
         }
@@ -49,6 +50,22 @@ export class NodesComponent implements OnInit {
         this.showSpinner = false;
       }
     );
+  }
+
+  openView(node: Node) {
+    const dialogConfig = new MatDialogConfig();
+
+    this.deviceInfo = this.deviceService.getDeviceInfo();
+    const isMobile = this.deviceService.isMobile();
+    const isTablet = this.deviceService.isTablet();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = node;
+    dialogConfig.width = (isMobile || isTablet) === true ? '80%' : '50%';
+    dialogConfig.height = (isMobile || isTablet) === true ? '85%' : 'auto';
+
+    this.dialog.open(ViewNodeComponent, dialogConfig);
   }
 
   openCreate() {
@@ -65,20 +82,55 @@ export class NodesComponent implements OnInit {
     dialogConfig.height = (isMobile || isTablet) === true ? '85%' : 'auto';
     const dialog = this.dialog.open(CreateNodeComponent, dialogConfig);
     dialog.afterClosed().subscribe(result => {
-      if (!result && result !== undefined) {
+      if (typeof result === 'object' && result !== undefined) {
         const data = this.dataSource.data;
-        data.push(result);
+        data.splice(0, 0, result);
         this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
       }
     });
   }
 
   openEdit(node: Node) {
+    const dialogConfig = new MatDialogConfig();
 
+    this.deviceInfo = this.deviceService.getDeviceInfo();
+    const isMobile = this.deviceService.isMobile();
+    const isTablet = this.deviceService.isTablet();
+
+    dialogConfig.disableClose = false;
+    dialogConfig.autoFocus = true;
+    dialogConfig.data = node;
+    dialogConfig.width = (isMobile || isTablet) === true ? '80%' : '50%';
+    dialogConfig.height = (isMobile || isTablet) === true ? '85%' : 'auto';
+    const dialog = this.dialog.open(EditNodeComponent, dialogConfig);
+    dialog.afterClosed().subscribe( (result: Node) => {
+      if (typeof result === 'object' && result !== undefined) {
+        const data = this.dataSource.data;
+        data.forEach( (nod: Node) => {
+          if (nod._id === result._id) {
+            nod.name = result.name;
+            nod.description = result.description;
+          }
+        });
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+      }
+    });
   }
 
-  downloadFile() {
-
+  delete(id: string) {
+    this.service.delete(`${this.api}node`, id).subscribe(
+      _ => {
+        this.toast.success('Nodo eliminado correctamente', 'Éxito');
+        const data = this.dataSource.data.filter( (x: Node) => x._id !== id);
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+      },
+      error => {
+        this.toast.error(error.error.message, 'Error');
+      }
+    );
   }
 
   applyFilter(event: Event) {

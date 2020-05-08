@@ -42,7 +42,7 @@ const createGraph = (req, res) => {
             return res.status(500).json({ message: "Ha ocurrido un error" });
         }
 
-        return res.status(200).json({ message: "Grafo creado correctamente", data: graphStored });
+        return res.status(200).send(graphStored);
     });
 
 }
@@ -65,10 +65,7 @@ const updateGraph = (req, res) => {
                 return res.status(400).json({ message: "Grafo no encontrado" });
             }
 
-            return res.status(200).json({
-                message: 'Grafo actualizado correctamente',
-                data: updatedGraph
-            });
+            return res.status(200).send(updatedGraph);
         });
 
 }
@@ -112,7 +109,7 @@ const getGraphs = (req, res) => {
             return res.status(400).json({ message: 'No hay grafos disponibles' });
         }
 
-        return res.status(200).json({ message: 'ok', data: graphs });
+        return res.status(200).send(graphs);
 
     });
 }

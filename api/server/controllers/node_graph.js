@@ -17,10 +17,7 @@ function updateConnection(id, body, res) {
             return res.status(400).json({ message: "La conexión ya está creada para este grafo" });
         }
 
-        return res.status(200).json({
-            message: 'Grafo actualizado correctamente',
-            data: updatedNodes
-        });
+        return res.status(200).send(updatedNodes);
     });
 }
 
@@ -34,7 +31,6 @@ const createNodeGraph = (req, res) => {
         node_target: body.node_target,
         description: body.description
     });
-
     NodeGraph.find({
         $and: [
             { graph: nodeGraph.graph },
@@ -60,14 +56,15 @@ const createNodeGraph = (req, res) => {
                 }
 
                 NodeGraph
-                    .populate(nodeGraph, [{ path: 'node_source node_target', model: 'Node' },
-                    { path: 'graph', model: 'Graph' }],
+                    .populate(nodesStored, [
+                        { path: 'node_source node_target', options: '_id name description', model: 'Node' },
+                        { path: 'graph', model: 'Graph' }],
                         ((err, connection) => {
                             if (err) {
                                 return res.status(500).json({ message: "Ha ocurrido un error" });
                             }
                             else {
-                                return res.status(200).json({ message: "Conexión creada correctamente", data: connection });
+                                return res.status(200).send(connection);
                             }
 
                         }));
@@ -137,10 +134,7 @@ const deleteNodeGraph = (req, res) => {
             });
         }
 
-        return res.json({
-            message: "Conexión eliminada correctamente",
-            data: delNode
-        });
+        return res.status(200).send(delNode);
     });
 
 }
@@ -158,7 +152,7 @@ const getNodeGraphs = (req, res) => {
                 return res.status(400).json({ message: 'No hay nodos asociados al grafo' });
             }
 
-            return res.status(200).json({ message: 'ok', data: nodes });
+            return res.status(200).send(nodes);
 
         });
 }

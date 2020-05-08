@@ -4,14 +4,13 @@
     <div style="margin-top: 60px;">
       <app-sidebar></app-sidebar>
     </div>
-    <div class="pages container-fluid pt-4 pl-4 pr-4 " style="margin-top: 46px; overflow-y: hidden">
+    <div class="pages container-fluid pt-4 pl-4 pr-4 " style="margin-top: 3rem; ">
       <div style="min-height:calc(100vh - 155px);">
         <router-outlet></router-outlet>
 
       </div>
 
-      <!-- <hr /> -->
-      <app-footer></app-footer>
+  
     </div>
     <div class="overlay" (click)="toggleSidebar()"></div>
   </main>

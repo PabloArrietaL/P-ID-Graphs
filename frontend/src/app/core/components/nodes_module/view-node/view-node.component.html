@@ -1,0 +1,26 @@
+<div class="header">
+
+    <div class="left-modal">
+        <button class="button-close" [mat-dialog-close]="true">
+            <mat-icon>close</mat-icon>
+        </button>
+    </div>
+</div>
+
+<div class="container pb-2">
+    <div class="row">
+        <div class=" image col-md-12 col-lg-6 pb-1">
+            <img [src]="api+'image/'+data.img" alt="" srcset="">
+        </div>
+        <div class="col-md-12 col-lg-6">
+            <div class="title-image">
+                <h4>{{data.name}}</h4>
+            </div>
+            <div class=description-image>
+                <p class="text-description">{{data.description}}</p>
+            </div>
+        </div>
+      
+
+    </div>
+</div>

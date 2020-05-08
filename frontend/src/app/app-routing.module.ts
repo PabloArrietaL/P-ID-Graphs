@@ -5,6 +5,8 @@ import { ContentLayoutComponent } from './layout/modules/content-layout/content-
 import { HomeLayoutComponent } from './layout/modules/home-layout/home-layout.component';
 import { NodesComponent } from '@app/components/nodes_module/nodes/nodes.component';
 import { GraphsComponent } from '@app/components/graphs_module/graphs/graphs.component';
+import { ViewGraphComponent } from '@app/components/graphs_module/view-graph/view-graph.component';
+import { NodesGraphComponent } from '@app/components/nodesGraph_module/nodes-graph/nodes-graph.component';
 
 const routes: Routes = [
 
@@ -23,6 +25,14 @@ const routes: Routes = [
       {
         path: 'graphs',
         component: GraphsComponent
+      },
+      {
+        path: 'graph-details',
+        component: NodesGraphComponent
+      },
+      {
+        path: 'graph/:id',
+        component: ViewGraphComponent
       }
     ]
   },

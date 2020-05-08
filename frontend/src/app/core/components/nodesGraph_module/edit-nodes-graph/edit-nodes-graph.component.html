@@ -1,0 +1,49 @@
+<div class="title-modal">
+    <h4 class="title-info">Editar relación de nodos </h4>
+</div>
+
+<form [formGroup]="FormNodesGraph" novalidate>
+    <div class="row information">
+        
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Nodo de origen</mat-label>
+                <mat-select formControlName="node_source">
+                  <mat-option [value]="node._id" *ngFor="let node of nodes">
+                    {{ node.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Nodo de destino</mat-label>
+                <mat-select formControlName="node_target">
+                  <mat-option [value]="node._id" *ngFor="let node of nodesTarget">
+                    {{ node.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Descripción</mat-label>
+                <input matInput formControlName="description" autocomplete="off" />
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 mt-2 save">
+            <div>
+                <button mat-button [mat-dialog-close]="true" class="cancel button-modal">
+                    Cancelar
+                </button>
+                <button mat-raised-button class="acept" (click)="editRelation(FormNodesGraph)" 
+                [disabled]="FormNodesGraph.invalid">
+                    <span class="spinner-border spinner-border-sm" *ngIf="showSpinner" role="status"
+                        aria-hidden="true"></span>
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</form>

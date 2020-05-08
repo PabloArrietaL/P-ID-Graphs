@@ -13,12 +13,12 @@ export class NodeService {
     return this.http.get<Array<Node>>(url);
   }
 
-  create(url: string, data: Node) {
+  create(url: string, data: FormData) {
     return this.http.post(url, data);
   }
 
   edit(url: string, data: Node) {
-    const path = `${url}/${data.id}`;
+    const path = `${url}/${data._id}`;
     return this.http.put(path, data);
   }
 
