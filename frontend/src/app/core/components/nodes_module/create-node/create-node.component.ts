@@ -53,7 +53,6 @@ export class CreateNodeComponent implements OnInit {
       const value = formValue[key];
       formData.append(key, value);
     }
-    console.log(formData.get('name'));
     return formData;
   }
 

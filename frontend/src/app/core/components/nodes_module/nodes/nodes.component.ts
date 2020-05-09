@@ -83,7 +83,7 @@ export class NodesComponent implements OnInit {
     const dialog = this.dialog.open(CreateNodeComponent, dialogConfig);
     dialog.afterClosed().subscribe(result => {
       if (typeof result === 'object' && result !== undefined) {
-        const data = this.dataSource.data;
+        const data = this.dataSource.data !== undefined ? this.dataSource.data : [];
         data.splice(0, 0, result);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;

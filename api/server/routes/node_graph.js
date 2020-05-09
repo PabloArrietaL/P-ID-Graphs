@@ -5,7 +5,7 @@ const NodeGraphController = require('../controllers/node_graph');
 
 const api = express.Router();
 
-api.get('/nodeGraph', NodeGraphController.getNodeGraphs);
+api.get('/nodeGraph/:id', NodeGraphController.getNodeGraphs);
 api.post('/nodeGraph', NodeGraphController.createNodeGraph);
 api.delete('/nodeGraph/:id', NodeGraphController.deleteNodeGraph);
 api.put('/nodeGraph/:id', NodeGraphController.updateNodeGraph);
