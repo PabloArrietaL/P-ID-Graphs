@@ -29,13 +29,13 @@ const routes: Routes = [
       {
         path: 'graph-details',
         component: NodesGraphComponent
-      },
-      {
-        path: 'graph/:id',
-        component: ViewGraphComponent
       }
     ]
   },
+  {
+    path: 'graph/:id',
+    component: ViewGraphComponent
+  }
 ];
 
 @NgModule({

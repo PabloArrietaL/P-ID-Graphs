@@ -57,7 +57,7 @@ const createNodeGraph = (req, res) => {
 
                 NodeGraph
                     .populate(nodesStored, [
-                        { path: 'node_source node_target', options: '_id name description', model: 'Node' },
+                        { path: 'node_source node_target', model: 'Node' },
                         { path: 'graph', model: 'Graph' }],
                         ((err, connection) => {
                             if (err) {
@@ -141,7 +141,9 @@ const deleteNodeGraph = (req, res) => {
 
 const getNodeGraphs = (req, res) => {
 
-    NodeGraph.find()
+    const id = req.params.id;
+
+    NodeGraph.find({graph: id})
         .populate('node_source node_target', 'name description', 'Node')
         .populate('graph', 'name description', 'Graph')
         .exec((err, nodes) => {

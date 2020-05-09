@@ -36,12 +36,13 @@ export class NodesGraphComponent implements OnInit {
     if (this.service.graph === undefined) {
       this.route.navigate(['/graphs']);
     }
-    this.getNodesGraph();
+    this.graph = this.service.graph;
+    this.getEdges();
   }
 
-  getNodesGraph() {
+  getEdges() {
     this.showSpinner = true;
-    this.service.getAll(`${this.api}nodeGraph`).subscribe(
+    this.service.getAll(`${this.api}nodeGraph/${this.graph._id}`).subscribe(
       response => {
         if (response.length > 0) {
           this.dataSource = new MatTableDataSource(response.reverse());
@@ -69,7 +70,7 @@ export class NodesGraphComponent implements OnInit {
     const dialog = this.dialog.open(CreateNodesGraphComponent, dialogConfig);
     dialog.afterClosed().subscribe(result => {
       if (typeof result === 'object' && result !== undefined) {
-        const data = this.dataSource.data;
+        const data = this.dataSource.data !== undefined ? this.dataSource.data : [];
         data.splice(0, 0, result);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
