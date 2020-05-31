@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import cytoscape from 'cytoscape';
+import dagre from 'cytoscape-dagre';
 import { NodesGraphService } from '@data/service/node-graph.service';
 import { environment } from '@env/environment';
 import { NodesGraph } from '@data/schema/graph.interface';
 import { ToastrService } from 'ngx-toastr';
 import { Node } from '@data/schema/node.interface';
+
+cytoscape.use(dagre);
 
 @Component({
   selector: 'app-view-graph',
@@ -56,15 +59,15 @@ export class ViewGraphComponent implements OnInit {
       nodes.push(node.node_source);
       nodes.push(node.node_target);
       this.graphData.edges.push({
-        data: {source: node.node_source._id, target: node.node_target._id}
+        data: { source: node.node_source._id, target: node.node_target._id }
       });
     });
-    nodes.forEach( (node: Node) => {
-      const aux = noDuplicates.filter( (x: Node) => x._id === node._id);
-      if ( aux.length === 0) {
+    nodes.forEach((node: Node) => {
+      const aux = noDuplicates.filter((x: Node) => x._id === node._id);
+      if (aux.length === 0) {
         noDuplicates.push(node);
         this.graphData.nodes.push({
-          data: {id: node._id, name: node.name}
+          data: { id: node._id, name: node.name }
         });
       }
     });
@@ -76,38 +79,31 @@ export class ViewGraphComponent implements OnInit {
       elements: this.graphData,
       style: [
         {
-            selector: 'node',
-            style: {
-                'background-color': 'red',
-                label: 'data(name)'
-            }
+          selector: 'node',
+          style: {
+            'text-valign': 'center',
+            'text-halign': 'center',
+            'background-color': 'red',
+            'font-size': '6rem',
+            'font-family': 'Montserrat-ligth',
+            height: '12rem',
+            width: '15rem',
+            label: 'data(name)'
+          }
+        },
+        {
+          selector: 'edge',
+          css: {
+            'curve-style': 'bezier',
+            'target-arrow-shape': 'triangle'
+          }
         }
       ]
     });
 
     graph.layout({
-      name: 'grid'
+      name: 'dagre'
     }).run();
-  }
-
-  downloadGraph() {
-    const graph = cytoscape({
-      container: document.getElementById('cy'),
-      elements: this.graphData,
-      style: [
-        {
-            selector: 'node',
-            style: {
-                'background-color': 'red',
-                label: 'data(name)'
-            }
-        }
-      ]
-    });
-
-    graph.png({
-      full: true
-    });
   }
 
 }
