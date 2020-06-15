@@ -28,6 +28,10 @@ export class EditElementComponent implements OnInit {
     this.FormElement.setValue({
       _id: this.data._id,
       name: this.data.name,
+      first_state: this.data.first_state,
+      second_state: this.data.second_state,
+      initial_condition: this.data.initial_condition,
+      type: this.data.type,
       description: this.data.description,
       img: this.data.img
     });

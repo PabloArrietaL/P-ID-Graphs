@@ -4,16 +4,48 @@
 
 <form [formGroup]="FormElement" novalidate>
     <div class="row information">
+
         <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label>Nombre</mat-label>
-                <input matInput formControlName="name" autocomplete="off"/>
+                <input matInput formControlName="name" autocomplete="off" />
             </mat-form-field>
         </div>
         <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
             <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Tipo</mat-label>
+                <mat-select formControlName="type">
+                    <mat-option value="actuator">Actuador</mat-option>
+                    <mat-option value="controlled">Variable de control</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Primer estado</mat-label>
+                <input matInput formControlName="first_state" autocomplete="off" />
+            </mat-form-field>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Segundo estado</mat-label>
+                <input matInput formControlName="second_state" autocomplete="off" />
+            </mat-form-field>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Condición inicial</mat-label>
+                <mat-select formControlName="initial_condition">
+                    <mat-option value="first">Primer estado</mat-option>
+                    <mat-option value="second">Segundo estado</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+            <mat-form-field appearance="outline" class="form-field">
                 <mat-label>Descripción</mat-label>
-                <input matInput formControlName="description" autocomplete="off"/>
+                <input matInput formControlName="description" autocomplete="off" />
             </mat-form-field>
         </div>
 
@@ -22,10 +54,10 @@
                 <button mat-button [mat-dialog-close]="true" class="cancel button-modal">
                     Cancelar
                 </button>
-                <button mat-raised-button class="acept" (click)="editElement(FormElement)" 
-                [disabled]="FormElement.invalid">
-                    <span  class="spinner-border spinner-border-sm" *ngIf = "showSpinner"
-                            role="status" aria-hidden="true" ></span>
+                <button mat-raised-button class="acept" (click)="editElement(FormElement)"
+                    [disabled]="FormElement.invalid">
+                    <span class="spinner-border spinner-border-sm" *ngIf="showSpinner" role="status"
+                        aria-hidden="true"></span>
                     Guardar
                 </button>
             </div>

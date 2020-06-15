@@ -18,7 +18,7 @@ import { EditElementComponent } from '../edit-element/edit-element.component';
 })
 export class ElementsComponent implements OnInit {
 
-  public displayedColumns: Array<string> = ['name', 'description', 'actions'];
+  public displayedColumns: Array<string> = ['name', 'first_state', 'second_state', 'initial_condition', 'type', 'actions'];
   public dataSource: MatTableDataSource<any>;
   public deviceInfo = null;
   public showSpinner: boolean;
