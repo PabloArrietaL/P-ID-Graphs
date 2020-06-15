@@ -3,10 +3,10 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 import { ContentLayoutComponent } from './layout/modules/content-layout/content-layout.component';
 import { HomeLayoutComponent } from './layout/modules/home-layout/home-layout.component';
-import { NodesComponent } from '@app/components/nodes_module/nodes/nodes.component';
-import { GraphsComponent } from '@app/components/graphs_module/graphs/graphs.component';
-import { ViewGraphComponent } from '@app/components/graphs_module/view-graph/view-graph.component';
-import { NodesGraphComponent } from '@app/components/nodesGraph_module/nodes-graph/nodes-graph.component';
+import { ElementsComponent } from '@app/components/elements_module/elements/elements.component';
+import { ProcessesComponent } from '@app/components/processes_module/processes/processes.component';
+import { RelationsComponent } from '@app/components/relation_module/relations/relations.component';
+import { ViewProcessComponent } from '@app/components/processes_module/view-process/view-process.component';
 
 const routes: Routes = [
 
@@ -19,22 +19,22 @@ const routes: Routes = [
         component: HomeLayoutComponent,
       },
       {
-        path: 'nodes',
-        component: NodesComponent
+        path: 'elements',
+        component: ElementsComponent
       },
       {
-        path: 'graphs',
-        component: GraphsComponent
+        path: 'processes',
+        component: ProcessesComponent
       },
       {
-        path: 'graph-details',
-        component: NodesGraphComponent
+        path: 'relations',
+        component: RelationsComponent
       }
     ]
   },
   {
-    path: 'graph/:id',
-    component: ViewGraphComponent
+    path: 'process/:id',
+    component: ViewProcessComponent
   }
 ];
 

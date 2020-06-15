@@ -14,6 +14,7 @@ import { FooterComponent } from './layout/footer/footer.component';
 
 // Modules
 import { CoreModule } from '@app/core.module';
+import { SharedModule } from '@shared/shared.module';
 
 
 @NgModule({
@@ -26,6 +27,7 @@ import { CoreModule } from '@app/core.module';
     FooterComponent
   ],
   imports: [
+    SharedModule,
     CommonModule,
     BrowserModule,
     AppRoutingModule,

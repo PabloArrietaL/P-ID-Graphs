@@ -6,32 +6,32 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { NodesComponent } from './components/nodes_module/nodes/nodes.component';
-import { CreateNodeComponent } from './components/nodes_module/create-node/create-node.component';
-import { GraphsComponent } from './components/graphs_module/graphs/graphs.component';
-import { ViewNodeComponent } from './components/nodes_module/view-node/view-node.component';
-import { EditNodeComponent } from './components/nodes_module/edit-node/edit-node.component';
-import { EditGraphComponent } from './components/graphs_module/edit-graph/edit-graph.component';
-import { ViewGraphComponent } from './components/graphs_module/view-graph/view-graph.component';
-import { CreateNodesGraphComponent } from './components/nodesGraph_module/create-nodes-graph/create-nodes-graph.component';
-import { NodesGraphComponent } from './components/nodesGraph_module/nodes-graph/nodes-graph.component';
-import { EditNodesGraphComponent } from './components/nodesGraph_module/edit-nodes-graph/edit-nodes-graph.component';
-import { CreateGraphComponent } from './components/graphs_module/create-graph/create-graph.component';
+import { ElementsComponent } from './components/elements_module/elements/elements.component';
+import { CreateElementComponent } from './components/elements_module/create-element/create-element.component';
+import { ProcessesComponent } from './components/processes_module/processes/processes.component';
+import { ViewElementComponent } from './components/elements_module/view-element/view-element.component';
+import { EditElementComponent } from './components/elements_module/edit-element/edit-element.component';
+import { EditProcessComponent } from './components/processes_module/edit-process/edit-process.component';
+import { ViewProcessComponent } from './components/processes_module/view-process/view-process.component';
+import { CreateRelationComponent } from './components/relation_module/create-relation/create-relation.component';
+import { RelationsComponent } from './components/relation_module/relations/relations.component';
+import { EditRelationComponent } from './components/relation_module/edit-relation/edit-relation.component';
+import { CreateProcessComponent } from './components/processes_module/create-process/create-process.component';
 
 
 @NgModule({
   declarations: [
-    NodesComponent,
-    GraphsComponent,
-    CreateNodeComponent,
-    ViewNodeComponent,
-    EditNodeComponent,
-    CreateGraphComponent,
-    EditGraphComponent,
-    ViewGraphComponent,
-    CreateNodesGraphComponent,
-    NodesGraphComponent,
-    EditNodesGraphComponent
+    ElementsComponent,
+    CreateElementComponent,
+    ViewElementComponent,
+    ProcessesComponent,
+    EditElementComponent,
+    CreateProcessComponent,
+    EditProcessComponent,
+    ViewProcessComponent,
+    CreateRelationComponent,
+    RelationsComponent,
+    EditRelationComponent
   ],
   imports: [
     FormsModule,

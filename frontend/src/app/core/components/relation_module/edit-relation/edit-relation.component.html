@@ -1,0 +1,49 @@
+<div class="title-modal">
+    <h4 class="title-info">Editar relación de elementos </h4>
+</div>
+
+<form [formGroup]="FormRelation" novalidate>
+    <div class="row information">
+        
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Elemento de origen</mat-label>
+                <mat-select formControlName="element_source">
+                  <mat-option [value]="element._id" *ngFor="let element of elements">
+                    {{ element.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Elemento de destino</mat-label>
+                <mat-select formControlName="element_target">
+                  <mat-option [value]="element._id" *ngFor="let element of elementsTarget">
+                    {{ element.name }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+        </div>
+        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+            <mat-form-field appearance="outline" class="form-field">
+                <mat-label>Descripción</mat-label>
+                <input matInput formControlName="description" autocomplete="off" />
+            </mat-form-field>
+        </div>
+
+        <div class="col-lg-12 col-md-12 col-sm-12 mt-2 save">
+            <div>
+                <button mat-button [mat-dialog-close]="true" class="cancel button-modal">
+                    Cancelar
+                </button>
+                <button mat-raised-button class="acept" (click)="editRelation(FormRelation)" 
+                [disabled]="FormRelation.invalid">
+                    <span class="spinner-border spinner-border-sm" *ngIf="showSpinner" role="status"
+                        aria-hidden="true"></span>
+                    Guardar
+                </button>
+            </div>
+        </div>
+    </div>
+</form>
