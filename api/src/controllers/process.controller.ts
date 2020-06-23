@@ -29,8 +29,8 @@ export class ProcessController {
 
     @Put("/api/process/:id")
     put(@Param("id") id: number, @Body() process: IProcess) {
-        return this.dataService.processService.updateProcess(id, process).then( _ => {
-            return true;
+        return this.dataService.processService.updateProcess(id, process).then( data => {
+            return data;
         });
     }
 

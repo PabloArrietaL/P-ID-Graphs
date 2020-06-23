@@ -16,7 +16,7 @@ export class Process implements IProcess {
     @Column({nullable: true})
     public description!: string;
 
-    @OneToMany(type => Relation, relation => relation.process)
+    @OneToMany(type => Relation, relation => relation.process, {cascade: true})
     public relations!: Array<Relation>
 
     @Column()

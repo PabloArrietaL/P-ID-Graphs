@@ -7,7 +7,7 @@ import { IProcess } from "../models/interfaces/IProcess";
 export class ProcessService{
     
     createProcess(process: IProcess): Promise<Process>{
-        process.created_date = new Date();
+        process.created_date = new Date
         return getManager().getRepository(Process).save(process);
     }
 

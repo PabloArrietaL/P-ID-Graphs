@@ -5,7 +5,7 @@ import { Element } from "./Element";
 
 
 
-@Entity('Processes')
+@Entity('Relations')
 export class Relation implements IRelation {
 
     @PrimaryGeneratedColumn()
