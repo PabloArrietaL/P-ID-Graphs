@@ -34,23 +34,21 @@ export class ElementController {
     }
 
     @Post("/api/element")
-    async post(@UploadedFile("img") file: any, @Body() element: IElement,@Res() res: Response) {
+    async post(@UploadedFile("img", {options: fileUploadOptions}) file: any, @Body() element: IElement,@Res() res: Response) {
         const data = await this.dataService.elementService.createElement(element, file, res);
         return data;
     }
 
     @Put("/api/element/:id")
     put(@Param("id") id: number, @Body() element: IElement) {
-        return this.dataService.elementService.updateElement(id, element).then(_ => {
-            return true;
-        });
+        const data = this.dataService.elementService.updateElement(id, element);
+        return data;
     }
 
     @Delete("/api/element/:id")
-    remove(@Param("id") id: number) {
-        return this.dataService.elementService.deleteElement(id).then(_ => {
-            return true;
-        });
+    async remove(@Param("id") id: number, @Res() res: Response) {
+        const data = await this.dataService.elementService.deleteElement(id, res);
+        return data;
     }
 
 }

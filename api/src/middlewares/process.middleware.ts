@@ -12,7 +12,7 @@ export class ProcessMiddleware implements ExpressMiddlewareInterface {
     use(request: any, response: any, next?: any): any {
 
         const name = request.body.name;
-        const data =  this.dataService.processService.getByName(name).then( (data) => {
+        this.dataService.processService.getByName(name).then( (data) => {
             if( data.length) {
                 return response.status(400).json({ message: 'El nombre del proceso no está disponible' });
             } else {

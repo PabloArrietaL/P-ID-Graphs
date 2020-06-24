@@ -14,10 +14,10 @@ export class Relation implements IRelation {
     @ManyToOne(type => Process, process => process.relations)
     public process!: number;
 
-    @OneToOne(type => Element)
+    @ManyToOne(type => Element, element => element.id)
     public element_source!: number;
 
-    @OneToOne(type => Element)
+    @ManyToOne(type => Element, element => element.id)
     public element_target!: number;
 
     @Column({nullable: true})

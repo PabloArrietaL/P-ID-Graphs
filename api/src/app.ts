@@ -5,6 +5,7 @@ import { useExpressServer } from "routing-controllers";
 import {createConnection} from "typeorm";
 import { ProcessController } from './controllers/process.controller';
 import { ElementController } from './controllers/element.controller';
+import { RelationController } from './controllers/relation.controller';
 
 export class App {
 
@@ -39,7 +40,8 @@ export class App {
         useExpressServer(this.app, {
             controllers: [
                 ProcessController,
-                ElementController
+                ElementController,
+                RelationController
             ] 
         });
     }

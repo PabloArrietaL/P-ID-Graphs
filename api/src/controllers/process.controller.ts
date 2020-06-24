@@ -22,9 +22,7 @@ export class ProcessController {
     @UseBefore(ProcessMiddleware)
     async post(@Body() process: IProcess) {
         const data = await this.dataService.processService.createProcess(process);
-        if (data.id) {
-            return data.id;
-        }
+        return data;
     }
 
     @Put("/api/process/:id")
