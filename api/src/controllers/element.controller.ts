@@ -28,7 +28,7 @@ export class ElementController {
         this.dataService = Container.get(DataService);
     }
 
-    @Put("/api/image/:img")
+    @Put("/image/:img")
     Get(@Param("img") img: string, @Res() res: Response) {
         
         let pathImage = path.resolve(__dirname, `../../uploads/${img}`);
@@ -37,25 +37,25 @@ export class ElementController {
         }
     }
 
-    @Get("/api/element")
+    @Get("/element")
     async getAll() {
         const data = await this.dataService.elementService.getAllElements();
         return data;
     }
 
-    @Post("/api/element")
+    @Post("/element")
     async post(@UploadedFile("img", {options: fileUploadOptions}) file: any, @Body() element: IElement,@Res() res: Response) {
         const data = await this.dataService.elementService.createElement(element, file, res);
         return data;
     }
 
-    @Put("/api/element/:id")
+    @Put("/element/:id")
     put(@Param("id") id: number, @Body() element: IElement) {
         const data = this.dataService.elementService.updateElement(id, element);
         return data;
     }
 
-    @Delete("/api/element/:id")
+    @Delete("/element/:id")
     async remove(@Param("id") id: number, @Res() res: Response) {
         const data = await this.dataService.elementService.deleteElement(id, res);
 

@@ -12,27 +12,27 @@ export class ProcessController {
         this.dataService = Container.get(DataService);
     }
 
-    @Get("/api/process")
+    @Get("/process")
     async getAll() {
         const data = await this.dataService.processService.getAllProcess();
         return data;
     }
 
-    @Post("/api/process")
+    @Post("/process")
     @UseBefore(ProcessMiddleware)
     async post(@Body() process: IProcess) {
         const data = await this.dataService.processService.createProcess(process);
         return data;
     }
 
-    @Put("/api/process/:id")
+    @Put("/process/:id")
     put(@Param("id") id: number, @Body() process: IProcess) {
         return this.dataService.processService.updateProcess(id, process).then( data => {
             return data;
         });
     }
 
-    @Delete("/api/process/:id")
+    @Delete("/process/:id")
     remove(@Param("id") id: number) {
         return this.dataService.processService.deleteProcess(id).then( _ => {
             return true;
