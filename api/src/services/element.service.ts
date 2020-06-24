@@ -63,16 +63,18 @@ export class ElementService {
         return getManager().getRepository(Element).update({ id: id }, element);
     }
 
-    deleteElement(id: number, res: Response): Promise<DeleteResult> | Response {
+    deleteElement(id: number, res: Response): Promise<Response> | Response {
 
-        this.relationService.getAllRelationsByProcess(id).then( (data) => {
-            if( data.length > 0) {
-                return res.status(400).send({ message: 'Este elemento está siendo utilizado en un proceso' });
-            }
-        }).catch( error => {
-            console.log(error)
-        });
-
-        return getManager().getRepository(Element).delete({ id: id });
+        try {
+            return getManager().getRepository(Element).delete({ id: id }).then( data => {
+                return res.status(200).json({message: 'Elemento eliminado', data});
+            }).catch( _ => {
+                return res.status(500).json({message: "El elemento se está utilizando en un proceso"});
+            });
+        }
+        catch(error) {
+            console.log(error);
+            return res.status(500).json({message: "El elemento se está utilizando en un proceso"});
+        }
     }
 }

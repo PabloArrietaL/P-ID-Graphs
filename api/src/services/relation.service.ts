@@ -13,6 +13,8 @@ export class RelationService {
     async getAllRelationsByProcess(elementId: number): Promise<Relation[]> {
         const relations = await getRepository(Relation).createQueryBuilder("relation")
         .where("relation.element_source = :element OR relation.element_target = :element")
+        .leftJoinAndSelect("relation.element_source", "element_source")
+        .leftJoinAndSelect("relation.element_target", "element_target")
         .setParameters({element: elementId}).getMany();
 
         return relations;

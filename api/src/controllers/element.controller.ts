@@ -48,6 +48,7 @@ export class ElementController {
     @Delete("/api/element/:id")
     async remove(@Param("id") id: number, @Res() res: Response) {
         const data = await this.dataService.elementService.deleteElement(id, res);
+
         return data;
     }
 

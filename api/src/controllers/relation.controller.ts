@@ -11,7 +11,7 @@ export class RelationController {
         this.dataService = Container.get(DataService);
     }
 
-    @Get("/api/relation:id")
+    @Get("/api/relation/:id")
     async getAll(@Param("id") id: number) {
         const data = await this.dataService.relationService.getAllRelationsByProcess(id);
         return data;

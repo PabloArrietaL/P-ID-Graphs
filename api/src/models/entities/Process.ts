@@ -1,11 +1,9 @@
-  
-import { IProcess } from "../interfaces/IProcess";
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinTable } from "typeorm";
 import { Relation } from "./Relation";
 
 
 @Entity('Processes')
-export class Process implements IProcess {
+export class Process {
 
     @PrimaryGeneratedColumn()
     public id!: number;
@@ -16,8 +14,9 @@ export class Process implements IProcess {
     @Column({nullable: true})
     public description!: string;
 
-    @OneToMany(type => Relation, relation => relation.process, {cascade: true})
-    public relations!: Array<Relation>
+    @OneToMany(type => Relation, relation => relation.process, {onDelete: 'CASCADE'})
+    @JoinTable()
+    public relations!: Relation[]
 
     @Column()
     public created_date!: Date;

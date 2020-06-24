@@ -1,10 +1,8 @@
-  
-import { IElement} from "../interfaces/IElement";
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
 
 @Entity('Elements')
-export class Element implements IElement {
+export class Element {
 
     @PrimaryGeneratedColumn()
     public id!: number;
