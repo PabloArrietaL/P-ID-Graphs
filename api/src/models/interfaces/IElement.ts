@@ -7,6 +7,6 @@ export interface IElement{
     initial_condition: string;
     type: string;
     description?: string;
-    img: string;
+    img?: string;
     created_date?: Date;
 }

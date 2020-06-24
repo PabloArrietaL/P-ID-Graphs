@@ -1,12 +1,28 @@
 import { Container } from "typescript-ioc";
-import { JsonController, Param, Body, Get, Post, Put, Delete, UploadedFile } from "routing-controllers";
+import { JsonController, Param, Body, Get, Post, Put, Delete, UploadedFile, Res, UseBefore } from "routing-controllers";
 import { DataService } from "../services/data.service";
 import { IElement } from "../models/interfaces/IElement";
+import path from "path";
+import multer from "multer";
+import { Response } from "express";
+
+
+export const fileUploadOptions =  {
+    storage: multer.diskStorage({
+        destination: path.resolve(__dirname, "../../uploads"),
+        filename: (req, file, cb) => {
+            let fileName = "IMAGE-" + Date.now() + path.extname(file.originalname);
+            cb(null, fileName);
+        },
+    }),
+    limits: { fileSize: 1000000 }
+};
 
 @JsonController()
 export class ElementController {
 
     public dataService: DataService
+
     constructor() {
         this.dataService = Container.get(DataService);
     }
@@ -18,23 +34,21 @@ export class ElementController {
     }
 
     @Post("/api/element")
-    async post(@UploadedFile("img") file: any, @Body() element: IElement) {
-        const data = await this.dataService.elementService.createElement(element, file);
-        if (data.id) {
-            return data;
-        }
+    async post(@UploadedFile("img") file: any, @Body() element: IElement,@Res() res: Response) {
+        const data = await this.dataService.elementService.createElement(element, file, res);
+        return data;
     }
 
     @Put("/api/element/:id")
     put(@Param("id") id: number, @Body() element: IElement) {
-        return this.dataService.elementService.updateElement(id, element).then( _ => {
+        return this.dataService.elementService.updateElement(id, element).then(_ => {
             return true;
         });
     }
 
     @Delete("/api/element/:id")
     remove(@Param("id") id: number) {
-        return this.dataService.elementService.deleteElement(id).then( _ => {
+        return this.dataService.elementService.deleteElement(id).then(_ => {
             return true;
         });
     }

@@ -18,7 +18,7 @@ export class Element implements IElement {
     @Column()
     public second_status!: string;
 
-    @Column()
+    @Column({nullable: true})
     public third_status!: string;
 
     @Column()
@@ -30,7 +30,7 @@ export class Element implements IElement {
     @Column({nullable: true})
     public description!: string;
 
-    @Column()
+    @Column({nullable: true})
     public img!: string;
 
     @Column()
