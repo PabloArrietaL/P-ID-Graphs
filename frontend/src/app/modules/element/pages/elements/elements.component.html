@@ -50,23 +50,30 @@
         <ng-container matColumnDef="second_status">
             <th mat-header-cell *matHeaderCellDef>Segundo estado</th>
             <td mat-cell *matCellDef="let element">
-                <span *ngIf="element.third_status">{{ element.third_status }}</span>
-                <span *ngIf="!element.third_status">N/A</span>
+                {{ element.second_status }}
             </td>
         </ng-container>
 
         <ng-container matColumnDef="third_status">
             <th mat-header-cell *matHeaderCellDef>Tercer estado</th>
             <td mat-cell *matCellDef="let element">
-                <
-                {{ element.second_state }}
+                <span *ngIf="element.third_status">{{ element.third_status }}</span>
+                <span *ngIf="!element.third_status">N/A</span>
             </td>
         </ng-container>
 
         <ng-container matColumnDef="initial_condition">
             <th mat-header-cell *matHeaderCellDef>Condición inicial</th>
             <td mat-cell *matCellDef="let element">
-                {{ element.initial_condition }}
+                <span *ngIf="element.initial_condition == 'first_status'">
+                    Primer estado
+                </span>
+                <span *ngIf="element.initial_condition == 'second_status'">
+                    Segundo estado
+                </span>
+                <span *ngIf="element.initial_condition == 'third_status'">
+                    Tercer estado
+                </span>
             </td>
         </ng-container>
 

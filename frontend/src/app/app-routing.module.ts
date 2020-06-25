@@ -3,9 +3,6 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 import { ContentLayoutComponent } from './layout/modules/content-layout/content-layout.component';
 import { HomeLayoutComponent } from './layout/modules/home-layout/home-layout.component';
-import { ElementsComponent } from '@module/elements_module/elements/elements.component';
-import { ProcessesComponent } from '@module/processes_module/processes/processes.component';
-import { RelationsComponent } from '@module/relation_module/relations/relations.component';
 
 
 const routes: Routes = [
@@ -19,23 +16,22 @@ const routes: Routes = [
         component: HomeLayoutComponent,
       },
       {
-        path: 'elements',
-        component: ElementsComponent
+        path: 'element',
+        loadChildren: () =>
+          import('@module/element/element.module').then(
+            (m) => m.ElementModule
+          )
       },
       {
-        path: 'processes',
-        component: ProcessesComponent
-      },
-      {
-        path: 'relations',
-        component: RelationsComponent
+        path: 'process',
+        loadChildren: () =>
+          import('@module/process/process.module').then(
+            (m) => m.ProcessModule
+          )
       }
     ]
-  },
-  {
-    path: 'process/:id',
-    component: ProcessesComponent
   }
+
 ];
 
 @NgModule({

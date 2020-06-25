@@ -1,0 +1,35 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { ElementsComponent } from './pages/elements/elements.component';
+import { EditElementComponent } from './pages/edit-element/edit-element.component';
+import { CreateElementComponent } from './pages/create-element/create-element.component';
+import { ViewElementComponent } from './pages/view-element/view-element.component';
+
+
+const routes: Routes = [
+
+  {
+    path: '',
+    component: ElementsComponent,
+    children: [
+      {
+        path: 'add',
+        component: CreateElementComponent
+      },
+      {
+        path: 'edit',
+        component: EditElementComponent
+      },
+      {
+        path: 'view',
+        component: ViewElementComponent
+      }
+    ]
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class ElementRoutingModule { }

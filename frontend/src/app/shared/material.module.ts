@@ -25,7 +25,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
     MatRadioModule,
     MatSelectModule,
     MatTableModule,
-    MatTooltipModule
+    MatTooltipModule,
+    MatPaginatorModule,
+    MatTableModule
   ]
 })
 export class MaterialModule { }
