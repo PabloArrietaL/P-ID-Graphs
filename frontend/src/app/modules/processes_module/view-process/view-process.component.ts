@@ -17,7 +17,7 @@ cytoscape.use(dagre);
 })
 export class ViewProcessComponent implements OnInit {
 
-  public graphId: string;
+  public processId: string;
   public api = environment.api;
   public data: Array<Relation> = [];
 
@@ -33,12 +33,12 @@ export class ViewProcessComponent implements OnInit {
     private toast: ToastrService) { }
 
   ngOnInit(): void {
-    this.graphId = this.actRoute.snapshot.params.id;
+    this.processId = this.actRoute.snapshot.params.id;
     this.getEdges();
   }
 
   getEdges() {
-    this.service.getAll(`${this.api}nodeGraph/${this.graphId}`).subscribe(
+    this.service.getAll(`${this.api}relation/${this.processId}`).subscribe(
       response => {
         if (response.length > 0) {
           this.data = response;
@@ -47,7 +47,7 @@ export class ViewProcessComponent implements OnInit {
       },
       _ => {
         this.toast.error('No hay elementos asociados al proceso', 'Error');
-        this.route.navigate(['/graphs']);
+        this.route.navigate(['/processes']);
       }
     );
   }

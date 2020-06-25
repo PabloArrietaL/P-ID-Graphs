@@ -29,7 +29,7 @@ export class CreateElementComponent implements OnInit {
 
   createElement(form: FormGroup) {
 
-    const url = `${this.api}node`;
+    const url = `${this.api}element`;
 
     if (!form.invalid) {
       this.showSpinner = true;

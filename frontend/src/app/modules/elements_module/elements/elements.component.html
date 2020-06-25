@@ -40,16 +40,25 @@
         </ng-container>
 
 
-        <ng-container matColumnDef="first_state">
+        <ng-container matColumnDef="first_status">
             <th mat-header-cell *matHeaderCellDef>Primer estado</th>
             <td mat-cell *matCellDef="let element">
-                {{ element.first_state }}
+                {{ element.first_status }}
             </td>
         </ng-container>
 
-        <ng-container matColumnDef="second_state">
+        <ng-container matColumnDef="second_status">
             <th mat-header-cell *matHeaderCellDef>Segundo estado</th>
             <td mat-cell *matCellDef="let element">
+                <span *ngIf="element.third_status">{{ element.third_status }}</span>
+                <span *ngIf="!element.third_status">N/A</span>
+            </td>
+        </ng-container>
+
+        <ng-container matColumnDef="third_status">
+            <th mat-header-cell *matHeaderCellDef>Tercer estado</th>
+            <td mat-cell *matCellDef="let element">
+                <
                 {{ element.second_state }}
             </td>
         </ng-container>

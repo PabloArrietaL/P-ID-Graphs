@@ -1,7 +1,8 @@
 import { Container } from "typescript-ioc";
-import { JsonController, Param, Body, Get, Post, Put, Delete } from "routing-controllers";
+import { JsonController, Param, Body, Get, Post, Put, Delete, Res } from "routing-controllers";
 import { DataService } from "../services/data.service";
 import { IRelation } from "../models/interfaces/IRelation";
+import { Response } from "express";
 
 @JsonController()
 export class RelationController {
@@ -18,8 +19,8 @@ export class RelationController {
     }
 
     @Post("/relation")
-    async post(@Body() relation: IRelation) {
-        const data = await this.dataService.relationService.createRelation(relation);
+    async post(@Body() relation: IRelation, @Res() res: Response) {
+        const data = await this.dataService.relationService.createRelation(relation, res);
         return data;
     }
 

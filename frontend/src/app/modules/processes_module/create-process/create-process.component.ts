@@ -27,7 +27,7 @@ export class CreateProcessComponent implements OnInit {
 
   createProcess(form: FormGroup) {
 
-    const url = `${this.api}graph`;
+    const url = `${this.api}process`;
 
     if (!form.invalid) {
       this.showSpinner = true;

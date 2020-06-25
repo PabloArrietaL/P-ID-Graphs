@@ -19,6 +19,7 @@
       "@shared/*": ["app/shared/*"],
       "@env/*": ["environments/*"],
       "@data/*": ["app/data/*"],
+      "@module/*": ["app/modules/*"],
       "@assets/*": ["assets/*"]
     },
     "lib": ["es2018", "dom"]

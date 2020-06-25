@@ -34,7 +34,7 @@ export class EditProcessComponent implements OnInit {
 
   editProcess(form: FormGroup) {
 
-    const url = `${this.api}graph`;
+    const url = `${this.api}process`;
 
     if (!form.invalid) {
       this.showSpinner = true;

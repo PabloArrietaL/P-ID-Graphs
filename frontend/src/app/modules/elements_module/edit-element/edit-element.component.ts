@@ -28,8 +28,9 @@ export class EditElementComponent implements OnInit {
     this.FormElement.setValue({
       _id: this.data._id,
       name: this.data.name,
-      first_state: this.data.first_state,
-      second_state: this.data.second_state,
+      first_status: this.data.first_status,
+      second_status: this.data.second_status,
+      third_status: this.data.third_status,
       initial_condition: this.data.initial_condition,
       type: this.data.type,
       description: this.data.description,
@@ -40,7 +41,7 @@ export class EditElementComponent implements OnInit {
   editElement(form: FormGroup) {
 
     this.showSpinner = true;
-    const url = `${this.api}node`;
+    const url = `${this.api}element`;
 
     if (!form.invalid) {
       this.service.edit(url, form.value).subscribe(

@@ -73,8 +73,7 @@ export class ElementService {
             });
         }
         catch(error) {
-            console.log(error);
-            return res.status(500).json({message: "El elemento se está utilizando en un proceso"});
+            return res.status(500).json({message: "Ha ocurrido un error", data: error});
         }
     }
 }

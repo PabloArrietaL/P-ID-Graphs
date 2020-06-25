@@ -3,10 +3,10 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 import { ContentLayoutComponent } from './layout/modules/content-layout/content-layout.component';
 import { HomeLayoutComponent } from './layout/modules/home-layout/home-layout.component';
-import { ElementsComponent } from '@app/components/elements_module/elements/elements.component';
-import { ProcessesComponent } from '@app/components/processes_module/processes/processes.component';
-import { RelationsComponent } from '@app/components/relation_module/relations/relations.component';
-import { ViewProcessComponent } from '@app/components/processes_module/view-process/view-process.component';
+import { ElementsComponent } from '@module/elements_module/elements/elements.component';
+import { ProcessesComponent } from '@module/processes_module/processes/processes.component';
+import { RelationsComponent } from '@module/relation_module/relations/relations.component';
+
 
 const routes: Routes = [
 
@@ -34,7 +34,7 @@ const routes: Routes = [
   },
   {
     path: 'process/:id',
-    component: ViewProcessComponent
+    component: ProcessesComponent
   }
 ];
 

@@ -1,24 +1,23 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTableDataSource, MatDialog, MatPaginator, MatDialogConfig } from '@angular/material';
 import { environment } from '@env/environment';
-import { MatTableDataSource } from '@angular/material/table';
-import { MatPaginator } from '@angular/material/paginator';
+import { ProcessService } from '@data/service/process.service';
 import { ToastrService } from 'ngx-toastr';
-import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
 import { DeviceDetectorService } from 'ngx-device-detector';
-import { CreateElementComponent } from '../create-element/create-element.component';
-import { Element } from '@data/schema/element.interface';
-import { ElementService } from '@data/service/element.service';
-import { ViewElementComponent } from '../view-element/view-element.component';
-import { EditElementComponent } from '../edit-element/edit-element.component';
+import { Process } from '@data/schema/process.interface';
+import { Router } from '@angular/router';
+import { CreateProcessComponent } from '../create-process/create-process.component';
+import { EditProcessComponent } from '../edit-process/edit-process.component';
+import { RelationService } from '@data/service/relation.service';
 
 @Component({
-  selector: 'app-elements',
-  templateUrl: './elements.component.html',
-  styleUrls: ['./elements.component.scss']
+  selector: 'app-processes',
+  templateUrl: './processes.component.html',
+  styleUrls: ['./processes.component.scss']
 })
-export class ElementsComponent implements OnInit {
+export class ProcessesComponent implements OnInit {
 
-  public displayedColumns: Array<string> = ['name', 'first_state', 'second_state', 'initial_condition', 'type', 'actions'];
+  public displayedColumns: Array<string> = ['name', 'description', 'actions'];
   public dataSource: MatTableDataSource<any>;
   public deviceInfo = null;
   public showSpinner: boolean;
@@ -27,18 +26,25 @@ export class ElementsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
-    private service: ElementService,
+    private route: Router,
+    private details: RelationService,
+    private service: ProcessService,
     private toast: ToastrService,
     private dialog: MatDialog,
     private deviceService: DeviceDetectorService) { }
 
   ngOnInit(): void {
-    this.getNodes();
+    this.getGraphs();
   }
 
-  getNodes() {
+  openAdd(process: Process) {
+    this.details.process = process;
+    this.route.navigate(['/graph-details']);
+  }
+
+  getGraphs() {
     this.showSpinner = true;
-    this.service.getAll(`${this.api}node`).subscribe(
+    this.service.getAll(`${this.api}process`).subscribe(
       response => {
         if (response.length > 0) {
           this.dataSource = new MatTableDataSource(response.reverse());
@@ -52,24 +58,7 @@ export class ElementsComponent implements OnInit {
     );
   }
 
-  openView(node: Element) {
-    const dialogConfig = new MatDialogConfig();
-
-    this.deviceInfo = this.deviceService.getDeviceInfo();
-    const isMobile = this.deviceService.isMobile();
-    const isTablet = this.deviceService.isTablet();
-
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = node;
-    dialogConfig.width = (isMobile || isTablet) === true ? '80%' : '50%';
-    dialogConfig.height = (isMobile || isTablet) === true ? '85%' : 'auto';
-
-    this.dialog.open(ViewElementComponent, dialogConfig);
-  }
-
   openCreate() {
-
     const dialogConfig = new MatDialogConfig();
 
     this.deviceInfo = this.deviceService.getDeviceInfo();
@@ -80,7 +69,7 @@ export class ElementsComponent implements OnInit {
     dialogConfig.autoFocus = true;
     dialogConfig.width = (isMobile || isTablet) === true ? '80%' : '50%';
     dialogConfig.height = (isMobile || isTablet) === true ? '85%' : 'auto';
-    const dialog = this.dialog.open(CreateElementComponent, dialogConfig);
+    const dialog = this.dialog.open(CreateProcessComponent, dialogConfig);
     dialog.afterClosed().subscribe(result => {
       if (typeof result === 'object' && result !== undefined) {
         const data = this.dataSource.data !== undefined ? this.dataSource.data : [];
@@ -91,7 +80,7 @@ export class ElementsComponent implements OnInit {
     });
   }
 
-  openEdit(node: Node) {
+  openEdit(process: Process) {
     const dialogConfig = new MatDialogConfig();
 
     this.deviceInfo = this.deviceService.getDeviceInfo();
@@ -100,17 +89,17 @@ export class ElementsComponent implements OnInit {
 
     dialogConfig.disableClose = false;
     dialogConfig.autoFocus = true;
-    dialogConfig.data = node;
+    dialogConfig.data = process;
     dialogConfig.width = (isMobile || isTablet) === true ? '80%' : '50%';
     dialogConfig.height = (isMobile || isTablet) === true ? '85%' : 'auto';
-    const dialog = this.dialog.open(EditElementComponent, dialogConfig);
-    dialog.afterClosed().subscribe( (result: Element) => {
+    const dialog = this.dialog.open(EditProcessComponent, dialogConfig);
+    dialog.afterClosed().subscribe( (result: Process) => {
       if (typeof result === 'object' && result !== undefined) {
         const data = this.dataSource.data;
-        data.forEach( (nod: Element) => {
-          if (nod._id === result._id) {
-            nod.name = result.name;
-            nod.description = result.description;
+        data.forEach( (gra: Process) => {
+          if (gra._id === result._id) {
+            gra.name = result.name;
+            gra.description = result.description;
           }
         });
         this.dataSource = new MatTableDataSource(data);
@@ -120,10 +109,10 @@ export class ElementsComponent implements OnInit {
   }
 
   delete(id: string) {
-    this.service.delete(`${this.api}node`, id).subscribe(
+    this.service.delete(`${this.api}process`, id).subscribe(
       _ => {
-        this.toast.success('Elemento eliminado correctamente', 'Éxito');
-        const data = this.dataSource.data.filter( (x: Element) => x._id !== id);
+        this.toast.success('Proceso eliminado correctamente', 'Éxito');
+        const data = this.dataSource.data.filter( (x: Process) => x._id !== id);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
       },
