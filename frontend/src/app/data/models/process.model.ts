@@ -8,7 +8,7 @@ export class ProcessModel {
     ProcessModel() {
         return new FormGroup({
 
-            _id: new FormControl(''),
+            id: new FormControl(''),
             name: new FormControl('', {
                 validators: [Validators.required, Validators.nullValidator]
             }),

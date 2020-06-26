@@ -8,7 +8,7 @@ export class RelationModel {
     RelationModel() {
         return new FormGroup({
 
-            _id: new FormControl(''),
+            id: new FormControl(''),
             process: new FormControl('', {
                 validators: [Validators.required, Validators.nullValidator]
             }),

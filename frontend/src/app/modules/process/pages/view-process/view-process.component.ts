@@ -59,15 +59,15 @@ export class ViewProcessComponent implements OnInit {
       nodes.push(node.element_source);
       nodes.push(node.element_target);
       this.graphData.edges.push({
-        data: { source: node.element_source._id, target: node.element_target._id }
+        data: { source: node.element_source.id, target: node.element_target.id }
       });
     });
     nodes.forEach((element: Element) => {
-      const aux = noDuplicates.filter((x: Element) => x._id === element._id);
+      const aux = noDuplicates.filter((x: Element) => x.id === element.id);
       if (aux.length === 0) {
         noDuplicates.push(element);
         this.graphData.nodes.push({
-          data: { id: element._id, name: element.name }
+          data: { id: element.id, name: element.name }
         });
       }
     });

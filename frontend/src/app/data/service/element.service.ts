@@ -6,7 +6,7 @@ import { Element } from '@data/schema/element.interface';
   providedIn: 'root'
 })
 export class ElementService {
-
+public ID : Element;
   constructor(private http: HttpClient) { }
 
   getAll(url: string) {
@@ -18,11 +18,11 @@ export class ElementService {
   }
 
   edit(url: string, data: Element) {
-    const path = `${url}/${data._id}`;
+    const path = `${url}/${data.id}`;
     return this.http.put(path, data);
   }
 
-  delete(url: string, id: string) {
+  delete(url: string, id: number) {
     const path = `${url}/${id}`;
     return this.http.delete(path);
   }

@@ -10,6 +10,7 @@ import { Element } from '@data/schema/element.interface';
 import { ElementService } from '@data/service/element.service';
 import { ViewElementComponent } from '../view-element/view-element.component';
 import { EditElementComponent } from '../edit-element/edit-element.component';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-elements',
@@ -32,6 +33,9 @@ export class ElementsComponent implements OnInit {
     private service: ElementService,
     private toast: ToastrService,
     private dialog: MatDialog,
+    private router: Router,
+        private activatedroute: ActivatedRoute,
+
     private deviceService: DeviceDetectorService) { }
 
   ngOnInit(): void {
@@ -54,78 +58,57 @@ export class ElementsComponent implements OnInit {
     );
   }
 
-  openView(node: Element) {
-    const dialogConfig = new MatDialogConfig();
+  openView(id) {
+    this.service.ID = id;
+    // console.log(  this.requirementService.IPreqI );
 
-    this.deviceInfo = this.deviceService.getDeviceInfo();
-    const isMobile = this.deviceService.isMobile();
-    const isTablet = this.deviceService.isTablet();
-
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = node;
-    dialogConfig.width = (isMobile || isTablet) === true ? '80%' : '50%';
-    dialogConfig.height = (isMobile || isTablet) === true ? '85%' : 'auto';
-
-    this.dialog.open(ViewElementComponent, dialogConfig);
+    this.router.navigate(['/element/view'], { relativeTo: this.activatedroute });
   }
-
+public goBack() {
+    this.router.navigateByUrl('/element', { relativeTo: this.activatedroute });
+  }
   openCreate() {
+      this.router.navigateByUrl('element/add');
 
-    const dialogConfig = new MatDialogConfig();
+    // const dialogConfig = new MatDialogConfig();
 
-    this.deviceInfo = this.deviceService.getDeviceInfo();
-    const isMobile = this.deviceService.isMobile();
-    const isTablet = this.deviceService.isTablet();
+    // this.deviceInfo = this.deviceService.getDeviceInfo();
+    // const isMobile = this.deviceService.isMobile();
+    // const isTablet = this.deviceService.isTablet();
 
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = (isMobile || isTablet) === true ? '80%' : '50%';
-    dialogConfig.height = (isMobile || isTablet) === true ? '85%' : 'auto';
-    const dialog = this.dialog.open(CreateElementComponent, dialogConfig);
-    dialog.afterClosed().subscribe(result => {
-      if (typeof result === 'object' && result !== undefined) {
-        const data = this.dataSource.data !== undefined ? this.dataSource.data : [];
-        data.splice(0, 0, result);
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.paginator = this.paginator;
-      }
-    });
+    // dialogConfig.disableClose = false;
+    // dialogConfig.autoFocus = true;
+    // dialogConfig.width = (isMobile || isTablet) === true ? '80%' : '50%';
+    // dialogConfig.height = (isMobile || isTablet) === true ? '85%' : 'auto';
+    // const dialog = this.dialog.open(CreateElementComponent, dialogConfig);
+    // dialog.afterClosed().subscribe(result => {
+    //   if (typeof result === 'object' && result !== undefined) {
+    //     const data = this.dataSource.data !== undefined ? this.dataSource.data : [];
+    //     data.splice(0, 0, result);
+    //     this.dataSource = new MatTableDataSource(data);
+    //     this.dataSource.paginator = this.paginator;
+    //   }
+    // });
   }
 
-  openEdit(node: Node) {
-    const dialogConfig = new MatDialogConfig();
+  openEdit(id):void {
+    this.service.ID = id;
+    // console.log(  this.requirementService.IPreqI );
 
-    this.deviceInfo = this.deviceService.getDeviceInfo();
-    const isMobile = this.deviceService.isMobile();
-    const isTablet = this.deviceService.isTablet();
-
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = node;
-    dialogConfig.width = (isMobile || isTablet) === true ? '80%' : '50%';
-    dialogConfig.height = (isMobile || isTablet) === true ? '85%' : 'auto';
-    const dialog = this.dialog.open(EditElementComponent, dialogConfig);
-    dialog.afterClosed().subscribe( (result: Element) => {
-      if (typeof result === 'object' && result !== undefined) {
-        const data = this.dataSource.data;
-        data.forEach( (nod: Element) => {
-          if (nod._id === result._id) {
-            nod.name = result.name;
-            nod.description = result.description;
-          }
-        });
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.paginator = this.paginator;
-      }
-    });
+    this.router.navigate(['/element/edit'], { relativeTo: this.activatedroute });
   }
 
-  delete(id: string) {
+
+
+   
+
+  
+
+  delete(id: number) {
     this.service.delete(`${this.api}element`, id).subscribe(
       _ => {
         this.toast.success('Elemento eliminado correctamente', 'Éxito');
-        const data = this.dataSource.data.filter( (x: Element) => x._id !== id);
+        const data = this.dataSource.data.filter( (x: Element) => x.id !== id);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
       },

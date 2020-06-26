@@ -1,5 +1,5 @@
 export interface Element {
-    _id?: string;
+    id?: number;
     name: string;
     description?: string;
     first_status: string;
@@ -11,7 +11,7 @@ export interface Element {
 }
 
 interface Behavior {
-    _id?: string;
+    id?: number;
     element: Element;
     from_status: string;
     to_status: string;

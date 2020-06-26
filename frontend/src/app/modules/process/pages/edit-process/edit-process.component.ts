@@ -26,7 +26,7 @@ export class EditProcessComponent implements OnInit {
 
   ngOnInit(): void {
     this.FormProcess.setValue({
-      _id: this.data._id,
+      id: this.data.id,
       name: this.data.name,
       description: this.data.description
     });

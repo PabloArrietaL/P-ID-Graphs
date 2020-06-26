@@ -6,16 +6,25 @@ import { CreateElementComponent } from './pages/create-element/create-element.co
 import { ViewElementComponent } from './pages/view-element/view-element.component';
 
 
-const routes: Routes = [
+const routes: Routes = [{
+    path: 'element',
+    redirectTo: '',
+    pathMatch: 'full'
+},
+
 
   {
     path: '',
-    component: ElementsComponent,
     children: [
+       {
+            path: '',
+            component: ElementsComponent
+        },
       {
         path: 'add',
         component: CreateElementComponent
       },
+  
       {
         path: 'edit',
         component: EditElementComponent

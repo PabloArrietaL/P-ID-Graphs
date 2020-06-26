@@ -8,16 +8,18 @@ export class ElementModel {
     FormElement() {
         return new FormGroup({
 
-            _id: new FormControl(''),
+            id: new FormControl(''),
             name: new FormControl('', {
                 validators: [Validators.required, Validators.nullValidator]
             }),
             description: new FormControl(''),
-            first_state: new FormControl('', {
+            first_status: new FormControl('', {
                 validators: [Validators.required, Validators.nullValidator]
             }),
-            second_state: new FormControl('', {
+            second_status: new FormControl('', {
                 validators: [Validators.required, Validators.nullValidator]
+            }),
+             third_status: new FormControl('', {
             }),
             initial_condition: new FormControl('', {
                 validators: [Validators.required, Validators.nullValidator]

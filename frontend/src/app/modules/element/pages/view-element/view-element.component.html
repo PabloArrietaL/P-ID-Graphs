@@ -1,26 +1,56 @@
-<div class="header">
+<div class="mt-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/home">Inicio</a></li>
+            <li class="breadcrumb-item active"><a routerLink="/element">Elementos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Crear elemento</li>
 
-    <div class="left-modal">
-        <button class="button-close" [mat-dialog-close]="true">
-            <mat-icon>close</mat-icon>
-        </button>
+
+        </ol>
+    </nav>
+    <div style="display: flex; ">
+        <!-- <a (click)="goBack()" style="cursor: pointer; margin-top: 4px;"><svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24" fill="#444044" width="18px" height="18px">
+                <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z" />
+                <path d="M0 0h24v24H0z" fill="none" />
+            </svg>
+
+        </a> -->
+        <h3 style="margin-left: 28px; margin-top: 8px;" class="sub-title"> Ver elemento </h3>
     </div>
+    <!-- <mat-card >
+        <ng-container ktPortletTitle>
+            <span>Crear elemento </span>
+        </ng-container>
+        <ng-container ktPortletTools>
+            <button mat-raised-button color="primary" type="button" (click)="createElement(FormElement)">
+                <span>Crear</span>
+            </button>
+        </ng-container>
+    </mat-card> -->
 </div>
+
+
 
 <div class="container pb-2">
     <div class="row">
         <div class=" image col-md-12 col-lg-6 pb-1">
-            <img [src]="api+'image/'+data.img" alt="" srcset="">
+            <img [src]="api+'image/'+this.service.ID.img" alt="" srcset="">
         </div>
         <div class="col-md-12 col-lg-6">
             <div class="title-image">
-                <h4>{{data.name}}</h4>
+                <h4>{{this.service.ID.name}}</h4>
             </div>
             <div class=description-image>
-                <p class="text-description">{{data.description}}</p>
+                <p class="text-description">{{this.service.ID.description}}</p>
             </div>
         </div>
       
 
+    </div>
+    <div class="left-modal">
+        <button mat-button (click)="goBack()" class="btn-light button-modal">
+            Regresar
+        </button>
     </div>
 </div>
