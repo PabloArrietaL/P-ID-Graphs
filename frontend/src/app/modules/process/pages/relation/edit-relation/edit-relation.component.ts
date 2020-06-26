@@ -39,7 +39,7 @@ export class EditRelationComponent implements OnInit {
       response => {
         this.elements = response;
         this.setFormData();
-        this.elementsTarget = this.elements.filter( (x: Element) => x._id !== this.FormRelation.get('element_source').value);
+        this.elementsTarget = this.elements.filter( (x: Element) => x.id !== this.FormRelation.get('element_source').value);
         this.FormRelation.get('element_target').enable();
       },
       error => {
@@ -50,10 +50,10 @@ export class EditRelationComponent implements OnInit {
 
   setFormData() {
     this.FormRelation.setValue({
-      _id: this.data._id,
+      id: this.data.id,
       graph: this.data.graph,
-      element_source: this.data.element_source._id,
-      element_target: this.data.element_target._id,
+      element_source: this.data.element_source.id,
+      element_target: this.data.element_target.id,
       description: this.data.description
     });
   }

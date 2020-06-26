@@ -9,7 +9,7 @@
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label>Elemento de origen</mat-label>
                 <mat-select formControlName="element_source">
-                  <mat-option [value]="element._id" *ngFor="let element of elements">
+                  <mat-option [value]="element.id" *ngFor="let element of elements">
                     {{ element.name }}
                   </mat-option>
                 </mat-select>
@@ -19,7 +19,7 @@
             <mat-form-field appearance="outline" class="form-field">
                 <mat-label>Elemento de destino</mat-label>
                 <mat-select formControlName="element_target">
-                  <mat-option [value]="element._id" *ngFor="let element of elementsTarget">
+                  <mat-option [value]="element.id" *ngFor="let element of elementsTarget">
                     {{ element.name }}
                   </mat-option>
                 </mat-select>

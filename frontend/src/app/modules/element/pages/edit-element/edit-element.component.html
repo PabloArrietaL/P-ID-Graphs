@@ -1,66 +1,110 @@
-<div class="title-modal">
-    <h4 class="title-info">Editar elemento </h4>
+<div class="mt-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/home">Inicio</a></li>
+            <li class="breadcrumb-item active"><a routerLink="/element">Elementos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Editar elemento</li>
+
+
+        </ol>
+    </nav>
+    <div style="display: flex; ">
+        <!-- <a (click)="goBack()" style="cursor: pointer; margin-top: 4px;"><svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24" fill="#444044" width="18px" height="18px">
+                <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z" />
+                <path d="M0 0h24v24H0z" fill="none" />
+            </svg>
+
+        </a> -->
+        <h3 style="margin-left: 28px; margin-top: 8px;" class="sub-title"> Editar elemento </h3>
+    </div>
+    <!-- <mat-card >
+        <ng-container ktPortletTitle>
+            <span>Crear elemento </span>
+        </ng-container>
+        <ng-container ktPortletTools>
+            <button mat-raised-button color="primary" type="button" (click)="createElement(FormElement)">
+                <span>Crear</span>
+            </button>
+        </ng-container>
+    </mat-card> -->
 </div>
 
-<form [formGroup]="FormElement" novalidate>
-    <div class="row information">
 
-        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
-            <mat-form-field appearance="outline" class="form-field">
-                <mat-label>Nombre</mat-label>
-                <input matInput formControlName="name" autocomplete="off" />
-            </mat-form-field>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
-            <mat-form-field appearance="outline" class="form-field">
-                <mat-label>Tipo</mat-label>
-                <mat-select formControlName="type">
-                    <mat-option value="actuator">Actuador</mat-option>
-                    <mat-option value="controlled">Variable de control</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
-            <mat-form-field appearance="outline" class="form-field">
-                <mat-label>Primer estado</mat-label>
-                <input matInput formControlName="first_state" autocomplete="off" />
-            </mat-form-field>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
-            <mat-form-field appearance="outline" class="form-field">
-                <mat-label>Segundo estado</mat-label>
-                <input matInput formControlName="second_state" autocomplete="off" />
-            </mat-form-field>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
-            <mat-form-field appearance="outline" class="form-field">
-                <mat-label>Condición inicial</mat-label>
-                <mat-select formControlName="initial_condition">
-                    <mat-option value="first">Primer estado</mat-option>
-                    <mat-option value="second">Segundo estado</mat-option>
-                </mat-select>
-            </mat-form-field>
-        </div>
+<body>
+    <form [formGroup]="FormElement" novalidate>
+        <div class="row information">
+            <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Nombre</mat-label>
+                    <input matInput formControlName="name" autocomplete="off" />
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Tipo</mat-label>
+                    <mat-select formControlName="type">
+                        <mat-option value="actuator">Actuador</mat-option>
+                        <mat-option value="controlled">Variable de control</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Primer estado</mat-label>
+                    <input matInput formControlName="first_status" autocomplete="off" />
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Segundo estado</mat-label>
+                    <input matInput formControlName="second_status" autocomplete="off" />
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Tercer estado estado</mat-label>
+                    <input matInput formControlName="third_status" autocomplete="off" />
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Condición inicial</mat-label>
+                    <mat-select formControlName="initial_condition">
+                        <mat-option value="first_status">Primer estado</mat-option>
+                        <mat-option value="second_status">Segundo estado</mat-option>
+                        <mat-option *ngIf="FormElement.value.third_status!==''" value="third_status">Tercer estado
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
 
-        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
-            <mat-form-field appearance="outline" class="form-field">
-                <mat-label>Descripción</mat-label>
-                <input matInput formControlName="description" autocomplete="off" />
-            </mat-form-field>
-        </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Descripción</mat-label>
+                    <input matInput formControlName="description" autocomplete="off" />
+                </mat-form-field>
+            </div>
 
-        <div class="col-lg-12 col-md-12 col-sm-12 mt-2 save">
-            <div class="example-button-row">
-                <button mat-button [mat-dialog-close]="true" class="cancel button-modal">
-                    Cancelar
-                </button>
-                <button mat-raised-button class="acept" (click)="editElement(FormElement)"
-                    [disabled]="FormElement.invalid">
-                    <span class="spinner-border spinner-border-sm" *ngIf="showSpinner" role="status"
-                        aria-hidden="true"></span>
-                    Guardar
-                </button>
+            <!-- <div class="col-lg-12 col-md-12 col-sm-12 mt-2">
+            <input type="file" (change)="fileChange($event)" required />
+        </div> -->
+
+
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-2 save">
+                <div class="example-button-row">
+                    <button mat-button (click)="goBack()" class="btn-light button-modal">
+                        Regresar
+                    </button>
+
+                    <button mat-raised-button class="btn-primary " (click)=" editElement(FormElement)"
+                        [disabled]="FormElement.invalid">
+                        <span class="spinner-border spinner-border-sm" *ngIf="showSpinner" role="status"
+                            aria-hidden="true"></span>
+                        Guardar
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</body>

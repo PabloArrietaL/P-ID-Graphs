@@ -6,6 +6,7 @@ import { ElementService } from '@data/service/element.service';
 import { environment } from '@env/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Element } from '@data/schema/element.interface';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-element',
@@ -19,14 +20,17 @@ export class CreateElementComponent implements OnInit {
   public api = environment.api;
 
   constructor(
-    private dialogRef: MatDialogRef<CreateElementComponent>,
     private cd: ChangeDetectorRef,
     private service: ElementService,
+    private router: Router,
+        private activatedroute: ActivatedRoute,
     private toast: ToastrService) { }
 
   ngOnInit(): void {
   }
-
+public goBack() {
+    this.router.navigateByUrl('/element', { relativeTo: this.activatedroute });
+  }
   createElement(form: FormGroup) {
 
     const url = `${this.api}element`;
@@ -36,8 +40,8 @@ export class CreateElementComponent implements OnInit {
       this.service.create(url, this.toFormData(form.value)).subscribe(
         response => {
           this.toast.success('Elemento creado correctamente', 'Éxito');
+          this.goBack();
           this.showSpinner = false;
-          this.dialogRef.close(response);
         },
         error => {
           this.showSpinner = false;

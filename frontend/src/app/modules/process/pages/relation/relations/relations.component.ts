@@ -42,7 +42,7 @@ export class RelationsComponent implements OnInit {
 
   getEdges() {
     this.showSpinner = true;
-    this.service.getAll(`${this.api}nodeGraph/${this.graph._id}`).subscribe(
+    this.service.getAll(`${this.api}nodeGraph/${this.graph.id}`).subscribe(
       response => {
         if (response.length > 0) {
           this.dataSource = new MatTableDataSource(response.reverse());
@@ -95,7 +95,7 @@ export class RelationsComponent implements OnInit {
       if (typeof result === 'object' && result !== undefined) {
         const data = this.dataSource.data;
         data.forEach( (gra: Relation) => {
-          if (gra._id === result._id) {
+          if (gra.id === result.id) {
             gra.element_target = result.element_target;
             gra.description = result.description;
           }
@@ -110,7 +110,7 @@ export class RelationsComponent implements OnInit {
     this.service.delete(`${this.api}nodeGraph`, id).subscribe(
       _ => {
         this.toast.success('Relación eliminada correctamente', 'Éxito');
-        const data = this.dataSource.data.filter( (x: Relation) => x._id !== id);
+        const data = this.dataSource.data.filter( (x: Relation) => x.id !== id);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
       },

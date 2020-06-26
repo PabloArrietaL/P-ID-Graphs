@@ -97,7 +97,7 @@ export class ProcessesComponent implements OnInit {
       if (typeof result === 'object' && result !== undefined) {
         const data = this.dataSource.data;
         data.forEach( (gra: Process) => {
-          if (gra._id === result._id) {
+          if (gra.id === result.id) {
             gra.name = result.name;
             gra.description = result.description;
           }
@@ -112,7 +112,7 @@ export class ProcessesComponent implements OnInit {
     this.service.delete(`${this.api}process`, id).subscribe(
       _ => {
         this.toast.success('Proceso eliminado correctamente', 'Éxito');
-        const data = this.dataSource.data.filter( (x: Process) => x._id !== id);
+        const data = this.dataSource.data.filter( (x: Process) => x.id !== id);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
       },

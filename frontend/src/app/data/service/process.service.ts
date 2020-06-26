@@ -18,7 +18,7 @@ export class ProcessService {
   }
 
   edit(url: string, data: Process) {
-    const path = `${url}/${data._id}`;
+    const path = `${url}/${data.id}`;
     return this.http.put(path, data);
   }
 

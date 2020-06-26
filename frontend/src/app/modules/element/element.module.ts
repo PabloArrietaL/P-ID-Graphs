@@ -16,7 +16,7 @@ import { ViewElementComponent } from './pages/view-element/view-element.componen
     ElementsComponent,
     CreateElementComponent,
     EditElementComponent,
-    ViewElementComponent
+    ViewElementComponent,
   ],
   imports: [
     ReactiveFormsModule,

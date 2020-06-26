@@ -67,7 +67,7 @@ export class CreateRelationComponent implements OnInit {
   }
 
   filterNodes(element: Element) {
-    this.elementsTarget = this.elements.filter( (x: Process) => x._id !== element._id);
+    this.elementsTarget = this.elements.filter( (x: Element) => x.id !== +element.id);
     this.FormRelation.get('element_target').enable();
   }
 
