@@ -8,11 +8,13 @@ export class ProcessModel {
     ProcessModel() {
         return new FormGroup({
 
-            id: new FormControl(''),
+          id: new FormControl(''),
             name: new FormControl('', {
-                validators: [Validators.required, Validators.nullValidator]
+                validators: [Validators.required, Validators.nullValidator,Validators.maxLength(45)]
             }),
-            description: new FormControl('')
+            description: new FormControl('', {
+                validators: [Validators.maxLength(45)]
+            }),
         });
     }
 }

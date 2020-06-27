@@ -1,49 +1,82 @@
-<div class="title-modal">
-    <h4 class="title-info">Editar relación de elementos </h4>
-</div>
+ <div class="mt-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/home">Inicio</a></li>
+            <li class="breadcrumb-item active"><a routerLink="/process">Proceso</a></li>
+            <li class="breadcrumb-item active" aria-current="/process/details">Elementos del proceso</li>
+            <li class="breadcrumb-item active" aria-current="page">Editar relaciòn</li>
 
-<form [formGroup]="FormRelation" novalidate>
-    <div class="row information">
-        
-        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
-            <mat-form-field appearance="outline" class="form-field">
-                <mat-label>Elemento de origen</mat-label>
-                <mat-select formControlName="element_source">
-                  <mat-option [value]="element.id" *ngFor="let element of elements">
-                    {{ element.name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
-            <mat-form-field appearance="outline" class="form-field">
-                <mat-label>Elemento de destino</mat-label>
-                <mat-select formControlName="element_target">
-                  <mat-option [value]="element.id" *ngFor="let element of elementsTarget">
-                    {{ element.name }}
-                  </mat-option>
-                </mat-select>
-              </mat-form-field>
-        </div>
-        <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
-            <mat-form-field appearance="outline" class="form-field">
-                <mat-label>Descripción</mat-label>
-                <input matInput formControlName="description" autocomplete="off" />
-            </mat-form-field>
-        </div>
 
-        <div class="col-lg-12 col-md-12 col-sm-12 mt-2 save">
-            <div>
-                <button mat-button [mat-dialog-close]="true" class="cancel button-modal">
-                    Cancelar
-                </button>
-                <button mat-raised-button class="acept" (click)="editRelation(FormRelation)" 
-                [disabled]="FormRelation.invalid">
-                    <span class="spinner-border spinner-border-sm" *ngIf="showSpinner" role="status"
-                        aria-hidden="true"></span>
-                    Guardar
-                </button>
+        </ol>
+    </nav>
+    <div style="display: flex; ">
+        <!-- <a (click)="goBack()" style="cursor: pointer; margin-top: 14px;"><svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24" fill="#444044" width="18px" height="18px">
+                <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z" />
+                <path d="M0 0h24v24H0z" fill="none" />
+            </svg>
+
+        </a>  -->
+      <h3 style="margin-left: 28px; margin-top: 8px;" class="sub-title"> Editar relación </h3>
+    </div> 
+   <!-- <mat-card >
+        <ng-container ktPortletTitle>
+            <span>Crear elemento </span>
+        </ng-container>
+        <ng-container ktPortletTools>
+            <button mat-raised-button color="primary" type="button" (click)="createElement(FormElement)">
+                <span>Crear</span>
+            </button> 
+        </ng-container>
+    </mat-card>  -->
+ </div>
+
+
+<body>
+    <form [formGroup]="FormRelation" novalidate>
+        <div class="row information">
+
+            <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Elemento de origen</mat-label>
+                    <mat-select formControlName="element_source" >
+                        <mat-option [value]="element.id" *ngFor="let element of elements">
+                            {{ element.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Elemento de destino</mat-label>
+                    <mat-select formControlName="element_target">
+                        <mat-option [value]="element.id" *ngFor="let element of elements">
+                            {{ element.name }}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+                <mat-form-field appearance="outline" class="form-field">
+                    <mat-label>Descripción</mat-label>
+                    <input matInput formControlName="description" autocomplete="off" />
+                </mat-form-field>
+            </div>
+
+            <div class="col-lg-12 col-md-12 col-sm-12 mt-2 save">
+                <div>
+                    <button mat-button (click)="goBack()" class="btn-light button-modal">
+                        Regresar
+                    </button>
+
+                    <button mat-raised-button class="btn-primary " (click)="editRelation(FormRelation)"
+                        [disabled]="FormRelation.invalid">
+                        <span class="spinner-border spinner-border-sm" *ngIf="showSpinner" role="status"
+                            aria-hidden="true"></span>
+                        Guardar
+                    </button>
+                </div>
             </div>
         </div>
-    </div>
-</form>
+    </form>
+</body> 

@@ -5,6 +5,8 @@ import { environment } from '@env/environment';
 import { MatDialogRef } from '@angular/material';
 import { ProcessService } from '@data/service/process.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router, ActivatedRoute } from '@angular/router';
+import { Process } from '@data/schema/process.interface';
 
 @Component({
   selector: 'app-create-process',
@@ -18,24 +20,33 @@ export class CreateProcessComponent implements OnInit {
   public api = environment.api;
 
   constructor(
-    private dialogRef: MatDialogRef<CreateProcessComponent>,
     private service: ProcessService,
+        private router: Router,
+        private activatedroute: ActivatedRoute,
     private toast: ToastrService) { }
 
   ngOnInit(): void {
   }
-
+public goBack() {
+    this.router.navigateByUrl('/process', { relativeTo: this.activatedroute });
+  }
   createProcess(form: FormGroup) {
 
     const url = `${this.api}process`;
-
+ 
     if (!form.invalid) {
+       const PROCESS:Process={
+      // id:this.service.ID.id,
+      name: form.value.name,
+      description: form.value.description
+
+    }
       this.showSpinner = true;
-      this.service.create(url, form.value).subscribe(
+      this.service.create(url,PROCESS).subscribe(
         response => {
           this.toast.success('Proceso creado correctamente', 'Éxito');
           this.showSpinner = false;
-          this.dialogRef.close(response);
+          this.goBack();
         },
         error => {
           this.showSpinner = false;

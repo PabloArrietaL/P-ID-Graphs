@@ -70,25 +70,6 @@ public goBack() {
   openCreate() {
       this.router.navigateByUrl('element/add');
 
-    // const dialogConfig = new MatDialogConfig();
-
-    // this.deviceInfo = this.deviceService.getDeviceInfo();
-    // const isMobile = this.deviceService.isMobile();
-    // const isTablet = this.deviceService.isTablet();
-
-    // dialogConfig.disableClose = false;
-    // dialogConfig.autoFocus = true;
-    // dialogConfig.width = (isMobile || isTablet) === true ? '80%' : '50%';
-    // dialogConfig.height = (isMobile || isTablet) === true ? '85%' : 'auto';
-    // const dialog = this.dialog.open(CreateElementComponent, dialogConfig);
-    // dialog.afterClosed().subscribe(result => {
-    //   if (typeof result === 'object' && result !== undefined) {
-    //     const data = this.dataSource.data !== undefined ? this.dataSource.data : [];
-    //     data.splice(0, 0, result);
-    //     this.dataSource = new MatTableDataSource(data);
-    //     this.dataSource.paginator = this.paginator;
-    //   }
-    // });
   }
 
   openEdit(id):void {

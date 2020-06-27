@@ -7,7 +7,9 @@ import { ToastrService } from 'ngx-toastr';
 import { MatDialogRef } from '@angular/material';
 import { ElementService } from '@data/service/element.service';
 import { Element } from '@data/schema/element.interface';
-import { Process } from '@data/schema/process.interface';
+import { Process, Relation } from '@data/schema/process.interface';
+import { Router, ActivatedRoute } from '@angular/router';
+import { ProcessService } from '@data/service/process.service';
 
 @Component({
   selector: 'app-create-relation',
@@ -23,20 +25,29 @@ export class CreateRelationComponent implements OnInit {
   public elementsTarget: Array<Element> = [];
 
   constructor(
-    private dialogRef: MatDialogRef<CreateRelationComponent>,
     private service: RelationService,
     private serviceElement: ElementService,
+        private serviceProcess:ProcessService,
+           private router: Router,
+        private activatedroute: ActivatedRoute,
     private toast: ToastrService) { }
 
   ngOnInit(): void {
     this.getElements();
-    this.FormRelation.patchValue({
-      graph: this.service.process
-    });
+     if (this.serviceProcess.IDP === undefined) {
+      this.goBack();
+      
+    } 
+        
+    // this.FormRelation.patchValue({
+    //   graph: this.service.process
+    // });
   }
-
+public goBack() {
+    this.router.navigateByUrl('/process/details', { relativeTo: this.activatedroute });
+  }
   getElements() {
-    this.serviceElement.getAll(`${this.api}node`).subscribe(
+    this.serviceElement.getAll(`${this.api}element`).subscribe(
       response => {
         this.elements = response;
       },
@@ -48,16 +59,23 @@ export class CreateRelationComponent implements OnInit {
 
   createRelation(form: FormGroup) {
 
-    const url = `${this.api}nodeGraph`;
+    const url = `${this.api}relation`;
 
     if (!form.invalid) {
+         const RELATION:Relation={
+      // id:this.service.ID.id,
+        // id?: string;
+    process: this.serviceProcess.IDP.id,
+    element_source: form.value.element_source.id,
+    element_target: form.value.element_target.id,
+    description: form.value.description,
+    }
       this.showSpinner = true;
-      this.service.create(url, form.value).subscribe(
+      this.service.create(url, RELATION).subscribe(
         response => {
           this.toast.success('Relación creada correctamente', 'Éxito');
           this.showSpinner = false;
-          this.dialogRef.close(response);
-        },
+this.goBack();        },
         error => {
           this.showSpinner = false;
           this.toast.error(error.error.message, 'Error');
@@ -66,7 +84,7 @@ export class CreateRelationComponent implements OnInit {
     }
   }
 
-  filterNodes(element: Element) {
+  filterElement(element: Element) {
     this.elementsTarget = this.elements.filter( (x: Element) => x.id !== +element.id);
     this.FormRelation.get('element_target').enable();
   }

@@ -5,7 +5,7 @@ import { ProcessService } from '@data/service/process.service';
 import { ToastrService } from 'ngx-toastr';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Process } from '@data/schema/process.interface';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CreateProcessComponent } from '../create-process/create-process.component';
 import { EditProcessComponent } from '../edit-process/edit-process.component';
 import { RelationService } from '@data/service/relation.service';
@@ -31,10 +31,13 @@ export class ProcessesComponent implements OnInit {
     private service: ProcessService,
     private toast: ToastrService,
     private dialog: MatDialog,
+        private router: Router,
+        private activatedroute: ActivatedRoute,
+
     private deviceService: DeviceDetectorService) { }
 
   ngOnInit(): void {
-    this.getGraphs();
+    this.getProcess();
   }
 
   openAdd(process: Process) {
@@ -42,7 +45,7 @@ export class ProcessesComponent implements OnInit {
     this.route.navigate(['/graph-details']);
   }
 
-  getGraphs() {
+  getProcess() {
     this.showSpinner = true;
     this.service.getAll(`${this.api}process`).subscribe(
       response => {
@@ -57,58 +60,24 @@ export class ProcessesComponent implements OnInit {
       }
     );
   }
+  Create() {
+      this.router.navigateByUrl('process/add');
 
-  openCreate() {
-    const dialogConfig = new MatDialogConfig();
+   
+  }
+  Edit(id):void {
+    this.service.IDP = id;
+    // console.log(  this.requirementService.IPreqI );
 
-    this.deviceInfo = this.deviceService.getDeviceInfo();
-    const isMobile = this.deviceService.isMobile();
-    const isTablet = this.deviceService.isTablet();
-
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-    dialogConfig.width = (isMobile || isTablet) === true ? '80%' : '50%';
-    dialogConfig.height = (isMobile || isTablet) === true ? '85%' : 'auto';
-    const dialog = this.dialog.open(CreateProcessComponent, dialogConfig);
-    dialog.afterClosed().subscribe(result => {
-      if (typeof result === 'object' && result !== undefined) {
-        const data = this.dataSource.data !== undefined ? this.dataSource.data : [];
-        data.splice(0, 0, result);
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.paginator = this.paginator;
-      }
-    });
+    this.router.navigate(['/process/edit'], { relativeTo: this.activatedroute });
   }
 
-  openEdit(process: Process) {
-    const dialogConfig = new MatDialogConfig();
-
-    this.deviceInfo = this.deviceService.getDeviceInfo();
-    const isMobile = this.deviceService.isMobile();
-    const isTablet = this.deviceService.isTablet();
-
-    dialogConfig.disableClose = false;
-    dialogConfig.autoFocus = true;
-    dialogConfig.data = process;
-    dialogConfig.width = (isMobile || isTablet) === true ? '80%' : '50%';
-    dialogConfig.height = (isMobile || isTablet) === true ? '85%' : 'auto';
-    const dialog = this.dialog.open(EditProcessComponent, dialogConfig);
-    dialog.afterClosed().subscribe( (result: Process) => {
-      if (typeof result === 'object' && result !== undefined) {
-        const data = this.dataSource.data;
-        data.forEach( (gra: Process) => {
-          if (gra.id === result.id) {
-            gra.name = result.name;
-            gra.description = result.description;
-          }
-        });
-        this.dataSource = new MatTableDataSource(data);
-        this.dataSource.paginator = this.paginator;
-      }
-    });
+  Relations(id):void {
+    this.service.IDP = id;
+    
+    this.router.navigate(['/process/details'], { relativeTo: this.activatedroute });
   }
-
-  delete(id: string) {
+  delete(id: number) {
     this.service.delete(`${this.api}process`, id).subscribe(
       _ => {
         this.toast.success('Proceso eliminado correctamente', 'Éxito');

@@ -6,6 +6,7 @@ import { Process } from '@data/schema/process.interface';
   providedIn: 'root'
 })
 export class ProcessService {
+public IDP : Process;
 
   constructor(private http: HttpClient) { }
 
@@ -13,7 +14,7 @@ export class ProcessService {
     return this.http.get<Array<Process>>(url);
   }
 
-  create(url: string, data: FormData) {
+  create(url: string, data: Process) {
     return this.http.post(url, data);
   }
 
@@ -22,9 +23,10 @@ export class ProcessService {
     return this.http.put(path, data);
   }
 
-  delete(url: string, id: string) {
+  delete(url: string, id: number) {
     const path = `${url}/${id}`;
     return this.http.delete(path);
   }
+
 
 }

@@ -14,7 +14,7 @@
 <div class="row button-filter m-2">
     <div class="mb-2">
         <div class="col-lg-2 col-md-2 col-sm-2 col-xl-1">
-            <button mat-raised-button (click)="openCreate()">+ Crear</button>
+            <button mat-raised-button (click)="Create()">+ Crear</button>
         </div>
 
     </div>
@@ -41,8 +41,10 @@
 
         <ng-container matColumnDef="description">
             <th mat-header-cell *matHeaderCellDef>Descripción</th>
+          
             <td mat-cell *matCellDef="let element">
-                {{ element.description }}
+                <span *ngIf="element.description">{{ element.description }}</span>
+                <span *ngIf="!element.description">Sin descripción</span>
             </td>
         </ng-container>
 
@@ -51,8 +53,8 @@
             <td mat-cell *matCellDef="let element">
                 <div class="cont">
                     <a target="_blank" [routerLink]="['/graph/', element.id]"><div class="view"></div></a>
-                    <div class="add" (click)="openAdd(element)"></div>
-                    <div class="edit" (click)="openEdit(element)"></div>
+                    <div class="add" (click)="Relations(element)"></div>
+                    <div class="edit" (click)="Edit(element)"></div>
                     <div class="delete" (click)="delete(element.id)"></div>
                 </div>
             </td>
