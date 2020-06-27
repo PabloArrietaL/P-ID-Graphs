@@ -5,7 +5,7 @@ import { IElement } from "../models/interfaces/IElement";
 import path from "path";
 import multer from "multer";
 import { Response } from "express";
-import fs from "fs";
+import fs from "fs-extra";
 
 
 export const fileUploadOptions =  {
@@ -26,15 +26,6 @@ export class ElementController {
 
     constructor() {
         this.dataService = Container.get(DataService);
-    }
-
-    @Get("/image/:img")
-    getImage(@Param("img") img: string, @Res() res: Response) {
-        
-        let pathImage = path.resolve(__dirname, `../../uploads/${img}`);
-        if (fs.existsSync(pathImage)) {
-          return res.sendFile(pathImage); 
-        }
     }
 
     @Get("/element")
