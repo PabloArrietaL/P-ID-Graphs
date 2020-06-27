@@ -1,8 +1,9 @@
 import { Container } from "typescript-ioc";
-import { JsonController, Param, Body, Get, Post, Put, Delete, UseBefore } from "routing-controllers";
+import { JsonController, Param, Body, Get, Post, Put, Delete, UseBefore, Res } from "routing-controllers";
 import { DataService } from "../services/data.service";
 import { IProcess } from "../models/interfaces/IProcess";
 import { ProcessMiddleware } from "../middlewares/process.middleware";
+import { Response } from "express";
 
 @JsonController()
 export class ProcessController {
@@ -33,10 +34,8 @@ export class ProcessController {
     }
 
     @Delete("/process/:id")
-    remove(@Param("id") id: number) {
-        return this.dataService.processService.deleteProcess(id).then( _ => {
-            return true;
-        });
+    remove(@Param("id") id: number, @Res() res: Response) {
+        return this.dataService.processService.deleteProcess(id, res);
     }
 
 }

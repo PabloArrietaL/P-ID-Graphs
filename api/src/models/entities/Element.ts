@@ -1,5 +1,10 @@
 import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
 
+enum CONDITIONS {
+    first_status = 'first_status',
+    second_status = 'second_status',
+    third_status = 'third_status'
+}
 
 @Entity('Elements')
 export class Element {
@@ -7,22 +12,22 @@ export class Element {
     @PrimaryGeneratedColumn()
     public id!: number;
 
-    @Column()
+    @Column({length: '45'})
     public name!: string;
 
-    @Column()
+    @Column({length: '45'})
     public first_status!: string;
 
-    @Column()
+    @Column({length: '45'})
     public second_status!: string;
 
-    @Column({nullable: true})
+    @Column({nullable: true, length: '45'})
     public third_status!: string;
 
-    @Column()
+    @Column({type: 'enum', enum: CONDITIONS})
     public initial_condition!: string;
 
-    @Column()
+    @Column({length: '15'})
     public type!: string;
 
     @Column({nullable: true})
@@ -31,7 +36,7 @@ export class Element {
     @Column({nullable: true})
     public img!: string;
 
-    @Column()
+    @Column({type: 'datetime'})
     public created_date!: Date;
 
 }

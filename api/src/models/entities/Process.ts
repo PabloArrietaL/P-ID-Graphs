@@ -1,5 +1,6 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinTable } from "typeorm";
 import { Relation } from "./Relation";
+import { type } from "os";
 
 
 @Entity('Processes')
@@ -8,7 +9,7 @@ export class Process {
     @PrimaryGeneratedColumn()
     public id!: number;
 
-    @Column()
+    @Column({length: '45'})
     public name!: string;
 
     @Column({nullable: true})
@@ -18,7 +19,7 @@ export class Process {
     @JoinTable()
     public relations!: Relation[]
 
-    @Column()
+    @Column({type: 'datetime'})
     public created_date!: Date;
 
 }

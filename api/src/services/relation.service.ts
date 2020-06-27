@@ -36,7 +36,11 @@ export class RelationService {
         return getManager().getRepository(Relation).update({ id: id }, relation);
     }
 
-    deleteRelation(id: number): Promise<DeleteResult> {
-        return getManager().getRepository(Relation).delete({ id: id });
+    deleteRelation(id: number, res: Response): Promise<Response> | Response {
+        return getManager().getRepository(Relation).delete({ id: id }).then( data => {
+            return res.status(200).json({ message: 'Relación eliminada'});
+        }).catch (error => {
+            return res.status(500).json({ message: 'Ha ocurrido un error', data: error});
+        });
     }
 }

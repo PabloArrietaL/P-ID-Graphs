@@ -32,10 +32,8 @@ export class RelationController {
     }
 
     @Delete("/relation/:id")
-    remove(@Param("id") id: number) {
-        return this.dataService.relationService.deleteRelation(id).then( data => {
-            return data;
-        });
+    remove(@Param("id") id: number, @Res() res: Response) {
+        return this.dataService.relationService.deleteRelation(id, res);
     }
 
 }

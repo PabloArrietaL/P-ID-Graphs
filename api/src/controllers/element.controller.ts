@@ -28,8 +28,8 @@ export class ElementController {
         this.dataService = Container.get(DataService);
     }
 
-    @Put("/image/:img")
-    Get(@Param("img") img: string, @Res() res: Response) {
+    @Get("/image/:img")
+    getImage(@Param("img") img: string, @Res() res: Response) {
         
         let pathImage = path.resolve(__dirname, `../../uploads/${img}`);
         if (fs.existsSync(pathImage)) {
@@ -58,7 +58,6 @@ export class ElementController {
     @Delete("/element/:id")
     async remove(@Param("id") id: number, @Res() res: Response) {
         const data = await this.dataService.elementService.deleteElement(id, res);
-
         return data;
     }
 
