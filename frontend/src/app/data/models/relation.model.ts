@@ -14,7 +14,7 @@ export class RelationModel {
             element_source: new FormControl({value: '', disabled: false}, {
                 validators: [Validators.required, Validators.nullValidator]
             }),
-            element_target: new FormControl({value: '', disabled: false}, {
+            element_target: new FormControl({value: '', disabled: true}, {
                 validators: [Validators.required, Validators.nullValidator]
             }),
             description: new FormControl('')

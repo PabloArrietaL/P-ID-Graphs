@@ -2,8 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ProcessModel } from '@data/models/process.model';
 import { environment } from '@env/environment';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Process } from '@data/schema/process.interface';
 import { ToastrService } from 'ngx-toastr';
 import { ProcessService } from '@data/service/process.service';
 import { Router, ActivatedRoute } from '@angular/router';

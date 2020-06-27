@@ -2,12 +2,11 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { environment } from '@env/environment';
 import { FormGroup } from '@angular/forms';
 import { RelationModel } from '@data/models/relation.model';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { RelationService } from '@data/service/relation.service';
 import { ToastrService } from 'ngx-toastr';
 import { ElementService } from '@data/service/element.service';
 import { Element } from '@data/schema/element.interface';
-import { Relation, RelationEdit } from '@data/schema/process.interface';
+import {  RelationEdit } from '@data/schema/process.interface';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProcessService } from '@data/service/process.service';
 

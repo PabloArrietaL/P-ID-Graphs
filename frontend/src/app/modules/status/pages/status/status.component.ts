@@ -1,21 +1,22 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { MatTableDataSource, MatDialog, MatPaginator, MatDialogConfig } from '@angular/material';
+import { MatTableDataSource, MatPaginator, MatDialog } from '@angular/material';
 import { environment } from '@env/environment';
+import { StatusService } from '@data/service/status.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ProcessService } from '@data/service/process.service';
 import { ToastrService } from 'ngx-toastr';
 import { DeviceDetectorService } from 'ngx-device-detector';
 import { Process } from '@data/schema/process.interface';
-import { Router, ActivatedRoute } from '@angular/router';
-import { RelationService } from '@data/service/relation.service';
+import { Status } from '@data/schema/element.interface';
 
 @Component({
-  selector: 'app-processes',
-  templateUrl: './processes.component.html',
-  styleUrls: ['./processes.component.scss']
+  selector: 'app-status',
+  templateUrl: './status.component.html',
+  styleUrls: ['./status.component.scss']
 })
-export class ProcessesComponent implements OnInit {
+export class StatusComponent implements OnInit {
 
-  public displayedColumns: Array<string> = ['name', 'description', 'actions'];
+public displayedColumns: Array<string> = ['name', 'description', 'actions'];
   public dataSource: MatTableDataSource<any>;
   public deviceInfo = null;
   public showSpinner: boolean;
@@ -25,32 +26,29 @@ export class ProcessesComponent implements OnInit {
 
   constructor(
     private route: Router,
-    private details: RelationService,
-    private service: ProcessService,
+    private service: StatusService,
     private toast: ToastrService,
+    private dialog: MatDialog,
         private router: Router,
         private activatedroute: ActivatedRoute,
 
-    ) { }
+    private deviceService: DeviceDetectorService) { }
 
   ngOnInit(): void {
-    this.getProcess();
+    this.getStatus();
   }
 
-  openAdd(process: Process) {
-    this.details.process = process;
-    this.route.navigate(['/graph-details']);
-  }
-
-  getProcess() {
+ 
+  getStatus() {
     this.showSpinner = true;
-    this.service.getAll(`${this.api}process`).subscribe(
+    this.service.getAll(`${this.api}status`).subscribe(
       response => {
+
         if (response.length > 0) {
           this.dataSource = new MatTableDataSource(response.reverse());
           this.dataSource.paginator = this.paginator;
         }
-        this.showSpinner = false;
+      this.showSpinner = false;
 
       },
       _ => {
@@ -59,27 +57,23 @@ export class ProcessesComponent implements OnInit {
     );
   }
   Create() {
-      this.router.navigateByUrl('process/add');
+      this.router.navigateByUrl('status/add');
 
    
   }
   Edit(id):void {
-    this.service.IDP = id;
+    this.service.ID = id;
     // console.log(  this.requirementService.IPreqI );
 
-    this.router.navigate(['/process/edit'], { relativeTo: this.activatedroute });
+    this.router.navigate(['/status/edit'], { relativeTo: this.activatedroute });
   }
 
-  Relations(id):void {
-    this.service.IDP = id;
-    
-    this.router.navigate(['/process/details'], { relativeTo: this.activatedroute });
-  }
+
   delete(id: number) {
-    this.service.delete(`${this.api}process`, id).subscribe(
+    this.service.delete(`${this.api}status`, id).subscribe(
       _ => {
-        this.toast.success('Proceso eliminado correctamente', 'Éxito');
-        const data = this.dataSource.data.filter( (x: Process) => x.id !== id);
+        this.toast.success('Estado eliminado correctamente', 'Éxito');
+        const data = this.dataSource.data.filter( (x: Status) => x.id !== id);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
       },
@@ -95,3 +89,4 @@ export class ProcessesComponent implements OnInit {
   }
 
 }
+

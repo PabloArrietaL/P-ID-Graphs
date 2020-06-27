@@ -1,25 +1,24 @@
 import { Component, OnInit } from '@angular/core';
+import { StatusModel } from '@data/models/status.model';
 import { FormGroup } from '@angular/forms';
-import { ProcessModel } from '@data/models/process.model';
+import { StatusService } from '@data/service/status.service';
 import { environment } from '@env/environment';
-import { ProcessService } from '@data/service/process.service';
-import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { Process } from '@data/schema/process.interface';
 
 @Component({
-  selector: 'app-create-process',
-  templateUrl: './create-process.component.html',
-  styleUrls: ['./create-process.component.scss']
+  selector: 'app-create-status',
+  templateUrl: './create-status.component.html',
+  styleUrls: ['./create-status.component.scss']
 })
-export class CreateProcessComponent implements OnInit {
-
-  public FormProcess: FormGroup = new ProcessModel().ProcessModel();
+export class CreateStatusComponent implements OnInit {
+ public FormStatus: FormGroup = new StatusModel().StatusModel();
   public showSpinner = false;
   public api = environment.api;
 
   constructor(
-    private service: ProcessService,
+    private service: StatusService,
         private router: Router,
         private activatedroute: ActivatedRoute,
     private toast: ToastrService) { }
@@ -27,11 +26,11 @@ export class CreateProcessComponent implements OnInit {
   ngOnInit(): void {
   }
 public goBack() {
-    this.router.navigateByUrl('/process', { relativeTo: this.activatedroute });
+    this.router.navigateByUrl('/status', { relativeTo: this.activatedroute });
   }
-  createProcess(form: FormGroup) {
+  createStatus(form: FormGroup) {
 
-    const url = `${this.api}process`;
+    const url = `${this.api}status`;
  
     if (!form.invalid) {
        const PROCESS:Process={
@@ -43,7 +42,7 @@ public goBack() {
       this.showSpinner = true;
       this.service.create(url,PROCESS).subscribe(
         response => {
-          this.toast.success('Proceso creado correctamente', 'Éxito');
+          this.toast.success('Estado creado correctamente', 'Éxito');
           this.showSpinner = false;
           this.goBack();
         },
@@ -56,3 +55,4 @@ public goBack() {
   }
 
 }
+

@@ -3,11 +3,8 @@ import { MatTableDataSource, MatPaginator, MatDialog, MatDialogConfig } from '@a
 import { environment } from '@env/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
-import { DeviceDetectorService } from 'ngx-device-detector';
 import { Relation, Process } from '@data/schema/process.interface';
 import { RelationService } from '@data/service/relation.service';
-import { CreateRelationComponent } from '../create-relation/create-relation.component';
-import { EditRelationComponent } from '../edit-relation/edit-relation.component';
 import { ProcessService } from '@data/service/process.service';
 
 @Component({
@@ -56,21 +53,7 @@ export class RelationsComponent implements OnInit {
 public goBack() {
     this.router.navigateByUrl('/process', { relativeTo: this.activatedroute });
   }
-  // getEdges() {
-  //   this.showSpinner = true;
-  //   this.service.getAll(`${this.api}nodeGraph/${this.graph.id}`).subscribe(
-  //     response => {
-  //       if (response.length > 0) {
-  //         this.dataSource = new MatTableDataSource(response.reverse());
-  //         this.dataSource.paginator = this.paginator;
-  //         this.showSpinner = false;
-  //       }
-  //     },
-  //     _ => {
-  //       this.showSpinner = false;
-  //     }
-  //   );
-  // }
+  
 
   openCreate() {
         this.router.navigateByUrl('process/details/add');

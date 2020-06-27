@@ -13,15 +13,13 @@ export class ElementModel {
                 validators: [Validators.required, Validators.nullValidator,Validators.maxLength(45)]
             }),
             description: new FormControl(''),
-            first_status: new FormControl('', {
-                validators: [Validators.required, Validators.nullValidator,Validators.maxLength(45)]
+            first_status: new FormControl({value: '', disabled: false}, {
+                validators: [Validators.required, Validators.nullValidator]
             }),
-            second_status: new FormControl('', {
-                validators: [Validators.required, Validators.nullValidator,Validators.maxLength(45)]
+            second_status: new FormControl({value: '', disabled: true}, {
+                validators: [Validators.required, Validators.nullValidator]
             }),
-             third_status: new FormControl('', {
-                validators: [Validators.maxLength(45)]
-
+             third_status: new FormControl({value: '', disabled: true}, {
             }),
             initial_condition: new FormControl('', {
                 validators: [Validators.required, Validators.nullValidator,Validators.maxLength(15)]

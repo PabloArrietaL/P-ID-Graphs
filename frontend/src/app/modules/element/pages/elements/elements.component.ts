@@ -3,13 +3,8 @@ import { environment } from '@env/environment';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { ToastrService } from 'ngx-toastr';
-import { MatDialogConfig, MatDialog } from '@angular/material/dialog';
-import { DeviceDetectorService } from 'ngx-device-detector';
-import { CreateElementComponent } from '../create-element/create-element.component';
 import { Element } from '@data/schema/element.interface';
 import { ElementService } from '@data/service/element.service';
-import { ViewElementComponent } from '../view-element/view-element.component';
-import { EditElementComponent } from '../edit-element/edit-element.component';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -32,25 +27,25 @@ export class ElementsComponent implements OnInit {
   constructor(
     private service: ElementService,
     private toast: ToastrService,
-    private dialog: MatDialog,
     private router: Router,
         private activatedroute: ActivatedRoute,
 
-    private deviceService: DeviceDetectorService) { }
+    ) { }
 
   ngOnInit(): void {
-    this.getNodes();
+    this.getElements();
   }
 
-  getNodes() {
+  getElements() {
     this.showSpinner = true;
     this.service.getAll(`${this.api}element`).subscribe(
       response => {
         if (response.length > 0) {
           this.dataSource = new MatTableDataSource(response.reverse());
           this.dataSource.paginator = this.paginator;
-          this.showSpinner = false;
         }
+          this.showSpinner = false;
+
       },
       _ => {
         this.showSpinner = false;

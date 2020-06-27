@@ -2,10 +2,8 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ElementModel } from '@data/models/element.model';
 import { environment } from '@env/environment';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ElementService } from '@data/service/element.service';
 import { ToastrService } from 'ngx-toastr';
-import { Element } from '@data/schema/element.interface';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -24,7 +22,6 @@ export class EditElementComponent implements OnInit {
     private toast: ToastrService,
        private router: Router,
         private activatedroute: ActivatedRoute,
-    // @Inject(MAT_DIALOG_DATA) public data: Element
     ) { }
 
   ngOnInit(): void {
@@ -36,9 +33,9 @@ export class EditElementComponent implements OnInit {
     this.FormElement.setValue({
       id: this.service.ID.id,
       name: this.service.ID.name,
-      first_status: this.service.ID.first_status,
-      second_status: this.service.ID.second_status,
-      third_status: this.service.ID.third_status,
+      first_status: this.service.ID.first_status.id,
+      second_status: this.service.ID.second_status.id,
+      third_status: this.service.ID.third_status.id,
       initial_condition: this.service.ID.initial_condition,
       type: this.service.ID.type,
       description: this.service.ID.description,

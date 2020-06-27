@@ -4,10 +4,9 @@ import { RelationModel } from '@data/models/relation.model';
 import { environment } from '@env/environment';
 import { RelationService } from '@data/service/relation.service';
 import { ToastrService } from 'ngx-toastr';
-import { MatDialogRef } from '@angular/material';
 import { ElementService } from '@data/service/element.service';
 import { Element } from '@data/schema/element.interface';
-import { Process, Relation } from '@data/schema/process.interface';
+import { Relation } from '@data/schema/process.interface';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProcessService } from '@data/service/process.service';
 
@@ -38,10 +37,7 @@ export class CreateRelationComponent implements OnInit {
       this.goBack();
       
     } 
-        
-    // this.FormRelation.patchValue({
-    //   graph: this.service.process
-    // });
+  
   }
 public goBack() {
     this.router.navigateByUrl('/process/details', { relativeTo: this.activatedroute });

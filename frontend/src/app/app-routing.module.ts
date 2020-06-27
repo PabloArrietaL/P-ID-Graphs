@@ -28,6 +28,13 @@ const routes: Routes = [
           import('@module/process/process.module').then(
             (m) => m.ProcessModule
           )
+      },
+         {
+        path: 'status',
+        loadChildren: () =>
+          import('@module/status/status.module').then(
+            (m) => m.StatusModule
+          )
       }
     ]
   }
