@@ -2,8 +2,8 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a routerLink="/home">Inicio</a></li>
-            <li class="breadcrumb-item active"><a routerLink="/process">Proceso</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Editar proceso</li>
+            <li class="breadcrumb-item active"><a routerLink="/status">Estado</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Crear estado</li>
 
 
         </ol>
@@ -16,7 +16,7 @@
             </svg>
 
         </a> -->
-        <h3 style="margin-left: 28px; margin-top: 8px;" class="sub-title"> Editar proceso </h3>
+        <h3 style="margin-left: 28px; margin-top: 8px;" class="sub-title"> Crear estado </h3>
     </div>
     <!-- <mat-card >
         <ng-container ktPortletTitle>
@@ -32,7 +32,7 @@
 
 <body>
 
-    <form [formGroup]="FormProcess" novalidate>
+    <form [formGroup]="FormStatus" novalidate>
         <div class="row information">
             <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
                 <mat-form-field appearance="outline" class="form-field">
@@ -53,8 +53,8 @@
                         Regresar
                     </button>
 
-                    <button mat-raised-button class="btn-primary " (click)="editProcess(FormProcess)"
-                        [disabled]="FormProcess.invalid">
+                    <button mat-raised-button class="btn-primary " (click)="createStatus(FormStatus)"
+                        [disabled]="FormStatus.invalid">
                         <span class="spinner-border spinner-border-sm" *ngIf="showSpinner" role="status"
                             aria-hidden="true"></span>
                         Guardar

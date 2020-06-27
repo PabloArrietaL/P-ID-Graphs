@@ -4,8 +4,8 @@ import {
     Validators
 } from '@angular/forms';
 
-export class ProcessModel {
-    ProcessModel() {
+export class StatusModel {
+    StatusModel() {
         return new FormGroup({
 
           id: new FormControl(''),

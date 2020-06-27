@@ -10,9 +10,8 @@ export class RelationModel {
 
             id: new FormControl(''),
             process: new FormControl('', {
-                validators: [Validators.required, Validators.nullValidator]
             }),
-            element_source: new FormControl('', {
+            element_source: new FormControl({value: '', disabled: false}, {
                 validators: [Validators.required, Validators.nullValidator]
             }),
             element_target: new FormControl({value: '', disabled: true}, {

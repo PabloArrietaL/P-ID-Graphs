@@ -13,20 +13,26 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ViewElementComponent implements OnInit {
 
   public api = environment.api;
+  public Name =true;
+    public Desc =true;
+        public IMG =true;
+
 
   constructor(
            private router: Router,
         private activatedroute: ActivatedRoute,
         public service: ElementService,
 
-    // public dialogRef: MatDialogRef<ViewElementComponent>,
-    // @Inject(MAT_DIALOG_DATA) public data: Eleme
+    
     ) { }
 
   ngOnInit(): void {
       if (this.service.ID === undefined) {
       this.goBack();
-      
+      this.Name=false;
+      this.Desc=false;
+      this.IMG=false;
+
     }
   }
 public goBack() {

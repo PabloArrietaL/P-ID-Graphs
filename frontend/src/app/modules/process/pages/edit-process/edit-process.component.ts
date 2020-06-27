@@ -2,10 +2,9 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ProcessModel } from '@data/models/process.model';
 import { environment } from '@env/environment';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Process } from '@data/schema/process.interface';
 import { ToastrService } from 'ngx-toastr';
 import { ProcessService } from '@data/service/process.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-edit-process',
@@ -19,30 +18,40 @@ export class EditProcessComponent implements OnInit {
   public api = environment.api;
 
   constructor(
-    private dialogRef: MatDialogRef<EditProcessComponent>,
     private service: ProcessService,
+            private router: Router,
+        private activatedroute: ActivatedRoute,
     private toast: ToastrService,
-    @Inject(MAT_DIALOG_DATA) public data: Process) { }
+   ) { }
 
   ngOnInit(): void {
+
+
+      if (this.service.IDP === undefined) {
+      this.goBack();
+      
+    }else{
     this.FormProcess.setValue({
-      id: this.data.id,
-      name: this.data.name,
-      description: this.data.description
+      id: this.service.IDP.id,
+      name: this.service.IDP.name,
+      description: this.service.IDP.description
     });
   }
-
+  }
+public goBack() {
+    this.router.navigateByUrl('/process', { relativeTo: this.activatedroute });
+  }
   editProcess(form: FormGroup) {
 
     const url = `${this.api}process`;
-
+  
     if (!form.invalid) {
       this.showSpinner = true;
       this.service.edit(url, form.value).subscribe(
         response => {
           this.toast.success('Proceso editado correctamente', 'Éxito');
           this.showSpinner = false;
-          this.dialogRef.close(response);
+          this.goBack();
         },
         error => {
           this.showSpinner = false;

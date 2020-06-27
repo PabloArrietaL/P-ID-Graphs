@@ -1,24 +1,24 @@
 import { Injectable } from '@angular/core';
+import { Status } from '@data/schema/element.interface';
 import { HttpClient } from '@angular/common/http';
-import { Process } from '@data/schema/process.interface';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ProcessService {
-public IDP : Process;
+export class StatusService {
+public ID : Status;
 
   constructor(private http: HttpClient) { }
 
   getAll(url: string) {
-    return this.http.get<Array<Process>>(url);
+    return this.http.get<Array<Status>>(url);
   }
 
-  create(url: string, data: Process) {
+  create(url: string, data: Status) {
     return this.http.post(url, data);
   }
 
-  edit(url: string, data: Process) {
+  edit(url: string, data: Status) {
     const path = `${url}/${data.id}`;
     return this.http.put(path, data);
   }

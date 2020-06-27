@@ -2,9 +2,9 @@ export interface Element {
     id?: number;
     name: string;
     description?: string;
-    first_status: string;
-    second_status: string;
-    third_status?: string;
+    first_status: Status;
+    second_status: Status;
+    third_status?: Status;
     initial_condition: string;
     type: string;
     img?: string;
@@ -15,4 +15,12 @@ interface Behavior {
     element: Element;
     from_status: string;
     to_status: string;
+}
+
+export interface Status {
+    id?: number;
+    name: string;
+    description?: string;
+   
+    
 }

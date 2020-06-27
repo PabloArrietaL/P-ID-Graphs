@@ -3,14 +3,25 @@ import { Routes, RouterModule } from '@angular/router';
 import { ProcessesComponent } from './pages/processes/processes.component';
 import { EditProcessComponent } from './pages/edit-process/edit-process.component';
 import { CreateProcessComponent } from './pages/create-process/create-process.component';
+import { RelationsComponent } from './pages/relation/relations/relations.component';
 
 
-const routes: Routes = [{
+const routes: Routes = [
+
+{
+    path: 'process',
+    redirectTo: '',
+    pathMatch: 'full'
+},
 
 
-  path: '',
-  component: ProcessesComponent,
-  children: [
+  {
+    path: '',
+    children: [
+       {
+            path: '',
+            component: ProcessesComponent
+        },
     {
       path: 'add',
       component: CreateProcessComponent
@@ -19,6 +30,10 @@ const routes: Routes = [{
       path: 'edit',
       component: EditProcessComponent
     },
+    //     {
+    //   path: 'relation',
+    //   component: RelationsComponent
+    // },
     {
       path: 'details',
         loadChildren: () =>

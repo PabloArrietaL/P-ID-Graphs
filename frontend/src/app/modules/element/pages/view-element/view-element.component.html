@@ -30,19 +30,21 @@
     </mat-card> -->
 </div>
 
-
+<br>
 
 <div class="container pb-2">
-    <div class="row">
-        <div class=" image col-md-12 col-lg-6 pb-1">
-            <img [src]="api+'image/'+this.service.ID.img" alt="" srcset="">
-        </div>
-        <div class="col-md-12 col-lg-6">
-            <div class="title-image">
-                <h4>{{this.service.ID.name}}</h4>
+    <div class="row justify-content-center">
+     
+        <div class="col-lg-10">
+          <div  class="title-image">
+             <h4 *ngIf="this.Name===true" style="text-align: center">{{this.service.ID.name}}</h4>
             </div>
             <div class=description-image>
-                <p class="text-description">{{this.service.ID.description}}</p>
+                <p style="text-align: center" *ngIf="this.Desc===true" class="text-description ">{{this.service.ID.description}}</p>
+         <br>
+            </div>
+            <div class=" image col-md-12 col-lg-12 pb-2">
+                <img *ngIf="this.IMG===true" [src]="api+'image/'+this.service.ID.img" alt="" srcset="">
             </div>
         </div>
       
