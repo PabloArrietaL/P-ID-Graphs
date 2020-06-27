@@ -1,9 +1,11 @@
+import { IStatus } from "./IStatus";
+
 export interface IElement{
     id?: number;
     name: string;
-    first_status: string;
-    second_status: string;
-    third_status?: string;
+    first_status: IStatus;
+    second_status: IStatus;
+    third_status?: IStatus;
     initial_condition: string;
     type: string;
     description?: string;

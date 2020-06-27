@@ -7,27 +7,29 @@ import { Response } from "express";
 @Singleton
 export class RelationService {
 
-    createRelation(relation: IRelation, res: Response): Promise<Relation> | Response{
+    async createRelation(relation: IRelation, res: Response): Promise<void | (IRelation & Relation) | undefined>{
 
-        getRepository(Relation).createQueryBuilder("relation")
-        .where("relation.process = :process")
-        .andWhere(`(relation.element_source = :elementS AND relation.element_target = :elementT) OR 
-        (relation.element_source = :elementT AND relation.element_target = :elementS)`)
+        const query = await getRepository(Relation).createQueryBuilder("relation")
+        .where("relation.processId = :process")
+        .andWhere(`(relation.elementSourceId = :elementS AND relation.elementTargetId = :elementT) OR 
+        (relation.elementSourceId = :elementT AND relation.elementTargetId = :elementS)`)
         .setParameters({process: relation.process, elementS: relation.element_source, elementT: relation.element_target})
-        .getMany().then( data => {
-            if(data.length > 0) {
-                res.status(400).json({message: "Esta combinación de elementos ya se encuentra en el proceso"})
-            }
-        });
-        return getManager().getRepository(Relation).save(relation);
+        .getMany();
+
+        if (query.length == 0) {
+            return getManager().getRepository(Relation).save(relation);
+        } else {
+            res.status(400).json({message: "Esta combinación de elementos ya se encuentra en el proceso"})
+        }
+        
     }
 
-    async getAllRelationsByProcess(elementId: number): Promise<Relation[]> {
+    async getAllRelationsByProcess(processId: number): Promise<Relation[]> {
         const relations = await getRepository(Relation).createQueryBuilder("relation")
-        .where("relation.element_source = :element OR relation.element_target = :element")
+        .where("relation.process = :process")
         .leftJoinAndSelect("relation.element_source", "element_source")
         .leftJoinAndSelect("relation.element_target", "element_target")
-        .setParameters({element: elementId}).getMany();
+        .setParameters({process: processId}).getMany();
 
         return relations;
     }

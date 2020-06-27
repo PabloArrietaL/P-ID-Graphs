@@ -7,6 +7,7 @@ import { ProcessController } from './controllers/process.controller';
 import { ElementController } from './controllers/element.controller';
 import { RelationController } from './controllers/relation.controller';
 import { ImageController } from './controllers/image.controller';
+import { StatusController } from './controllers/status.controller';
 
 export class App {
 
@@ -53,7 +54,8 @@ export class App {
                 ProcessController,
                 ElementController,
                 RelationController,
-                ImageController
+                ImageController,
+                StatusController
             ] 
         });
     }
