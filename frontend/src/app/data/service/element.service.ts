@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Element } from '@data/schema/element.interface';
+import { Element, ElementEdit } from '@data/schema/element.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,7 @@ public ID : Element;
     return this.http.post(url, data);
   }
 
-  edit(url: string, data: Element) {
+  edit(url: string, data: ElementEdit) {
     const path = `${url}/${data.id}`;
     return this.http.put(path, data);
   }

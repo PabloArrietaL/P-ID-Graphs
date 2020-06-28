@@ -49,24 +49,36 @@
                     </mat-select>
                 </mat-form-field>
             </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
-                <mat-form-field appearance="outline" class="form-field">
-                    <mat-label>Primer estado</mat-label>
-                    <input matInput formControlName="first_status" autocomplete="off" />
-                </mat-form-field>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
-                <mat-form-field appearance="outline" class="form-field">
-                    <mat-label>Segundo estado</mat-label>
-                    <input matInput formControlName="second_status" autocomplete="off" />
-                </mat-form-field>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
-                <mat-form-field appearance="outline" class="form-field">
-                    <mat-label>Tercer estado estado</mat-label>
-                    <input matInput formControlName="third_status" autocomplete="off" />
-                </mat-form-field>
-            </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Primer estado</mat-label>
+                            <mat-select formControlName="first_status" >
+                                <mat-option [value]="statuss.id" *ngFor="let statuss of Status">
+                                    {{ statuss.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Segundo estado</mat-label>
+                            <mat-select formControlName="second_status" >
+                                <mat-option [value]="statuss.id" *ngFor="let statuss of Status">
+                                    {{ statuss.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
+                        <mat-form-field appearance="outline" class="form-field">
+                            <mat-label>Tercer estado</mat-label>
+                            <mat-select formControlName="third_status">
+                                <mat-option [value]="statuss.id" *ngFor="let statuss of Status">
+                                    {{ statuss.name }}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
             <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
                 <mat-form-field appearance="outline" class="form-field">
                     <mat-label>Condición inicial</mat-label>

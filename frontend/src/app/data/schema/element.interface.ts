@@ -9,6 +9,17 @@ export interface Element {
     type: string;
     img?: string;
 }
+export interface ElementEdit {
+    id?: number;
+    name: string;
+    description?: string;
+    first_status: number;
+    second_status: number;
+    third_status?: number;
+    initial_condition: string;
+    type: string;
+    img?: string;
+}
 
 interface Behavior {
     id?: number;
