@@ -1,6 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, JoinTable } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { Relation } from "./Relation";
-import { type } from "os";
 
 
 @Entity('Processes')
@@ -16,7 +15,6 @@ export class Process {
     public description!: string;
 
     @OneToMany(type => Relation, relation => relation.process, {onDelete: 'CASCADE'})
-    @JoinTable()
     public relations!: Relation[]
 
     @Column({type: 'datetime'})

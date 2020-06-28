@@ -10,15 +10,12 @@ export class Relation {
     public id!: number;
 
     @ManyToOne(type => Process, process => process.relations, {onDelete: 'CASCADE'})
-    @JoinColumn()
     public process!: Process;
 
     @ManyToOne(type => Element)
-    @JoinColumn()
     public element_source!: Element;
 
     @ManyToOne(type => Element)
-    @JoinColumn()
     public element_target!: Element;
 
     @Column({nullable: true})

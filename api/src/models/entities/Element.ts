@@ -1,9 +1,16 @@
-import { Entity, Column, PrimaryGeneratedColumn } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm";
+import { ElementDetails } from "./ElementDetails";
+import { Status } from "./Status";
 
 enum CONDITIONS {
     first_status = 'first_status',
     second_status = 'second_status',
     third_status = 'third_status'
+}
+
+enum TYPES {
+    actuator = 'actuator',
+    controlled = 'controlled'
 }
 
 @Entity('Elements')
@@ -12,22 +19,25 @@ export class Element {
     @PrimaryGeneratedColumn()
     public id!: number;
 
+    @OneToMany(type => ElementDetails, details => details.element, {onDelete: 'CASCADE'})
+    public details!: ElementDetails[]
+
     @Column({length: '45'})
     public name!: string;
 
-    @Column({length: '45'})
-    public first_status!: string;
+    @ManyToOne(type => Status, status => status.first)
+    public first_status!: Status;
 
-    @Column({length: '45'})
-    public second_status!: string;
+    @ManyToOne(type => Status, status => status.second)
+    public second_status!: Status;
 
-    @Column({nullable: true, length: '45'})
-    public third_status!: string;
+    @ManyToOne(type => Status, status => status.thid)
+    public third_status!: Status;
 
     @Column({type: 'enum', enum: CONDITIONS})
     public initial_condition!: string;
 
-    @Column({length: '15'})
+    @Column({type: 'enum', enum: TYPES})
     public type!: string;
 
     @Column({nullable: true})

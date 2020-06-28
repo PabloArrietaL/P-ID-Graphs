@@ -1,4 +1,4 @@
-import { getManager, UpdateResult, DeleteResult } from "typeorm";
+import { getManager, UpdateResult, DeleteResult, DeepPartial, getRepository } from "typeorm";
 import { Element } from '../models/entities/Element';
 import { Singleton, Container } from "typescript-ioc";
 import { IElement } from "../models/interfaces/IElement";
@@ -16,7 +16,7 @@ export class ElementService {
         this.relationService = Container.get(RelationService);
     }
 
-    createElement(element: IElement, file: any, res: Response): Response | Promise<Element> {
+    createElement(element: IElement, file: any, res: Response): Response | Promise<IElement & Element> {
 
         const toSaveElement: IElement = _.pick(element, [
             "name",
@@ -48,8 +48,14 @@ export class ElementService {
 
     }
 
-    getAllElements(): Promise<Element[]> {
-        return getManager().getRepository(Element).find()
+    async getAllElements(): Promise<Element[]> {
+        const query = await getRepository(Element).createQueryBuilder("element")
+        .leftJoinAndSelect("element.first_status", "first_status")
+        .leftJoinAndSelect("element.second_status", "second_status")
+        .leftJoinAndSelect("element.third_status", "third_status")
+        .getMany();
+        
+        return query;
     }
 
     getByName(name: string) {
@@ -58,6 +64,19 @@ export class ElementService {
                 name: name
             }
         });
+    }
+
+    async getById(id: number) {
+        const query = await getRepository(Element).createQueryBuilder("element")
+        .where("element.id = :id")
+        .leftJoinAndSelect("element.details","details")
+        .leftJoinAndSelect("element.first_status", "first_status")
+        .leftJoinAndSelect("element.second_status", "second_status")
+        .leftJoinAndSelect("element.third_status", "third_status")
+        .setParameter('id', id)
+        .getMany();
+        
+        return query;
     }
 
     updateElement(id: number, element: IElement): Promise<UpdateResult> {
