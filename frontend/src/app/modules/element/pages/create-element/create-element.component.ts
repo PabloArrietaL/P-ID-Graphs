@@ -88,6 +88,7 @@ public goBack() {
     this.service.getAll(`${this.api}status`).subscribe(
       response => {
         this.Status = response;
+        
       },
       error => {
         this.toast.error(error.error.message, 'Error');
@@ -97,6 +98,7 @@ public goBack() {
 
     filterStatus2(status: Status) {
     this.secondStatus = this.Status.filter((x: Status) => x.id !== +status.id);
+    this.thirdStatus = this.Status.filter((x: Status) => x.id !== +status.id);
 
     this.FormElement.get('second_status').enable();
   }
@@ -106,8 +108,13 @@ public goBack() {
     this.thirdStatus = this.Status.filter((x: Status) => x.id !== +status.id);
     this.thirdStatus = this.secondStatus.filter((x: Status) => x.id !== +status.id);
     this.thirdStatusFinal=this.thirdStatus;
+    if (this.thirdStatusFinal===this.Status) {
+          this.FormElement.get('first_status').enable();
+
+    }
     this.FormElement.get('third_status').enable();
   }
+
 
 
 }
