@@ -8,6 +8,7 @@ import { ElementController } from './controllers/element.controller';
 import { RelationController } from './controllers/relation.controller';
 import { ImageController } from './controllers/image.controller';
 import { StatusController } from './controllers/status.controller';
+import { DetailController } from './controllers/detail.controller';
 
 export class App {
 
@@ -55,7 +56,8 @@ export class App {
                 ElementController,
                 RelationController,
                 ImageController,
-                StatusController
+                StatusController,
+                DetailController
             ] 
         });
     }

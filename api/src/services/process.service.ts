@@ -1,4 +1,4 @@
-import {getManager, UpdateResult, DeleteResult} from "typeorm";
+import {getManager, UpdateResult } from "typeorm";
 import { Process } from "../models/entities/Process";
 import { Singleton } from "typescript-ioc";
 import { IProcess } from "../models/interfaces/IProcess";

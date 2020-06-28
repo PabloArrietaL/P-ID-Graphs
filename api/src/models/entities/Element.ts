@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm";
-import { ElementDetails } from "./ElementDetails";
+import { ElementDetails } from "./Detail";
 import { Status } from "./Status";
 
 enum CONDITIONS {
