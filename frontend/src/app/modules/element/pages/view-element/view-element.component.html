@@ -45,6 +45,8 @@
             </div>
             <div class=" image col-md-12 col-lg-12 pb-2">
                 <img *ngIf="this.IMG===true" [src]="api+'image/'+this.service.ID.img" alt="" srcset="">
+                <h3 *ngIf="this.IMG===false" style="text-align: center">El elemento no tiene imagen</h3>
+
             </div>
         </div>
       

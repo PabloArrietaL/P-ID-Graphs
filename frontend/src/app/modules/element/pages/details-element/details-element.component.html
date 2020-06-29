@@ -1,1 +1,87 @@
-<p>details-element works!</p>
+<div class="mt-2">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a routerLink="/home">Inicio</a></li>
+            <li class="breadcrumb-item active"><a routerLink="/element">Elementos</a></li>
+            <li class="breadcrumb-item active" aria-current="page">Detalle elemento</li>
+
+
+        </ol>
+    </nav>
+    <div style="display: flex; ">
+        <!-- <a (click)="goBack()" style="cursor: pointer; margin-top: 4px;"><svg xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24" fill="#444044" width="18px" height="18px">
+                <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z" />
+                <path d="M0 0h24v24H0z" fill="none" />
+            </svg>
+
+        </a> -->
+        <h3 style="margin-left: 28px; margin-top: 8px;" class="sub-title"> Detalle elemento </h3>
+    </div>
+    <body>
+        <br>
+    
+<table  class="egt">
+
+    <tr>
+
+        <th *ngIf="this.Name===true" scope="row">{{this.service.ID.name}}</th>
+
+        <th *ngIf="this.Fstatus===true">{{this.service.ID.first_status.name}}</th>
+
+        <th *ngIf="this.Sstatus===true">{{this.service.ID.second_status.name}}</th>
+
+        <th *ngIf="this.service.ID.third_status!==null && this.Tstatus===true">{{this.service.ID.third_status.name}}</th>
+
+    </tr>
+
+    <tr>
+
+        <th>{{this.service.ID.first_status.name}}</th>
+
+        <td><input disabled type="checkbox" name="estado1-estado1" value="estado1-estado1" >  <br></td>
+
+        <td><input  type="checkbox" name="estado1estado2" value="estado1estado2" >  <br> </td>
+
+        <td><input type="checkbox" name="estado1estado3" value="estado1estado3" >  <br> </td>
+
+    </tr>
+
+    <tr>
+
+        <th>{{this.service.ID.second_status.name}}</th>
+
+        <td ><input type="checkbox" name="estado2estado1" value="estado2estado1" >  <br></td>
+
+        <td><input disabled type="checkbox" name="estado2estado2" value="estado2estado2">  <br></td>
+
+        <td><input type="checkbox" name="estado2estado3" value="estado2estado3" >  <br></td>
+
+    </tr>
+
+    <tr>
+
+        <th *ngIf="this.service.ID.third_status!==null && this.Tstatus===true">{{this.service.ID.third_status.name}}</th>
+
+        <td><input type="checkbox" name="estado3estado1" value="estado3estado1" ><br></td>
+
+        <td><input type="checkbox" name="estado3estado2" value="estado3estado2" >  <br></td>
+
+        <td><input disabled type="checkbox" name="estado3estado3" value="estado3estado3" >  <br></td>
+
+    </tr>
+
+</table>
+<div class="col-lg-12 col-md-12 col-sm-12 mt-2 save">
+    <div class="example-button-row">
+        <button mat-button (click)="goBack()" class="btn-light button-modal">
+            Regresar
+        </button>
+<!-- 
+        <button mat-raised-button class="btn-primary " 
+            >
+            <span class="spinner-border spinner-border-sm" *ngIf="showSpinner" role="status" aria-hidden="true"></span>
+            Guardar
+        </button> -->
+    </div>
+</div></body>

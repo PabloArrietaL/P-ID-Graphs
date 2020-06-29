@@ -21,11 +21,11 @@ export interface ElementEdit {
     img?: string;
 }
 
-interface Behavior {
+export interface elementDetails {
     id?: number;
-    element: Element;
-    from_status: string;
-    to_status: string;
+    element: number;
+    status_source: number;
+    status_target: number;
 }
 
 export interface Status {

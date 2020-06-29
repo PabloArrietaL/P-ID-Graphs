@@ -34,6 +34,11 @@ export class ViewElementComponent implements OnInit {
       this.IMG=false;
 
     }
+     if (this.service.ID.img === null) {
+      this.IMG=false;
+
+    }
+    
   }
 public goBack() {
     this.router.navigateByUrl('/element', { relativeTo: this.activatedroute });

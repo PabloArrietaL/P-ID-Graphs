@@ -55,4 +55,23 @@ export class ElementModel {
             img: new FormControl(null)
         });
     }
+     FormElementDetails() {
+        return new FormGroup({
+
+            // id: new FormControl(''),
+            estado1estado2: new FormControl('', {
+            }),
+
+                  estado1estado3: new FormControl('', {
+            }), 
+                 estado2estado1: new FormControl('', {
+            }), 
+                  estado2estado3: new FormControl('', {
+            }), 
+                  estado3estado1: new FormControl('', {
+            }), 
+                  estado3estado2: new FormControl('', {
+            }),    
+        });
+    }
 }
