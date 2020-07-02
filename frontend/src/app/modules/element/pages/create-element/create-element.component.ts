@@ -51,6 +51,32 @@ public goBack() {
     type:  form.value.type,
     img:  form.value.img,
     }
+     const ELEMENTOWT:Element={
+      // id:this.service.ID.id,
+        // id?: string;
+    name:  form.value.name,
+    description:  form.value.description,
+    first_status:  form.value.first_status.id,
+    second_status:  form.value.second_status.id,
+    third_status:  null,
+    initial_condition:  form.value.initial_condition,
+    type:  form.value.type,
+    img:  form.value.img,
+    }
+    if (form.value.third_status.id===undefined) {
+       this.showSpinner = true;
+      this.service.create(url, this.toFormData(ELEMENTOWT)).subscribe(
+        response => {
+          this.toast.success('Elemento creado correctamente', 'Éxito');
+          this.goBack();
+          this.showSpinner = false;
+        },
+        error => {
+          this.showSpinner = false;
+          this.toast.error(error.error.message, 'Error');
+        }
+      );
+    }else{
       this.showSpinner = true;
       this.service.create(url, this.toFormData(ELEMENTO)).subscribe(
         response => {
@@ -63,7 +89,7 @@ public goBack() {
           this.toast.error(error.error.message, 'Error');
         }
       );
-    }
+    }}
   }
 
   toFormData(formValue: Element) {

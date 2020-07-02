@@ -34,7 +34,13 @@ export class ElementsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getElements();
-  }
+    
+
+
+    }
+    
+  
+
 
   getElements() {
     this.showSpinner = true;
@@ -52,7 +58,11 @@ export class ElementsComponent implements OnInit {
       }
     );
   }
-
+  detailsE(id):void {
+    this.service.ID = id;
+    
+    this.router.navigate(['/element/details'], { relativeTo: this.activatedroute });
+  }
   openView(id) {
     this.service.ID = id;
     // console.log(  this.requirementService.IPreqI );
