@@ -31,7 +31,7 @@ export class Element {
     @ManyToOne(type => Status, status => status.second)
     public second_status!: Status;
 
-    @ManyToOne(type => Status, status => status.thid)
+    @ManyToOne(type => Status, status => status.thid, {nullable: true})
     public third_status!: Status;
 
     @Column({type: 'enum', enum: CONDITIONS})
