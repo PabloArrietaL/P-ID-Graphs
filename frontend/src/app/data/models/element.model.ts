@@ -10,7 +10,7 @@ export class ElementModel {
 
             id: new FormControl(''),
             name: new FormControl('', {
-                validators: [Validators.required, Validators.nullValidator,Validators.maxLength(45)]
+                validators: [Validators.required, Validators.nullValidator, Validators.maxLength(45)]
             }),
             description: new FormControl(''),
             first_status: new FormControl({value: '', disabled: false}, {
@@ -22,10 +22,10 @@ export class ElementModel {
              third_status: new FormControl({value: '', disabled: true}, {
             }),
             initial_condition: new FormControl('', {
-                validators: [Validators.required, Validators.nullValidator,Validators.maxLength(15)]
+                validators: [Validators.required, Validators.nullValidator, Validators.maxLength(15)]
             }),
             type: new FormControl('', {
-                validators: [Validators.required, Validators.nullValidator,Validators.maxLength(255)]
+                validators: [Validators.required, Validators.nullValidator, Validators.maxLength(255)]
             }),
             img: new FormControl(null)
         });
@@ -35,7 +35,7 @@ export class ElementModel {
 
             id: new FormControl(''),
             name: new FormControl('', {
-                validators: [Validators.required, Validators.nullValidator,Validators.maxLength(45)]
+                validators: [Validators.required, Validators.nullValidator, Validators.maxLength(45)]
             }),
             description: new FormControl(''),
             first_status: new FormControl({value: '', disabled: true}, {
@@ -47,10 +47,10 @@ export class ElementModel {
              third_status: new FormControl({value: '', disabled: true}, {
             }),
             initial_condition: new FormControl('', {
-                validators: [Validators.required, Validators.nullValidator,Validators.maxLength(15)]
+                validators: [Validators.required, Validators.nullValidator, Validators.maxLength(15)]
             }),
             type: new FormControl('', {
-                validators: [Validators.required, Validators.nullValidator,Validators.maxLength(255)]
+                validators: [Validators.required, Validators.nullValidator, Validators.maxLength(255)]
             }),
             img: new FormControl(null)
         });
@@ -63,15 +63,15 @@ export class ElementModel {
             }),
 
                   estado1estado3: new FormControl('', {
-            }), 
+            }),
                  estado2estado1: new FormControl('', {
-            }), 
+            }),
                   estado2estado3: new FormControl('', {
-            }), 
+            }),
                   estado3estado1: new FormControl('', {
-            }), 
+            }),
                   estado3estado2: new FormControl('', {
-            }),    
+            })
         });
     }
 }

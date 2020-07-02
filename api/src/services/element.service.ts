@@ -16,7 +16,7 @@ export class ElementService {
         this.relationService = Container.get(RelationService);
     }
 
-    createElement(element: IElement, file: any, res: Response): Response | Promise<IElement & Element> {
+    createElement({ element, file, res }: { element: IElement; file: any; res: Response; }): Response | Promise<Response<any>|(IElement & Element)> {
 
         const toSaveElement: IElement = _.pick(element, [
             "name",
@@ -44,7 +44,14 @@ export class ElementService {
         }
         toSaveElement.created_date = new Date();
 
-        return getManager().getRepository(Element).save(toSaveElement);
+        console.log(toSaveElement);
+
+        return getManager().getRepository(Element).save(toSaveElement).then( data => {
+            return data
+        }).catch( error => {
+            fs.unlink(file.path);
+            return res.status(400).json({message: 'Ha ocurrido un error', data: error});
+        });
 
     }
 

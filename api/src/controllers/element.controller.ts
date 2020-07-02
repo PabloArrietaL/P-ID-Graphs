@@ -5,7 +5,6 @@ import { IElement } from "../models/interfaces/IElement";
 import path from "path";
 import multer from "multer";
 import { Response } from "express";
-import fs from "fs-extra";
 
 
 export const fileUploadOptions =  {
@@ -42,7 +41,7 @@ export class ElementController {
 
     @Post("/element")
     async post(@UploadedFile("img", {options: fileUploadOptions}) file: any, @Body() element: IElement,@Res() res: Response) {
-        const data = await this.dataService.elementService.createElement(element, file, res);
+        const data = await this.dataService.elementService.createElement({ element, file, res });
         return data;
     }
 
