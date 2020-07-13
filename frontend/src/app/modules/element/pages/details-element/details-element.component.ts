@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { FormGroup } from '@angular/forms';
 import { ElementModel } from '@data/models/element.model';
 import { environment } from '@env/environment';
-import { elementDetails } from '@data/schema/element.interface';
+import { ElementDetail } from '@data/schema/element.interface';
 import { ElementDetailsService } from '@data/service/element-details.service';
 
 @Component({
@@ -52,12 +52,14 @@ export class DetailsElementComponent implements OnInit {
     const url = `${this.api}element-details`;
 
 
-    const ELEMENTD: elementDetails = {
+    const ELEMENTD: ElementDetail = {
       // id:this.service.ID.id,
       element: this.service.ID.id,
       status_source: this.service.ID.first_status.id,
       status_target: this.service.ID.second_status.id,
     };
+
+
     this.showSpinner = true;
     this.serviceD.create(url, ELEMENTD).subscribe(
       response => {
@@ -78,7 +80,7 @@ export class DetailsElementComponent implements OnInit {
     const url = `${this.api}element-details`;
 
 
-    const ELEMENTD: elementDetails = {
+    const ELEMENTD: ElementDetail = {
       // id:this.service.ID.id,
       element: this.service.ID.id,
       status_source: this.service.ID.first_status.id,
@@ -104,7 +106,7 @@ export class DetailsElementComponent implements OnInit {
     const url = `${this.api}element-details`;
 
 
-    const ELEMENTD: elementDetails = {
+    const ELEMENTD: ElementDetail = {
       // id:this.service.ID.id,
       element: this.service.ID.id,
       status_source: this.service.ID.second_status.id,
@@ -128,7 +130,7 @@ export class DetailsElementComponent implements OnInit {
     const url = `${this.api}element-details`;
 
 
-    const ELEMENTD: elementDetails = {
+    const ELEMENTD: ElementDetail = {
       // id:this.service.ID.id,
       element: this.service.ID.id,
       status_source: this.service.ID.second_status.id,
@@ -152,7 +154,7 @@ export class DetailsElementComponent implements OnInit {
     const url = `${this.api}element-details`;
 
 
-    const ELEMENTD: elementDetails = {
+    const ELEMENTD: ElementDetail = {
       // id:this.service.ID.id,
       element: this.service.ID.id,
       status_source: this.service.ID.third_status.id,
@@ -176,7 +178,7 @@ export class DetailsElementComponent implements OnInit {
     const url = `${this.api}element-details`;
 
 
-    const ELEMENTD: elementDetails = {
+    const ELEMENTD: ElementDetail = {
       // id:this.service.ID.id,
       element: this.service.ID.id,
       status_source: this.service.ID.third_status.id,

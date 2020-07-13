@@ -1,9 +1,10 @@
 import { IElement } from "./IElement";
 import { IStatus } from "./IStatus";
 
-export interface IElementDetails{
+export interface IElementDetail{
     id?: number;
     element: IElement;
-    status_source: IStatus;
-    status_target: IStatus;
+    first_status: object;
+    second_status: object;
+    third_status?: object;
 }

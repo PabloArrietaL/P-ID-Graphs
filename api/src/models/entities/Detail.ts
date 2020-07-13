@@ -1,20 +1,23 @@
-import { Entity, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, OneToOne, Column } from "typeorm";
 import { Element } from "./Element";
-import { Status } from "./Status";
 
 
 @Entity('Element_Details')
-export class ElementDetails {
+export class ElementDetail {
 
     @PrimaryGeneratedColumn()
     public id!: number;
 
-    @ManyToOne(type => Element, element => element.details, {onDelete: 'CASCADE'})
+    @OneToOne(type => Element, element => element.detail, {onDelete: 'CASCADE'})
     public element!: Element;
 
-    @ManyToOne(type => Status, status => status.id)
-    public status_source!: Status;
+    @Column({type: 'json'})
+    public first_status!: object;
 
-    @ManyToOne(type => Status, status => status.id)
-    public status_target!: Status;
+    @Column({type: 'json'})
+    public second_status!: object;
+
+    @Column({type: 'json', nullable: true})
+    public third_status!: object;
+
 }

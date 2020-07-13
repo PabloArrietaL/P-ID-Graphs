@@ -6,7 +6,7 @@ import { Element, ElementEdit } from '@data/schema/element.interface';
   providedIn: 'root'
 })
 export class ElementService {
-public ID : Element;
+  public ID: Element;
   constructor(private http: HttpClient) { }
 
   getAll(url: string) {

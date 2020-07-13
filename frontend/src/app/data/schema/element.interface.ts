@@ -21,7 +21,7 @@ export interface ElementEdit {
     img?: string;
 }
 
-export interface elementDetails {
+export interface ElementDetail {
     id?: number;
     element: number;
     status_source: number;
@@ -32,6 +32,4 @@ export interface Status {
     id?: number;
     name: string;
     description?: string;
-   
-    
 }

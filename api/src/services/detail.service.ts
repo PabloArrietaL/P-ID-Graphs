@@ -1,29 +1,73 @@
-import { getManager } from "typeorm";
-import { ElementDetails } from "../models/entities/Detail";
+import { getManager, UpdateResult } from "typeorm";
+import { ElementDetail } from "../models/entities/Detail";
 import { Singleton } from "typescript-ioc";
-import { IElementDetails } from "../models/interfaces/IDetail";
-import { Response } from "express";
+import { IElementDetail } from "../models/interfaces/IDetail";
+import { IElement } from "../models/interfaces/IElement";
 
 @Singleton 
 export class ElementDetailService{
-    
-    createDetail(detail: IElementDetails): Promise<ElementDetails>{
-        return getManager().getRepository(ElementDetails).save(detail);
-    }
 
-    getAllDetails(id: number): Promise<ElementDetails[]>{        
-        return getManager().getRepository(ElementDetails).find({
-            where: {
-                element: id
+    async createDetail(element: IElement): Promise<ElementDetail>{
+
+        const detail: IElementDetail = {
+            element: element,
+            first_status: {},
+            second_status: {}
+        };
+
+
+        if(element.third_status !== undefined) {
+            detail.first_status = {
+                second_status: {
+                    checked: false,
+                    status: {}
+                },
+                third_status: {
+                    checked: false,
+                    status: {}
+                }
+            },
+            detail.second_status = {
+                first_status: {
+                    checked: false,
+                    status: {}
+                },
+                third_status: {
+                    checked: false,
+                    status: {}
+                }
+            },
+            detail.third_status = {
+                first_status: {
+                    checked: false,
+                    status: {}
+                },
+                second_status: {
+                    checked: false,
+                    status: {}
+                }
             }
-        })
-    }
+        } else {
+            detail.first_status = {
+                second_status: {
+                    checked: false,
+                    status: {}
+                }
+            },
+            detail.second_status = {
+                first_status: {
+                    checked: false,
+                    status: {}
+                }
+            }
+        }
 
-    deleteDetail(id: number, res: Response): Promise<Response> | Response{
-        return getManager().getRepository(ElementDetails).delete({ id: id}).then( data => {
-            return res.status(200).json({ message: 'Detalle eliminado'});
-        }).catch( error => {
-            return res.status(500).json({ message: 'Ha ocurrido un error', data: error});
-        });
+        const data = await getManager().getRepository(ElementDetail).save(detail);
+        return data;
     }
+    
+    updateDetail(id: number, detail: IElementDetail): Promise<UpdateResult> {
+        return getManager().getRepository(ElementDetail).update({ id: id }, detail);
+    }
+    
 }

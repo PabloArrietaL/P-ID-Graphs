@@ -7,16 +7,20 @@ import { Response } from "express";
 import _ from "underscore";
 import { RelationService } from "./relation.service";
 import path from "path";
+import { ElementDetailService } from "./detail.service";
 
 @Singleton
 export class ElementService {
 
     public relationService: RelationService;
+    public detail: ElementDetailService;
+
     constructor() {
         this.relationService = Container.get(RelationService);
+        this.detail = Container.get(ElementDetailService);
     }
 
-    createElement({ element, file, res }: { element: IElement; file: any; res: Response; }): Response | Promise<Response<any>|(IElement & Element)> {
+    async createElement({ element, file, res }: { element: IElement; file: any; res: Response; }): Promise<Response<any>|(IElement & Element)|UpdateResult> {
 
         const toSaveElement: IElement = _.pick(element, [
             "name",
@@ -44,10 +48,11 @@ export class ElementService {
         }
         toSaveElement.created_date = new Date();
 
-        console.log(toSaveElement);
+        return getManager().getRepository(Element).save(toSaveElement).then(  async data => {
 
-        return getManager().getRepository(Element).save(toSaveElement).then( data => {
-            return data
+            const detail =  await this.detail.createDetail(data);
+            data.detail = detail;
+            return this.updateElement(data.id, data);
         }).catch( error => {
             fs.unlink(file.path);
             return res.status(400).json({message: 'Ha ocurrido un error', data: error});
@@ -60,6 +65,7 @@ export class ElementService {
         .leftJoinAndSelect("element.first_status", "first_status")
         .leftJoinAndSelect("element.second_status", "second_status")
         .leftJoinAndSelect("element.third_status", "third_status")
+        .leftJoinAndSelect("element.detail", "detail")
         .getMany();
         
         return query;
@@ -76,7 +82,7 @@ export class ElementService {
     async getById(id: number) {
         const query = await getRepository(Element).createQueryBuilder("element")
         .where("element.id = :id")
-        .leftJoinAndSelect("element.details","details")
+        .leftJoinAndSelect("element.detail","detail")
         .leftJoinAndSelect("element.first_status", "first_status")
         .leftJoinAndSelect("element.second_status", "second_status")
         .leftJoinAndSelect("element.third_status", "third_status")

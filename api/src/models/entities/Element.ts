@@ -1,5 +1,5 @@
-import { Entity, Column, PrimaryGeneratedColumn, OneToMany, ManyToOne } from "typeorm";
-import { ElementDetails } from "./Detail";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn } from "typeorm";
+import { ElementDetail } from "./Detail";
 import { Status } from "./Status";
 
 enum CONDITIONS {
@@ -19,8 +19,9 @@ export class Element {
     @PrimaryGeneratedColumn()
     public id!: number;
 
-    @OneToMany(type => ElementDetails, details => details.element, {onDelete: 'CASCADE'})
-    public details!: ElementDetails[]
+    @OneToOne(type => ElementDetail, {onDelete: 'CASCADE', nullable: true})
+    @JoinColumn()
+    public detail!: ElementDetail;
 
     @Column({length: '45'})
     public name!: string;

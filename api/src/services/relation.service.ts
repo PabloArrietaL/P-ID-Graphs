@@ -1,4 +1,4 @@
-import { getManager, UpdateResult, DeleteResult, getRepository } from "typeorm";
+import { getManager, UpdateResult, getRepository } from "typeorm";
 import { Relation } from "../models/entities/Relation";
 import { Singleton } from "typescript-ioc";
 import { IRelation } from "../models/interfaces/IRelation";
