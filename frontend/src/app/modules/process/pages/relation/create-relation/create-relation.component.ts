@@ -6,7 +6,7 @@ import { RelationService } from '@data/service/relation.service';
 import { ToastrService } from 'ngx-toastr';
 import { ElementService } from '@data/service/element.service';
 import { Element } from '@data/schema/element.interface';
-import { Relation } from '@data/schema/process.interface';
+import { ProcessDetails } from '@data/schema/process.interface';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ProcessService } from '@data/service/process.service';
 
@@ -53,32 +53,32 @@ public goBack() {
     );
   }
 
-  createRelation(form: FormGroup) {
+//   createRelation(form: FormGroup) {
 
-    const url = `${this.api}relation`;
+//     const url = `${this.api}relation`;
 
-    if (!form.invalid) {
-         const RELATION:Relation={
-      // id:this.service.ID.id,
-        // id?: string;
-    process: this.serviceProcess.IDP.id,
-    element_source: form.value.element_source.id,
-    element_target: form.value.element_target.id,
-    description: form.value.description,
-    }
-      this.showSpinner = true;
-      this.service.create(url, RELATION).subscribe(
-        response => {
-          this.toast.success('Relación creada correctamente', 'Éxito');
-          this.showSpinner = false;
-this.goBack();        },
-        error => {
-          this.showSpinner = false;
-          this.toast.error(error.error.message, 'Error');
-        }
-      );
-    }
-  }
+//     if (!form.invalid) {
+//          const RELATION:ProcessDetails={
+//       // id:this.service.ID.id,
+//         // id?: string;
+//     process: this.serviceProcess.IDP.id,
+//     element_source: form.value.element_source.id,
+//     element_target: form.value.element_target.id,
+//     description: form.value.description,
+//     }
+//       this.showSpinner = true;
+//       this.service.create(url, RELATION).subscribe(
+//         response => {
+//           this.toast.success('Relación creada correctamente', 'Éxito');
+//           this.showSpinner = false;
+// this.goBack();        },
+//         error => {
+//           this.showSpinner = false;
+//           this.toast.error(error.error.message, 'Error');
+//         }
+//       );
+//     }
+//   }
 
   filterElement(element: Element) {
     this.elementsTarget = this.elements.filter( (x: Element) => x.id !== +element.id);

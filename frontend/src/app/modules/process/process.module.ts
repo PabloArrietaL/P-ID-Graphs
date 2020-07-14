@@ -9,6 +9,7 @@ import { ProcessesComponent } from './pages/processes/processes.component';
 import { CreateProcessComponent } from './pages/create-process/create-process.component';
 import { EditProcessComponent } from './pages/edit-process/edit-process.component';
 import { ViewProcessComponent } from './pages/view-process/view-process.component';
+import { AddElementComponent } from './pages/add-element/add-element.component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { ViewProcessComponent } from './pages/view-process/view-process.componen
     ProcessesComponent,
     CreateProcessComponent,
     EditProcessComponent,
-    ViewProcessComponent
+    ViewProcessComponent,
+    AddElementComponent
   ],
   imports: [
     ReactiveFormsModule,

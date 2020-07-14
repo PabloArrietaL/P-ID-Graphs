@@ -4,6 +4,7 @@ import { ProcessesComponent } from './pages/processes/processes.component';
 import { EditProcessComponent } from './pages/edit-process/edit-process.component';
 import { CreateProcessComponent } from './pages/create-process/create-process.component';
 import { RelationsComponent } from './pages/relation/relations/relations.component';
+import { AddElementComponent } from './pages/add-element/add-element.component';
 
 
 const routes: Routes = [
@@ -30,10 +31,10 @@ const routes: Routes = [
       path: 'edit',
       component: EditProcessComponent
     },
-    //     {
-    //   path: 'relation',
-    //   component: RelationsComponent
-    // },
+        {
+      path: 'detail',
+      component: AddElementComponent
+    },
     {
       path: 'details',
         loadChildren: () =>

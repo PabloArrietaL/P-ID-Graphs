@@ -39,7 +39,7 @@ export class EditRelationComponent implements OnInit {
       
     } else{
     this.getElements();
-    this.setFormData();
+    // this.setFormData();
     this.FormRelation.get('element_source').disable();
     this.FormRelation.get('element_target').disable();
     }
@@ -61,45 +61,45 @@ public goBack() {
     );
   }
 
-  setFormData() {
-    this.FormRelation.setValue({
-      id: this.service.ID.id,
-      process: this.serviceProcess.IDP.id,
-      element_source: this.service.ID.element_source.id,
-      element_target: this.service.ID.element_target.id,
-      description: this.service.ID.description
-    });
+//   setFormData() {
+//     this.FormRelation.setValue({
+//       id: this.service.ID.id,
+//       process: this.serviceProcess.IDP.id,
+//       element_source: this.service.ID.element_source.id,
+//       element_target: this.service.ID.element_target.id,
+//       description: this.service.ID.description
+//     });
     
-  }
-  // filterElement(element: Element) {
-  //   this.elementsTarget = this.elements.filter( (x: Element) => x.id !== +element.id);
-  //   // this.FormRelation.get('element_target').enable();
-  // }
-  editRelation(form: FormGroup) {
-    const url = `${this.api}relation`;
+//   }
+//   // filterElement(element: Element) {
+//   //   this.elementsTarget = this.elements.filter( (x: Element) => x.id !== +element.id);
+//   //   // this.FormRelation.get('element_target').enable();
+//   // }
+//   editRelation(form: FormGroup) {
+//     const url = `${this.api}relation`;
 
-    if (!form.invalid) {
-             const RELATION:RelationEdit={
-      id:this.service.ID.id,
-        // id?: string;
-    process: this.serviceProcess.IDP.id,
- element_source: this.service.ID.element_source.id,
-      element_target: this.service.ID.element_target.id,
-    description: form.value.description,
-    }
-      this.showSpinner = true;
-      this.service.edit(url, RELATION).subscribe(
-        response => {
-          this.toast.success('Relación editada correctamente', 'Éxito');
-          this.showSpinner = false;
-this.goBack();        },
-        error => {
-          this.showSpinner = false;
-          this.toast.error(error.error.message, 'Error');
-        }
-      );
-    }
+//     if (!form.invalid) {
+//              const RELATION:RelationEdit={
+//       id:this.service.ID.id,
+//         // id?: string;
+//     process: this.serviceProcess.IDP.id,
+//  element_source: this.service.ID.element_source.id,
+//       element_target: this.service.ID.element_target.id,
+//     description: form.value.description,
+//     }
+//       this.showSpinner = true;
+//       this.service.edit(url, RELATION).subscribe(
+//         response => {
+//           this.toast.success('Relación editada correctamente', 'Éxito');
+//           this.showSpinner = false;
+// this.goBack();        },
+//         error => {
+//           this.showSpinner = false;
+//           this.toast.error(error.error.message, 'Error');
+//         }
+//       );
+//     }
 
-  }
+//   }
 
 }

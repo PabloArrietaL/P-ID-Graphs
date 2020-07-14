@@ -11,10 +11,12 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatAutocompleteModule } from '@angular/material';
 
 @NgModule({
   exports: [
     MatDialogModule,
+     MatAutocompleteModule,
     MatButtonModule,
     MatCardModule,
     MatCheckboxModule,

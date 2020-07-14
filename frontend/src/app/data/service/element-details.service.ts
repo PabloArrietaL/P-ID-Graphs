@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Element, elementDetails } from '@data/schema/element.interface';
+import { Element, ElementDetail } from '@data/schema/element.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -9,10 +9,10 @@ export class ElementDetailsService {
 public IDED : Element;
   constructor(private http: HttpClient) { }
     getAll(url: string) {
-    return this.http.get<Array<elementDetails>>(url);
+    return this.http.get<Array<ElementDetail>>(url);
   }
 
-  create(url: string, data: elementDetails) {
+  create(url: string, data: ElementDetail) {
     return this.http.post(url, data);
   }
 

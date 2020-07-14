@@ -3,7 +3,7 @@ import { MatTableDataSource, MatPaginator, MatDialog, MatDialogConfig } from '@a
 import { environment } from '@env/environment';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
-import { Relation, Process } from '@data/schema/process.interface';
+import { ProcessDetails, Process } from '@data/schema/process.interface';
 import { RelationService } from '@data/service/relation.service';
 import { ProcessService } from '@data/service/process.service';
 
@@ -72,7 +72,7 @@ public goBack() {
     this.service.delete(`${this.api}relation`, id).subscribe(
       _ => {
         this.toast.success('Relación eliminada correctamente', 'Éxito');
-        const data = this.dataSource.data.filter( (x: Relation) => x.id !== id);
+        const data = this.dataSource.data.filter( (x: ProcessDetails) => x.id !== id);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
       },

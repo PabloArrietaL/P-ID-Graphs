@@ -4,7 +4,7 @@ import cytoscape from 'cytoscape';
 import dagre from 'cytoscape-dagre';
 import { RelationService } from '@data/service/relation.service';
 import { environment } from '@env/environment';
-import { Relation } from '@data/schema/process.interface';
+import { ProcessDetails } from '@data/schema/process.interface';
 import { ToastrService } from 'ngx-toastr';
 import { Element } from '@data/schema/element.interface';
 
@@ -19,7 +19,7 @@ export class ViewProcessComponent implements OnInit {
 
   public processId: string;
   public api = environment.api;
-  public data: Array<Relation> = [];
+  public data: Array<ProcessDetails> = [];
 
   public graphData = {
     nodes: [],
@@ -34,76 +34,76 @@ export class ViewProcessComponent implements OnInit {
 
   ngOnInit(): void {
     this.processId = this.actRoute.snapshot.params.id;
-    this.getEdges();
+    // this.getEdges();
   }
 
-  getEdges() {
-    this.service.getAll(`${this.api}relation/${this.processId}`).subscribe(
-      response => {
-        if (response.length > 0) {
-          this.data = response;
-          this.formatData();
-        }
-      },
-      _ => {
-        this.toast.error('No hay elementos asociados al proceso', 'Error');
-        this.route.navigate(['/processes']);
-      }
-    );
-  }
+  // getEdges() {
+  //   this.service.getAll(`${this.api}relation/${this.processId}`).subscribe(
+  //     response => {
+  //       if (response.length > 0) {
+  //         this.data = response;
+  //         this.formatData();
+  //       }
+  //     },
+  //     _ => {
+  //       this.toast.error('No hay elementos asociados al proceso', 'Error');
+  //       this.route.navigate(['/processes']);
+  //     }
+  //   );
+  // }
 
-  formatData() {
-    const nodes = [];
-    const noDuplicates = [];
-    this.data.forEach(node => {
-      nodes.push(node.element_source);
-      nodes.push(node.element_target);
-      this.graphData.edges.push({
-        data: { source: node.element_source.id, target: node.element_target.id }
-      });
-    });
-    nodes.forEach((element: Element) => {
-      const aux = noDuplicates.filter((x: Element) => x.id === element.id);
-      if (aux.length === 0) {
-        noDuplicates.push(element);
-        this.graphData.nodes.push({
-          data: { id: element.id, name: element.name }
-        });
-      }
-    });
+  // formatData() {
+  //   const nodes = [];
+  //   const noDuplicates = [];
+  //   this.data.forEach(node => {
+  //     nodes.push(node.element_source);
+  //     nodes.push(node.element_target);
+  //     this.graphData.edges.push({
+  //       data: { source: node.element_source.id, target: node.element_target.id }
+  //     });
+  //   });
+  //   nodes.forEach((element: Element) => {
+  //     const aux = noDuplicates.filter((x: Element) => x.id === element.id);
+  //     if (aux.length === 0) {
+  //       noDuplicates.push(element);
+  //       this.graphData.nodes.push({
+  //         data: { id: element.id, name: element.name }
+  //       });
+  //     }
+  //   });
 
-    const graph = cytoscape({
-      container: document.getElementById('cy'),
-      boxSelectionEnabled: false,
-      autounselectify: true,
-      elements: this.graphData,
-      style: [
-        {
-          selector: 'node',
-          style: {
-            'text-valign': 'center',
-            'text-halign': 'center',
-            'background-color': 'red',
-            'font-size': '6rem',
-            'font-family': 'Montserrat-ligth',
-            height: '12rem',
-            width: '15rem',
-            label: 'data(name)'
-          }
-        },
-        {
-          selector: 'edge',
-          css: {
-            'curve-style': 'bezier',
-            'target-arrow-shape': 'triangle'
-          }
-        }
-      ]
-    });
+  //   const graph = cytoscape({
+  //     container: document.getElementById('cy'),
+  //     boxSelectionEnabled: false,
+  //     autounselectify: true,
+  //     elements: this.graphData,
+  //     style: [
+  //       {
+  //         selector: 'node',
+  //         style: {
+  //           'text-valign': 'center',
+  //           'text-halign': 'center',
+  //           'background-color': 'red',
+  //           'font-size': '6rem',
+  //           'font-family': 'Montserrat-ligth',
+  //           height: '12rem',
+  //           width: '15rem',
+  //           label: 'data(name)'
+  //         }
+  //       },
+  //       {
+  //         selector: 'edge',
+  //         css: {
+  //           'curve-style': 'bezier',
+  //           'target-arrow-shape': 'triangle'
+  //         }
+  //       }
+  //     ]
+  //   });
 
-    graph.layout({
-      name: 'dagre'
-    }).run();
-  }
+  //   graph.layout({
+  //     name: 'dagre'
+  //   }).run();
+  // }
 
 }

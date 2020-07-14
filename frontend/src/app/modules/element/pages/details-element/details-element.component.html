@@ -43,7 +43,7 @@
 
         <td><input  type="checkbox" name="estado1estado2" value="estado1estado2" >  <br> </td>
 
-        <td><input type="checkbox" name="estado1estado3" value="estado1estado3" >  <br> </td>
+        <td *ngIf="this.service.ID.third_status!==null && this.Tstatus===true"><input type="checkbox" name="estado1estado3" value="estado1estado3" >  <br> </td>
 
     </tr>
 
@@ -55,7 +55,7 @@
 
         <td><input disabled type="checkbox" name="estado2estado2" value="estado2estado2">  <br></td>
 
-        <td><input type="checkbox" name="estado2estado3" value="estado2estado3" >  <br></td>
+        <td *ngIf="this.service.ID.third_status!==null && this.Tstatus===true"><input type="checkbox" name="estado2estado3" value="estado2estado3" >  <br></td>
 
     </tr>
 
@@ -63,11 +63,11 @@
 
         <th *ngIf="this.service.ID.third_status!==null && this.Tstatus===true">{{this.service.ID.third_status.name}}</th>
 
-        <td><input type="checkbox" name="estado3estado1" value="estado3estado1" ><br></td>
+        <td *ngIf="this.service.ID.third_status!==null && this.Tstatus===true"><input type="checkbox" name="estado3estado1" value="estado3estado1" > <br></td>
 
-        <td><input type="checkbox" name="estado3estado2" value="estado3estado2" >  <br></td>
+        <td *ngIf="this.service.ID.third_status!==null && this.Tstatus===true"><input type="checkbox" name="estado3estado2" value="estado3estado2" >  <br></td>
 
-        <td><input disabled type="checkbox" name="estado3estado3" value="estado3estado3" >  <br></td>
+        <td *ngIf="this.service.ID.third_status!==null && this.Tstatus===true"><input disabled type="checkbox" name="estado3estado3" value="estado3estado3" >  <br></td>
 
     </tr>
 

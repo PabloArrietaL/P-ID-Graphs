@@ -6,12 +6,11 @@ export interface Process {
     description?: string;
 }
 
-export interface Relation {
+export interface ProcessDetails {
     id?: string;
     process: number;
-    element_source: Element;
-    element_target: Element;
-    description?: string;
+    element: number;
+
 }
 
 
