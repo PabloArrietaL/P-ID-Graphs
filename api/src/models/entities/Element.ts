@@ -1,6 +1,7 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn } from "typeorm";
-import { ElementDetail } from "./Detail";
+import { Entity, Column, PrimaryGeneratedColumn, ManyToOne, OneToOne, JoinColumn, OneToMany } from "typeorm";
+import { ElementDetail } from "./ElementDetail";
 import { Status } from "./Status";
+import { ProcessDetail } from "./ProcessDetail";
 
 enum CONDITIONS {
     first_status = 'first_status',
@@ -22,6 +23,9 @@ export class Element {
     @OneToOne(type => ElementDetail, {onDelete: 'CASCADE', nullable: true})
     @JoinColumn()
     public detail!: ElementDetail;
+
+    @OneToMany(type => ProcessDetail, detail => detail.element)
+    public process_detail!: ProcessDetail;
 
     @Column({length: '45'})
     public name!: string;
