@@ -1,5 +1,5 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
-import { Relation } from "./Relation";
+import { ProcessDetail } from "./ProcessDetail";
 
 
 @Entity('Processes')
@@ -14,8 +14,8 @@ export class Process {
     @Column({nullable: true})
     public description!: string;
 
-    @OneToMany(type => Relation, relation => relation.process, {onDelete: 'CASCADE'})
-    public relations!: Relation[]
+    @OneToMany(type => ProcessDetail, detail => detail.process, {onDelete: 'CASCADE'})
+    public details!: ProcessDetail[]
 
     @Column({type: 'datetime'})
     public created_date!: Date;

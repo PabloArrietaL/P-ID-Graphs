@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryGeneratedColumn, ManyToOne } from "typeorm";
+import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { Element } from "./Element";
 
 @Entity('Statuses')
@@ -7,13 +7,13 @@ export class Status {
     @PrimaryGeneratedColumn()
     public id!: number;
 
-    @ManyToOne(type => Element, element => element.first_status)
+    @OneToMany(type => Element, element => element.first_status)
     public first!: Element;
 
-    @ManyToOne(type => Element, element => element.second_status)
+    @OneToMany(type => Element, element => element.second_status)
     public second!: Element;
 
-    @ManyToOne(type => Element, element => element.third_status)
+    @OneToMany(type => Element, element => element.third_status)
     public thid!: Element;
 
     @Column({length: '45', unique: true})

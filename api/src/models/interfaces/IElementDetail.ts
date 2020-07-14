@@ -1,5 +1,4 @@
 import { IElement } from "./IElement";
-import { IStatus } from "./IStatus";
 
 export interface IElementDetail{
     id?: number;

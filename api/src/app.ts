@@ -5,10 +5,10 @@ import { useExpressServer } from "routing-controllers";
 import {createConnection} from "typeorm";
 import { ProcessController } from './controllers/process.controller';
 import { ElementController } from './controllers/element.controller';
-import { RelationController } from './controllers/relation.controller';
 import { ImageController } from './controllers/image.controller';
 import { StatusController } from './controllers/status.controller';
-import { DetailController } from './controllers/detail.controller';
+import { ElementDetailController } from './controllers/element_detail.controller';
+import { ProcessDetailController } from './controllers/process_detail.controller';
 
 export class App {
 
@@ -54,10 +54,10 @@ export class App {
             controllers: [
                 ProcessController,
                 ElementController,
-                RelationController,
                 ImageController,
                 StatusController,
-                DetailController
+                ElementDetailController,
+                ProcessDetailController
             ] 
         });
     }

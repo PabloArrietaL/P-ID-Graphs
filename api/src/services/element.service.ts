@@ -5,18 +5,15 @@ import { IElement } from "../models/interfaces/IElement";
 import fs from 'fs-extra';
 import { Response } from "express";
 import _ from "underscore";
-import { RelationService } from "./relation.service";
 import path from "path";
-import { ElementDetailService } from "./detail.service";
+import { ElementDetailService } from "./element_detail.service";
 
 @Singleton
 export class ElementService {
 
-    public relationService: RelationService;
     public detail: ElementDetailService;
 
     constructor() {
-        this.relationService = Container.get(RelationService);
         this.detail = Container.get(ElementDetailService);
     }
 

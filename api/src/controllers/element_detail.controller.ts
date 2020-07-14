@@ -1,11 +1,11 @@
 import { Container } from "typescript-ioc";
 import { JsonController, Param, Body, Get, Post, Delete, Res, Put } from "routing-controllers";
 import { DataService } from "../services/data.service";
-import { IElementDetail } from "../models/interfaces/IDetail";
+import { IElementDetail } from "../models/interfaces/IElementDetail";
 
 
 @JsonController()
-export class DetailController {
+export class ElementDetailController {
 
     public dataService: DataService
 
