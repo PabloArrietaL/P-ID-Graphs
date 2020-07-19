@@ -73,7 +73,7 @@ export class ProcessesComponent implements OnInit {
   Relations(id):void {
     this.service.IDP = id;
     
-    this.router.navigate(['/process/detail'], { relativeTo: this.activatedroute });
+    this.router.navigate(['/process/tabs'], { relativeTo: this.activatedroute });
   }
   delete(id: number) {
     this.service.delete(`${this.api}process`, id).subscribe(

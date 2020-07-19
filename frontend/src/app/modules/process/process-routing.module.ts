@@ -5,6 +5,8 @@ import { EditProcessComponent } from './pages/edit-process/edit-process.componen
 import { CreateProcessComponent } from './pages/create-process/create-process.component';
 import { RelationsComponent } from './pages/relation/relations/relations.component';
 import { AddElementComponent } from './pages/add-element/add-element.component';
+import { ProcessDetailComponent } from './pages/process-detail/process-detail.component';
+import { TabsComponent } from './pages/tabs/tabs.component';
 
 
 const routes: Routes = [
@@ -32,8 +34,8 @@ const routes: Routes = [
       component: EditProcessComponent
     },
         {
-      path: 'detail',
-      component: AddElementComponent
+      path: 'tabs',
+      component: TabsComponent
     },
     {
       path: 'details',

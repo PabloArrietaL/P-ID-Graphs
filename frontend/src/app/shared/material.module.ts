@@ -11,7 +11,7 @@ import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { MatAutocompleteModule } from '@angular/material';
+import { MatAutocompleteModule, MatTabsModule } from '@angular/material';
 
 @NgModule({
   exports: [
@@ -29,7 +29,8 @@ import { MatAutocompleteModule } from '@angular/material';
     MatTableModule,
     MatTooltipModule,
     MatPaginatorModule,
-    MatTableModule
+    MatTableModule,
+    MatTabsModule
   ]
 })
 export class MaterialModule { }
