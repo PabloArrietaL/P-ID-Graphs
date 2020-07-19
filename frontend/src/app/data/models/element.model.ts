@@ -85,6 +85,7 @@ export class ElementModel {
                ],
              }),
              img: new FormControl(null),
+             
            });
          }
          FormElementDetailsWith3S() {
@@ -112,28 +113,20 @@ export class ElementModel {
            });
          }
 
-        //  FormElementDetails() {
-        //    return new FormGroup({
-        //      // id: new FormControl(''),
-        //      estado1estado2: new FormControl(false, {
-        //        validators: [Validators.nullValidator],
-        //      }),
+         FormElementDetailsWith2S() {
+           return new FormGroup({
+             // id: new FormControl(''),
+             estado1estado2: new FormControl(false, {
+               validators: [Validators.nullValidator],
+             }),
 
-        //      estado1estado3: new FormControl(false, {
-        //        validators: [Validators.nullValidator],
-        //      }),
-        //      estado2estado1: new FormControl(false, {
-        //        validators: [Validators.nullValidator],
-        //      }),
-        //      estado2estado3: new FormControl(false, {
-        //        validators: [Validators.nullValidator],
-        //      }),
-        //      estado3estado1: new FormControl(false, {
-        //        validators: [Validators.nullValidator],
-        //      }),
-        //      estado3estado2: new FormControl(false, {
-        //        validators: [Validators.nullValidator],
-        //      }),
-        //    });
-        //  }
+            
+             estado2estado1: new FormControl(false, {
+               validators: [Validators.nullValidator],
+             }),
+           
+       
+        
+           });
+         }
        }

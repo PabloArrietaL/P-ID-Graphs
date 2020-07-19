@@ -15,7 +15,9 @@ import { ElementDetailsService } from "@data/service/element-details.service";
 })
 export class DetailsElementComponent implements OnInit {
   public showSpinner = false;
-  public FormDetail = new ElementModel().FormElementDetailsWith3S();
+  public FormDetail3s = new ElementModel().FormElementDetailsWith3S();
+  public FormDetail2s = new ElementModel().FormElementDetailsWith2S();
+
   public api = environment.api;
   public Name = true;
   public Fstatus = true;
@@ -48,11 +50,19 @@ export class DetailsElementComponent implements OnInit {
       this.Sstatus = false;
       this.Tstatus = false;
 
-      if (this.service.ID.third_status === null) {
-        this.Tstatus = false;
-      }
     } else {
-      this.FormDetail.setValue({
+      console.log(this.service.ID.third_status);
+      
+      if (this.service.ID.third_status === null) {
+          this.FormDetail2s.setValue({
+            estado1estado2: this.service.ID.detail.first_status.second_status
+              .checked,
+
+            estado2estado1: this.service.ID.detail.second_status.first_status
+              .checked,
+          });
+      }else{
+      this.FormDetail3s.setValue({
         estado1estado2: this.service.ID.detail.first_status.second_status
           .checked,
         estado1estado3: this.service.ID.detail.first_status.third_status
@@ -66,6 +76,7 @@ export class DetailsElementComponent implements OnInit {
         estado3estado2: this.service.ID.detail.third_status.second_status
           .checked,
       });
+    }
     }
   }
   public goBack() {
@@ -83,25 +94,25 @@ export class DetailsElementComponent implements OnInit {
   }
 
   public Status1_2(cheked1_2: any) {
-    this.FormDetail.value.estado1estado2 = cheked1_2.checked;
+    this.FormDetail3s.value.estado1estado2 = cheked1_2.checked;
   }
 
   public Status1_3(cheked1_3: any) {
-    this.FormDetail.value.estado1estado3 = cheked1_3.checked;
+    this.FormDetail3s.value.estado1estado3 = cheked1_3.checked;
   }
   public Status2_1(cheked2_1: any) {
-    this.FormDetail.value.estado2estado1 = cheked2_1.checked;
+    this.FormDetail3s.value.estado2estado1 = cheked2_1.checked;
   }
 
   public Status2_3(cheked2_3: any) {
-    this.FormDetail.value.estado2estado3 = cheked2_3.checked;
+    this.FormDetail3s.value.estado2estado3 = cheked2_3.checked;
   }
   public Status3_1(cheked3_1: any) {
-    this.FormDetail.value.estado3estado1 = cheked3_1.checked;
+    this.FormDetail3s.value.estado3estado1 = cheked3_1.checked;
   }
 
   public Status3_2(cheked3_2: any) {
-    this.FormDetail.value.estado3estado2 = cheked3_2.checked;
+    this.FormDetail3s.value.estado3estado2 = cheked3_2.checked;
   }
   // Prueba() {
 
@@ -119,31 +130,31 @@ export class DetailsElementComponent implements OnInit {
   //       first_status: {
   //         second_status: {
   //           status: { id: this.service.ID.second_status.id },
-  //           checked: this.FormDetail.value.estado1estado2,
+  //           checked: this.FormDetail3s.value.estado1estado2,
   //         },
   //         third_status: {
   //           status: { id: this.service.ID.third_status.id },
-  //           checked: this.FormDetail.value.estado1estado3,
+  //           checked: this.FormDetail3s.value.estado1estado3,
   //         },
   //       },
   //       second_status: {
   //         first_status: {
   //           status: { id: this.service.ID.first_status.id },
-  //           checked: this.FormDetail.value.estado2estado1,
+  //           checked: this.FormDetail3s.value.estado2estado1,
   //         },
   //         third_status: {
   //           status: { id: this.service.ID.second_status.id },
-  //           checked: this.FormDetail.value.estado2estado3,
+  //           checked: this.FormDetail3s.value.estado2estado3,
   //         },
   //       },
   //       third_status: {
   //         first_status: {
   //           status: { id: this.service.ID.first_status.id },
-  //           checked: this.FormDetail.value.estado3estado1,
+  //           checked: this.FormDetail3s.value.estado3estado1,
   //         },
   //         second_status: {
   //           status: { id: this.service.ID.second_status.id },
-  //           checked: this.FormDetail.value.estado3estado2,
+  //           checked: this.FormDetail3s.value.estado3estado2,
   //         },
   //       },
   //     },
@@ -157,54 +168,103 @@ export class DetailsElementComponent implements OnInit {
     const url = `${this.api}element-details`;
 
     if (!form.invalid) {
-      const ELEMENTO: ElementDetail = {
-        //  id: this.service.ID.id,
-        // id?: string;
+ 
+          const ELEMENTOW2s: ElementDetail = {
+            //  id: this.service.ID.id,
+            // id?: string;
 
-        id: this.service.ID.detail.id,
-        first_status: {
-          second_status: {
-            status: { id: this.service.ID.second_status.id },
-            checked: this.FormDetail.value.estado1estado2,
-          },
-          third_status: {
-            status: { id: this.service.ID.third_status.id },
-            checked: this.FormDetail.value.estado1estado3,
-          },
-        },
-        second_status: {
-          first_status: {
-            status: { id: this.service.ID.first_status.id },
-            checked: this.FormDetail.value.estado2estado1,
-          },
-          third_status: {
-            status: { id: this.service.ID.second_status.id },
-            checked: this.FormDetail.value.estado2estado3,
-          },
-        },
-        third_status: {
-          first_status: {
-            status: { id: this.service.ID.first_status.id },
-            checked: this.FormDetail.value.estado3estado1,
-          },
-          second_status: {
-            status: { id: this.service.ID.second_status.id },
-            checked: this.FormDetail.value.estado3estado2,
-          },
-        },
-      };
-      this.service.Detail(url, ELEMENTO).subscribe(
-        (response) => {
-          this.toast.success("Detalle editado correctamente", "Éxito");
-          this.showSpinner = false;
-          // this.goBack();
-          this.abledCheckbox();
-        },
-        (error) => {
-          this.showSpinner = false;
-          this.toast.error(error.error.message, "Error");
-        }
-      );
+            id: this.service.ID.detail.id,
+            first_status: {
+              second_status: {
+                status: { id: this.service.ID.second_status.id },
+                checked: this.FormDetail3s.value.estado1estado2,
+              },
+         
+            },
+            second_status: {
+              first_status: {
+                status: { id: this.service.ID.first_status.id },
+                checked: this.FormDetail3s.value.estado2estado1,
+              },
+         
+            },
+            third_status: null
+          };
+          if ( this.service.ID.third_status===null ) {
+          
+            this.showSpinner = true;
+            this.service.Detail(url, ELEMENTOW2s).subscribe(
+              (response) => {
+                this.toast.success("Detalle editado correctamente", "Éxito");
+                this.abledCheckbox();
+                this.showSpinner = false;
+              },
+              (error) => {
+                this.showSpinner = false;
+                this.toast.error(error.error.message, "Error");
+              }
+            );
+          } else {
+                   const ELEMENTOW3s: ElementDetail = {
+                     //  id: this.service.ID.id,
+                     // id?: string;
+
+                     id: this.service.ID.detail.id,
+                     first_status: {
+                       second_status: {
+                         status: { id: this.service.ID.second_status.id },
+                         checked: this.FormDetail3s.value.estado1estado2,
+                       },
+                       third_status: {
+                         status: { id: this.service.ID.third_status.id },
+                         checked: this.FormDetail3s.value.estado1estado3,
+                       },
+                     },
+                     second_status: {
+                       first_status: {
+                         status: { id: this.service.ID.first_status.id },
+                         checked: this.FormDetail3s.value.estado2estado1,
+                       },
+                       third_status: {
+                         status: { id: this.service.ID.second_status.id },
+                         checked: this.FormDetail3s.value.estado2estado3,
+                       },
+                     },
+                     third_status: {
+                       first_status: {
+                         status: { id: this.service.ID.first_status.id },
+                         checked: this.FormDetail3s.value.estado3estado1,
+                       },
+                       second_status: {
+                         status: { id: this.service.ID.second_status.id },
+                         checked: this.FormDetail3s.value.estado3estado2,
+                       },
+                     },
+                   };
+            this.showSpinner = true;
+            this.service.Detail(url, ELEMENTOW3s).subscribe(
+              (response) => {
+                this.toast.success("Detalle editado correctamente", "Éxito");
+ this.abledCheckbox();                this.showSpinner = false;
+              },
+              (error) => {
+                this.showSpinner = false;
+                this.toast.error(error.error.message, "Error");
+              }
+            );
+          }
+      // this.service.Detail(url, ELEMENTOW3s).subscribe(
+      //   (response) => {
+      //     this.toast.success("Detalle editado correctamente", "Éxito");
+      //     this.showSpinner = false;
+      //     // this.goBack();
+      //     this.abledCheckbox();
+      //   },
+      //   (error) => {
+      //     this.showSpinner = false;
+      //     this.toast.error(error.error.message, "Error");
+      //   }
+      // );
     }
   }
 }
