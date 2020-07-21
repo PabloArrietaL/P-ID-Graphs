@@ -4,6 +4,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { DeviceDetectorModule } from 'ngx-device-detector';
 import { NgxMaskModule, IConfig } from 'ngx-mask';
 import { ToastrModule } from 'ngx-toastr';
+import { FileUploadModule } from '@iplab/ngx-file-upload';
 
 // Modules
 import { MaterialModule } from './material.module';
@@ -24,7 +25,8 @@ export const options: Partial<IConfig> | (() => Partial<IConfig>) = {};
     MaterialModule,
     NgxMaskModule,
     DeviceDetectorModule,
-    ToastrModule
+    ToastrModule,
+    FileUploadModule
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

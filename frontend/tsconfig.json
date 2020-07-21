@@ -22,6 +22,7 @@
       "@module/*": ["app/modules/*"],
       "@assets/*": ["assets/*"]
     },
+    "enableIvy": false,
     "lib": ["es2018", "dom"]
   },
   "angularCompilerOptions": {
