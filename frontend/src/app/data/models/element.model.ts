@@ -7,36 +7,36 @@ import {
 export class ElementModel {
          FormElement() {
            return new FormGroup({
-             id: new FormControl(""),
-             name: new FormControl("", {
+             id: new FormControl(''),
+             name: new FormControl('', {
                validators: [
                  Validators.required,
                  Validators.nullValidator,
                  Validators.maxLength(45),
                ],
              }),
-             description: new FormControl(""),
+             description: new FormControl(''),
              first_status: new FormControl(
-               { value: "", disabled: false },
+               { value: '', disabled: false },
                {
                  validators: [Validators.required, Validators.nullValidator],
                }
              ),
              second_status: new FormControl(
-               { value: "", disabled: true },
+               { value: '', disabled: true },
                {
                  validators: [Validators.required, Validators.nullValidator],
                }
              ),
-             third_status: new FormControl({ value: "", disabled: true }, {}),
-             initial_condition: new FormControl("", {
+             third_status: new FormControl({ value: '', disabled: true }, {}),
+             initial_condition: new FormControl('', {
                validators: [
                  Validators.required,
                  Validators.nullValidator,
                  Validators.maxLength(15),
                ],
              }),
-             type: new FormControl("", {
+             type: new FormControl('', {
                validators: [
                  Validators.required,
                  Validators.nullValidator,
@@ -48,44 +48,43 @@ export class ElementModel {
          }
          FormElementEdit() {
            return new FormGroup({
-             id: new FormControl(""),
-             name: new FormControl("", {
+             id: new FormControl(''),
+             name: new FormControl('', {
                validators: [
                  Validators.required,
                  Validators.nullValidator,
                  Validators.maxLength(45),
                ],
              }),
-             description: new FormControl(""),
+             description: new FormControl(''),
              first_status: new FormControl(
-               { value: "", disabled: true },
+               { value: '', disabled: true },
                {
                  validators: [Validators.required, Validators.nullValidator],
                }
              ),
              second_status: new FormControl(
-               { value: "", disabled: true },
+               { value: '', disabled: true },
                {
                  validators: [Validators.required, Validators.nullValidator],
                }
              ),
-             third_status: new FormControl({ value: "", disabled: true }, {}),
-             initial_condition: new FormControl("", {
+             third_status: new FormControl({ value: '', disabled: true }, {}),
+             initial_condition: new FormControl('', {
                validators: [
                  Validators.required,
                  Validators.nullValidator,
                  Validators.maxLength(15),
                ],
              }),
-             type: new FormControl("", {
+             type: new FormControl('', {
                validators: [
                  Validators.required,
                  Validators.nullValidator,
                  Validators.maxLength(255),
                ],
              }),
-             img: new FormControl(null),
-             
+             img: new FormControl(null, Validators.required),
            });
          }
          FormElementDetailsWith3S() {
@@ -119,14 +118,9 @@ export class ElementModel {
              estado1estado2: new FormControl(false, {
                validators: [Validators.nullValidator],
              }),
-
-            
              estado2estado1: new FormControl(false, {
                validators: [Validators.nullValidator],
              }),
-           
-       
-        
            });
          }
        }
