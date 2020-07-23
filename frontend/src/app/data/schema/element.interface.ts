@@ -1,11 +1,11 @@
 export interface Element {
   id?: number;
-  name: string;
+  name?: string;
   description?: string;
-  first_status: Status;
-  second_status: Status;
+  first_status?: Status;
+  second_status?: Status;
   third_status?: Status;
-  initial_condition: string;
+  initial_condition?: string;
   detail?: {
     id?: number;
     first_status?: {
@@ -21,7 +21,7 @@ export interface Element {
       second_status?: { status: { id?: number }; checked: boolean };
     };
   };
-  type: string;
+  type?: string;
   img?: string;
 }
 export interface ElementEdit {
@@ -38,21 +38,21 @@ export interface ElementEdit {
 
 export interface ElementDetail {
     //  id?: number;
-  
-    
+
+
         id?:number;
     first_status?:{
          second_status?: {status: {id?:number}, checked: boolean};
          third_status?: {status: {id?:number}, checked: boolean};
-    } 
+    }
    second_status?:{
          first_status?: {status: {id?:number}, checked: boolean};
          third_status?: {status: {id?:number}, checked: boolean};
-    } 
+    }
  third_status?:{
          first_status?: {status: {id?:number}, checked: boolean};
          second_status?: {status: {id?:number}, checked: boolean};
-    
+
 
     };
 
@@ -60,6 +60,6 @@ export interface ElementDetail {
 
 export interface Status {
     id?: number;
-    name: string;
+    name?: string;
     description?: string;
 }

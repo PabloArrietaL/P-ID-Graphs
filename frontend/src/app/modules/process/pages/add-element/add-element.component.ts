@@ -54,7 +54,7 @@ public displayedColumns: Array<string> = [ 'element', 'first_status', 'second_st
 
       this.goBack();
 
-      
+
     }else{this.getDetail();
 
         this.service.allElement(`${this.api}element`).subscribe(res => {
@@ -81,19 +81,13 @@ public _filter(value: string): Element[] {
 public goBack() {
     this.router.navigateByUrl('/process', { relativeTo: this.activatedroute });
   }
-  
+
 
   openCreate() {
         this.router.navigateByUrl('process/details/add');
 
   }
 
-  // openEdit(id) :void{
-  //   this.service.ID = id;
-  //   // console.log(  this.requirementService.IPreqI );
-
-  //   this.router.navigate(['/process/details/edit'], { relativeTo: this.activatedroute });
-  // }
 
 
   delete(id: string) {
@@ -110,48 +104,17 @@ public goBack() {
     );
   }
 
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
-  // } 
-  //   public postRequirementxtype() {
-  //   // console.log('requirement', this.Requirement);
-  //   // console.log('request', this.requirementxtypeService.IPTypeAcademic);
-  //   this.requirementxtypeservice.postRequiremenxtype({
-  //     requirement: {
-  //       id: +this.Requirement
-  //     },
-  //     requestType: {
-  //       id: +this.requirementxtypeservice.IPTypeAcademic
-  //     },
 
-  //   }).subscribe(response => {
-  //     this.requirementxtypeservice.JSONRxT.push(response);
-  //     this.requirementxtypeservice.dataSource.data = this.requirementxtypeservice.JSONRxT;
-  //     this.formRequirementxtype.reset();
-  //     this.toast.createToastSuccess();
-  //     // this.routes();
-  //     this.loading = false;
-  //   },
-  //     error => {
-  //       this.loading = false;
-
-  //       this.toast.toastError(this.translate.instant(`error.${error.error.message}`));
-
-  //     }
-  //   );
-
-  // }
     createProcessDetail() {
 
     const url = `${this.api}process-detail`;
- 
+
        const DETALLE:ProcessDetails={
       // id:this.service.ID.id,
     process: this.serviceProcess.IDP.id,
-   
+
       element:this.element
-      
+
     }
       this.showSpinner = true;
       this.service.create(url,DETALLE).subscribe(
@@ -166,7 +129,7 @@ public goBack() {
           this.toast.error(error.error.message, 'Error');
         }
       );
-    
+
   }
   getDetail():void {
     this.showSpinner = true;

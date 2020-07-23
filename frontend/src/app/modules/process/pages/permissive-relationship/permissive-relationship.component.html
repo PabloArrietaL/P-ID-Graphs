@@ -1,1 +1,51 @@
-<p>permissive-relationship works!</p>
+<!-- <form [formGroup]="FormDetail3s"> -->
+
+  <table class="egt">
+
+    <tr>
+
+      <th rowspan="1" colspan="2" scope="row"></th>
+
+
+      <th rowspan="1" [colSpan]="this.controlled.length" scope="row">Variable de control</th>
+
+
+    </tr>
+    <tr>
+      <th rowspan="1" colspan="2" ></th>
+            <th rowspan="1" colspan="1"  *ngFor="let controlledd of controlled"> {{controlledd.name}}</th>
+
+</tr>
+      <th>Actuador</th>
+      <th >Estados de actuador</th>
+      <th [colSpan]="this.controlled.length">Eventos</th>
+
+    <tr   *ngFor="let actuatorr of actuator" >
+     <th [rowSpan]="1" >{{actuatorr.name}}</th>
+</tr>
+<th *ngFor="let actuatorr of actuator" >
+     <!-- <td>{{actuatorr.first_status.name}}</td> -->
+      {{actuatorr.second_status.name}}
+
+      <!-- <th>{{actuatorr.second_status.name}} </th> -->
+
+
+      <!-- <td >
+        <mat-checkbox color="primary" type="checkbox" id="estado1-estado1"> <br>
+        </mat-checkbox>
+      </td> -->
+
+      <!-- <td>
+        <mat-checkbox color="primary"  type="checkbox"
+          id="estado1estado2"> <br> </mat-checkbox>
+      </td>
+
+      <td >
+        <mat-checkbox
+          color="primary" type="checkbox" id="estado1estado3"> <br></mat-checkbox>
+      </td> -->
+
+    </th>
+
+  </table>
+<!-- </form> -->
