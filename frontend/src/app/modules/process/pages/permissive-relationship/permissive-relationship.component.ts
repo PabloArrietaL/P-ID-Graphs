@@ -83,11 +83,11 @@ public displayedColumns: Array<string> = [ 'element', 'first_status', 'second_st
                           type: item.type,
                         };
 
-                        if (this.element.type === "controlled") {
-                          this.controlled.push(this.element);
-                        } else {
-                          this.actuator.push(this.element);
-                        }
+                        // if (this.element.type === "controlled") {
+                        //   this.controlled.push(this.element);
+                        // } else {
+                        //   this.actuator.push(this.element);
+                        // }
                       });
 
                     },
