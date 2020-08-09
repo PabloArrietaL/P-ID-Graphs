@@ -1,12 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ElementService } from '@data/service/element.service';
 import { ElementDetailsService } from '@data/service/element-details.service';
 import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '@env/environment';
-import { MatTableDataSource } from '@angular/material';
+import { MatTableDataSource, MatPaginator } from '@angular/material';
 import { Element } from '@data/schema/element.interface';
 import { element } from 'protractor';
+import { RelationService } from '@data/service/relation.service';
+import { ProcessService } from '@data/service/process.service';
 
 @Component({
   selector: "app-permissive-relationship",
@@ -20,11 +22,16 @@ export class PermissiveRelationshipComponent implements OnInit {
   public element: Element = {};
   public controlled: Array<Element> = [];
   public actuator: Array<Element> = [];
+  public dataSource: MatTableDataSource<any>;
+public displayedColumns: Array<string> = [ 'element', 'first_status', 'second_status', 'third_status', 'actions'];
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   public api = environment.api;
   constructor(
     // public service: ElementService,
     private serviceElement: ElementService,
+    private service: RelationService,
+    private Processservice: ProcessService,
 
     private toast: ToastrService,
     private router: Router,
@@ -36,6 +43,28 @@ export class PermissiveRelationshipComponent implements OnInit {
 
   }
 
+ Create() {
+      this.router.navigateByUrl('process/add-permissive-relationship');
+
+
+  }
+  delete(id: string) {
+    this.service.delete(`${this.api}process-detail`, id).subscribe(
+      _ => {
+        this.toast.success('Elemento eliminado correctamente', 'Éxito');
+        const data = this.dataSource.data.filter( (x: any) => x.id !== id);
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+      },
+      error => {
+        this.toast.error(error.error.message, 'Error');
+      }
+    );
+  }
+    applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
 
   getElements(): void {
     this.serviceElement.getAll(`${this.api}element`).subscribe(

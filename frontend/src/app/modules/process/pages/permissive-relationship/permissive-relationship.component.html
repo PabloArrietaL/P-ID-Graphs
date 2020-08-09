@@ -1,51 +1,80 @@
-<!-- <form [formGroup]="FormDetail3s"> -->
+<div class="row button-filter m-2">
+  <div class="mb-2">
+    <div class="col-lg-2 col-md-2 col-sm-2 col-xl-1">
+      <button mat-raised-button (click)="Create()">+ Crear</button>
+    </div>
 
-  <table class="egt">
+  </div>
 
-    <tr>
-
-      <th rowspan="1" colspan="2" scope="row"></th>
-
-
-      <th rowspan="1" [colSpan]="this.controlled.length" scope="row">Variable de control</th>
-
-
-    </tr>
-    <tr>
-      <th rowspan="1" colspan="2" ></th>
-            <th rowspan="1" colspan="1"  *ngFor="let controlledd of controlled"> {{controlledd.name}}</th>
-
-</tr>
-      <th>Actuador</th>
-      <th >Estados de actuador</th>
-      <th [colSpan]="this.controlled.length">Eventos</th>
-
-    <tr   *ngFor="let actuatorr of actuator" >
-     <th [rowSpan]="1" >{{actuatorr.name}}</th>
-</tr>
-<th *ngFor="let actuatorr of actuator" >
-     <!-- <td>{{actuatorr.first_status.name}}</td> -->
-      {{actuatorr.second_status.name}}
-
-      <!-- <th>{{actuatorr.second_status.name}} </th> -->
+  <div class="col-lg-6 col-md-8 col-sm-7 col-xl-5">
+    <mat-form-field class="form-field">
+      <mat-label>Filtrado en toda la tabla</mat-label>
+      <input matInput (keyup)="applyFilter($event)" placeholder="" />
+    </mat-form-field>
+  </div>
 
 
-      <!-- <td >
-        <mat-checkbox color="primary" type="checkbox" id="estado1-estado1"> <br>
-        </mat-checkbox>
-      </td> -->
+</div>
+<div class="mat-elevation-z8 table-responsive container-table">
+  <table mat-table [dataSource]="dataSource" class="table-hover" matSort>
 
-      <!-- <td>
-        <mat-checkbox color="primary"  type="checkbox"
-          id="estado1estado2"> <br> </mat-checkbox>
+
+
+    <ng-container matColumnDef="element">
+      <th mat-header-cell *matHeaderCellDef>Elemento</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.element.name }}
       </td>
+    </ng-container>
+    <ng-container matColumnDef="first_status">
+      <th mat-header-cell *matHeaderCellDef>Primer estado</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.element.first_status.name }}
+      </td>
+    </ng-container>
 
-      <td >
-        <mat-checkbox
-          color="primary" type="checkbox" id="estado1estado3"> <br></mat-checkbox>
-      </td> -->
+    <ng-container matColumnDef="second_status">
+      <th mat-header-cell *matHeaderCellDef>Segundo estado</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.element.second_status.name }}
+      </td>
+    </ng-container>
 
-    </th>
+    <ng-container matColumnDef="third_status">
+      <th mat-header-cell *matHeaderCellDef>Tercer estado</th>
+      <td mat-cell *matCellDef="let element">
+        <span *ngIf="element.element.third_status">{{ element.element.third_status.name }}</span>
+        <span *ngIf="!element.element.third_status">N/A</span>
+      </td>
+    </ng-container>
 
+
+
+
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef class="cot">Acciones</th>
+      <td mat-cell *matCellDef="let element">
+        <div class="cont">
+          <!-- <div class="edit" (click)="openEdit(element)"></div> -->
+          <div class="delete" (click)="delete(element.id)"></div>
+        </div>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>
-<!-- </form> -->
+
+  <div class="spinner mt-4 mb-4" *ngIf="showSpinner">
+    <mat-spinner [diameter]="60"></mat-spinner>
+  </div>
+
+  <div *ngIf="!showSpinner">
+    <div *ngIf="dataSource === undefined || dataSource.data.length === 0"
+      class="alert alert-info text-center ml-3 mr-3 mt-3" role="alert">
+      No hay registros existentes
+    </div>
+  </div>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+</div>
