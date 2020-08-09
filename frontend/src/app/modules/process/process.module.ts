@@ -14,6 +14,7 @@ import { ProcessDetailComponent } from './pages/process-detail/process-detail.co
 import { TabsComponent } from './pages/tabs/tabs.component';
 import { SynchronousRelationshipComponent } from './pages/synchronous-relationship/synchronous-relationship.component';
 import { PermissiveRelationshipComponent } from './pages/permissive-relationship/permissive-relationship.component';
+import { AddPermissiveRelationshipComponent } from './pages/add-permissive-relationship/add-permissive-relationship.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { PermissiveRelationshipComponent } from './pages/permissive-relationship
     ProcessDetailComponent,
     TabsComponent,
     SynchronousRelationshipComponent,
-    PermissiveRelationshipComponent
+    PermissiveRelationshipComponent,
+    AddPermissiveRelationshipComponent
   ],
   imports: [
     ReactiveFormsModule,

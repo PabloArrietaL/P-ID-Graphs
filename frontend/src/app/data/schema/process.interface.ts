@@ -1,4 +1,4 @@
-import { Element } from '@data/schema/element.interface';
+import { Element, Status } from '@data/schema/element.interface';
 
 export interface Process {
     id?: number;
@@ -13,6 +13,15 @@ export interface ProcessDetails {
 
 }
 
+export interface PermissiveR {
+    id?: string;
+    actuator?: Element;
+    controlled?: Element;
+    status?: string;
+    process?: number;
+    event?: string;
+
+}
 
 export interface RelationEdit {
     id?: string;

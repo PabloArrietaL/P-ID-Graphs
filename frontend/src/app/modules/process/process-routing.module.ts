@@ -7,6 +7,7 @@ import { RelationsComponent } from './pages/relation/relations/relations.compone
 import { AddElementComponent } from './pages/add-element/add-element.component';
 import { ProcessDetailComponent } from './pages/process-detail/process-detail.component';
 import { TabsComponent } from './pages/tabs/tabs.component';
+import { AddPermissiveRelationshipComponent } from './pages/add-permissive-relationship/add-permissive-relationship.component';
 
 
 const routes: Routes = [
@@ -35,8 +36,13 @@ const routes: Routes = [
     },
         {
       path: 'tabs',
-      component: TabsComponent
+      component: TabsComponent,
     },
+          {
+      path: 'add-permissive-relationship',
+      component: AddPermissiveRelationshipComponent
+    },
+
     {
       path: 'details',
         loadChildren: () =>

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {  Process, RelationEdit, ProcessDetails } from '@data/schema/process.interface';
+import {  Process, RelationEdit, ProcessDetails, PermissiveR } from '@data/schema/process.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +26,9 @@ public ID : ProcessDetails;
   create(url: string, data:ProcessDetails ) {
     return this.http.post(url, data);
   }
-
+  createPermissiveR(url: string, data:PermissiveR ) {
+    return this.http.post(url, data);
+  }
   edit(url: string, data: RelationEdit) {
     const path = `${url}/${data.id}`;
     return this.http.put(path, data);

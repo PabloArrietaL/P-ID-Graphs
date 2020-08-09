@@ -24,9 +24,6 @@ export class PermisiveRelationService{
         .getMany();
         
         return query;
-
-
-        return getManager().getRepository(PermissiveRelation).find()
     }
 
     deletePermissive(id: number, res: Response): Promise<Response> | Response{
