@@ -1,6 +1,10 @@
 import { Entity, Column, PrimaryGeneratedColumn, OneToMany } from "typeorm";
 import { ProcessDetail } from "./ProcessDetail";
 
+enum STATUS {
+    A = 'A',
+    I = 'I'
+}
 
 @Entity('Processes')
 export class Process {
@@ -16,6 +20,9 @@ export class Process {
 
     @OneToMany(type => ProcessDetail, detail => detail.process, {onDelete: 'CASCADE'})
     public details!: ProcessDetail[]
+
+    @Column({type: 'enum', enum: STATUS})
+    public status!: string;
 
     @Column({type: 'datetime'})
     public created_date!: Date;

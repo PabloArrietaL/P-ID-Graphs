@@ -89,6 +89,18 @@ export class ElementService {
         return query;
     }
 
+    async getByType(type: string) {
+        const query = await getRepository(Element).createQueryBuilder("element")
+        .where("element.type = :type")
+        .leftJoinAndSelect("element.first_status", "first_status")
+        .leftJoinAndSelect("element.second_status", "second_status")
+        .leftJoinAndSelect("element.third_status", "third_status")
+        .setParameter('type', type)
+        .getMany();
+        
+        return query;
+    }
+
     updateElement(id: number, element: IElement): Promise<UpdateResult> {
         return getManager().getRepository(Element).update({ id: id }, element);
     }
