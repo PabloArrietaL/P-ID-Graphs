@@ -36,6 +36,15 @@ export interface ElementEdit {
     img?: string;
 }
 
+export interface ElementStatus {
+
+
+    first_status: number;
+    second_status: number;
+    third_status?: number;
+
+}
+
 export interface ElementDetail {
     //  id?: number;
 

@@ -5,27 +5,33 @@ import { ToastrService } from 'ngx-toastr';
 import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from '@env/environment';
 import { MatTableDataSource, MatPaginator } from '@angular/material';
-import { Element } from '@data/schema/element.interface';
+import { Element, Status, ElementStatus } from '@data/schema/element.interface';
 import { element } from 'protractor';
 import { RelationService } from '@data/service/relation.service';
 import { ProcessService } from '@data/service/process.service';
+import { ProcessModel } from '@data/models/process.model';
+import { FormGroup } from '@angular/forms';
+import { PermissiveR } from '@data/schema/process.interface';
 
 @Component({
-  selector: "app-permissive-relationship",
-  templateUrl: "./permissive-relationship.component.html",
-  styleUrls: ["./permissive-relationship.component.scss"],
+  selector: 'app-permissive-relationship',
+  templateUrl: './permissive-relationship.component.html',
+  styleUrls: ['./permissive-relationship.component.scss'],
 })
 export class PermissiveRelationshipComponent implements OnInit {
   public deviceInfo = null;
   public showSpinner: boolean;
-  public elements: Array<Element> = [];
-  public element: Element = {};
+    public Form: FormGroup = new ProcessModel().PermissiveRelations();
+
+
   public controlled: Array<Element> = [];
   public actuator: Array<Element> = [];
-  public dataSource: MatTableDataSource<any>;
-public displayedColumns: Array<string> = [ 'element', 'first_status', 'second_status', 'third_status', 'actions'];
-  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+        public statuses: Array<any> = [];
 
+  public dataSource: MatTableDataSource<any>;
+public displayedColumns: Array<string> = [ 'actuator', 'controlled', 'event','status', 'actions'];
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+public create=false;
   public api = environment.api;
   constructor(
     // public service: ElementService,
@@ -39,19 +45,87 @@ public displayedColumns: Array<string> = [ 'element', 'first_status', 'second_st
   ) {}
 
   ngOnInit(): void {
-    this.getElements();
+    this.getElementsActuators();
+    this.getElementsControlled();
+    if (this.Processservice.IDP!= null) {
+          this.getPermissiveR();
+
+    }
+  }
+
+  Status(id){
+
+    this.statuses= [];
+    const RESULT: Array<Element> = this.actuator.filter(
+      (element) => element.id === +id.value.id
+    );
+    this.statuses = RESULT;
+
 
   }
 
  Create() {
-      this.router.navigateByUrl('process/add-permissive-relationship');
+ this.create = true;
+ }
+  // tslint:disable-next-line: align
+  getPermissiveR() {
+    this.showSpinner = true;
+    this.service.getByID(`${this.api}permissive`, this.Processservice.IDP.id).subscribe(
+      response => {
+        if (response.length > 0) {
+          this.dataSource = new MatTableDataSource(response.reverse());
+          this.dataSource.paginator = this.paginator;
 
+        }
+        this.showSpinner = false;
+
+      },
+      _ => {
+        this.showSpinner = false;
+      }
+    );
 
   }
+   Cancel() {
+ this.create = false;
+
+  }
+
+    Post(form: FormGroup) {
+
+    const url = `${this.api}permissive`;
+
+    if (!form.invalid) {
+      const PERMISSIVE: PermissiveR = {
+         actuator: form.value.actuator.id,
+    controlled: form.value.controlled,
+    event: form.value.event,
+    process: this.Processservice.IDP.id,
+    status: form.value.status,
+      };
+
+      this.showSpinner = true;
+        // tslint:disable-next-line: align
+        this.service.createPermissiveR(url, PERMISSIVE).subscribe(
+          (response) => {
+            this.toast.success('Relación permisiva creada correctamente', 'Éxito');
+            this.Cancel();
+            this.getPermissiveR();
+
+            this.showSpinner = false;
+          },
+          (error) => {
+            this.showSpinner = false;
+            this.toast.error(error.error.message, 'Error');
+          }
+        );
+
+    }
+  }
   delete(id: string) {
-    this.service.delete(`${this.api}process-detail`, id).subscribe(
+    this.service.delete(`${this.api}permissive`, id).subscribe(
       _ => {
-        this.toast.success('Elemento eliminado correctamente', 'Éxito');
+        this.toast.success('Relación permisiva eliminada correctamente', 'Éxito');
         const data = this.dataSource.data.filter( (x: any) => x.id !== id);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
@@ -66,32 +140,31 @@ public displayedColumns: Array<string> = [ 'element', 'first_status', 'second_st
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  getElements(): void {
-    this.serviceElement.getAll(`${this.api}element`).subscribe(
-      (response) => {
-                      this.controlled = [];
-                      this.actuator = [];
-                      response.forEach((item) => {
-                        this.element = {
-                          id: item.id,
-                          name: item.name,
-                          description: item.description,
-                          first_status: item.first_status,
-                          second_status: item.second_status,
-                          third_status: item.third_status,
-                          initial_condition: item.initial_condition,
-                          type: item.type,
-                        };
+  getElementsActuators() {
+     this.serviceElement.getAll(`${this.api}element/type/actuator`).subscribe(
+      response => {
+        this.actuator = response;
+          // tslint:disable-next-line: align
+                      // tslint:disable-next-line: align
 
-                        // if (this.element.type === "controlled") {
-                        //   this.controlled.push(this.element);
-                        // } else {
-                        //   this.actuator.push(this.element);
-                        // }
-                      });
 
-                    },
-      (error) => {}
+
+      },
+      error => {
+        this.toast.error(error.error.message, 'Error');
+      }
+    );
+  }
+    getElementsControlled() {
+
+       this.serviceElement.getAll(`${this.api}element/type/controlled`).subscribe(
+      response => {
+        this.controlled = response;
+
+      },
+      error => {
+        this.toast.error(error.error.message, 'Error');
+      }
     );
   }
 }
