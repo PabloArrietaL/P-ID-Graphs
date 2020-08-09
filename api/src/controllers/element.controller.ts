@@ -39,6 +39,12 @@ export class ElementController {
         return data;
     }
 
+    @Get("/element/type/:type")
+    async getByType(@Param("type") type: string) {
+        const data = await this.dataService.elementService.getByType(type);
+        return data;
+    }
+
     @Post("/element")
     async post(@UploadedFile("img", {options: fileUploadOptions}) file: any, @Body() element: IElement,@Res() res: Response) {
         const data = await this.dataService.elementService.createElement({ element, file, res });

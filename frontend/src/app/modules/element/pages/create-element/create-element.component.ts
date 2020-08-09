@@ -63,26 +63,26 @@ export class CreateElementComponent implements OnInit {
         this.showSpinner = true;
         this.service.create(url, this.toFormData(ELEMENTOWT)).subscribe(
           (response) => {
-            this.toast.success("Elemento creado correctamente", "Éxito");
+            this.toast.success('Elemento creado correctamente', 'Éxito');
             this.goBack();
             this.showSpinner = false;
           },
           (error) => {
             this.showSpinner = false;
-            this.toast.error(error.error.message, "Error");
+            this.toast.error(error.error.message, 'Error');
           }
         );
       } else {
         this.showSpinner = true;
         this.service.create(url, this.toFormData(ELEMENTO)).subscribe(
           (response) => {
-            this.toast.success("Elemento creado correctamente", "Éxito");
+            this.toast.success('Elemento creado correctamente', 'Éxito');
             this.goBack();
             this.showSpinner = false;
           },
           (error) => {
             this.showSpinner = false;
-            this.toast.error(error.error.message, "Error");
+            this.toast.error(error.error.message, 'Error');
           }
         );
       }
@@ -100,13 +100,13 @@ export class CreateElementComponent implements OnInit {
 
   fileChange(event: any) {
 
-          if (event.target.files && event.target.files.length) {
-            const [file] = event.target.files;
-            this.FormElement.patchValue({
-              img: file,
-            });
-            this.cd.markForCheck();
-          }
+    if (event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      this.FormElement.patchValue({
+        img: file,
+      });
+      this.cd.markForCheck();
+    }
   }
   getStatus() {
     this.service.getAll(`${this.api}status`).subscribe(

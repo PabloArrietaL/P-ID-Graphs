@@ -9,6 +9,8 @@ import { ImageController } from './controllers/image.controller';
 import { StatusController } from './controllers/status.controller';
 import { ElementDetailController } from './controllers/element_detail.controller';
 import { ProcessDetailController } from './controllers/process_detail.controller';
+import { PermissiveController } from './controllers/permissive_relation.controller';
+import { SynchronousController } from './controllers/synchronous_relation.controller';
 
 export class App {
 
@@ -57,7 +59,9 @@ export class App {
                 ImageController,
                 StatusController,
                 ElementDetailController,
-                ProcessDetailController
+                ProcessDetailController,
+                PermissiveController,
+                SynchronousController
             ] 
         });
     }
