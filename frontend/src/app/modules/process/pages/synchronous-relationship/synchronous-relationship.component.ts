@@ -93,7 +93,7 @@ public create=false;
         // tslint:disable-next-line: align
         this.service.createPermissiveR(url, PERMISSIVE).subscribe(
           (response) => {
-            this.toast.success('Relación permisiva creada correctamente', 'Éxito');
+            this.toast.success('Relación sincrona creada correctamente', 'Éxito');
             this.Cancel();
             this.getSynchronousR();
 
@@ -117,7 +117,7 @@ public create=false;
   delete(id: string) {
     this.service.delete(`${this.api}synchronous`, id).subscribe(
       _ => {
-        this.toast.success('Relación permisiva eliminada correctamente', 'Éxito');
+        this.toast.success('Relación sincrona eliminada correctamente', 'Éxito');
         const data = this.dataSource.data.filter( (x: any) => x.id !== id);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
