@@ -22,6 +22,14 @@ export interface PermissiveR {
     event?: string;
 
 }
+export interface SynchronousR {
+    id?: string;
+    initial_controlled?: Element;
+    end_controlled?: Element;
+    process?: number;
+    event?: string;
+
+}
 
 export interface RelationEdit {
     id?: string;

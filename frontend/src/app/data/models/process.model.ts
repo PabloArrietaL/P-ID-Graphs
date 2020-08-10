@@ -38,4 +38,23 @@ export class ProcessModel {
             }),
         });
     }
+      SynchronousRelations() {
+        return new FormGroup({
+
+          id: new FormControl(''),
+          initial_controlled: new FormControl('', {
+                validators: [Validators.required, Validators.nullValidator]
+            }),
+            end_controlled: new FormControl('', {
+                validators: [Validators.required, Validators.nullValidator]
+            }),
+    type: new FormControl('', {
+                validators: [Validators.required, Validators.nullValidator]
+            }),
+            event: new FormControl('', {
+                validators: [Validators.required, Validators.nullValidator]
+            }),
+
+        });
+    }
 }
