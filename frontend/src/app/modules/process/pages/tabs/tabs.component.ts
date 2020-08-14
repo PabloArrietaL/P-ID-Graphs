@@ -40,12 +40,11 @@ export class TabsComponent implements OnInit {
 
       this.goBack();
 
-      
-    }else{
+
     }
 
 
-  
+
   }
   public goBack() {
     this.router.navigateByUrl('/process', { relativeTo: this.activatedroute });

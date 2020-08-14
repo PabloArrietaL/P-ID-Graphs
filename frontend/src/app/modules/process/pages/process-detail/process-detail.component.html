@@ -1,12 +1,13 @@
-<div class="row button-filter m-2">
+<br>
+<div *ngIf="this.serviceProcess.IDP.status === 'I'" class="row button-filter m-2">
 
 
-    <div class="col-md-5 kt-margin-bottom-9-mobile">
+    <div  class="col-md-5 kt-margin-bottom-9-mobile">
 
         <mat-form-field appearance="outline" class="form-field">
             <mat-label>Elemento
             </mat-label>
-            <input matInput [matAutocomplete]="auto" required [formControl]="myControl">
+            <input matInput  [matAutocomplete]="auto" required [formControl]="myControl">
             <mat-autocomplete #auto="matAutocomplete">
                 <mat-option *ngFor="let requirement of filteredOptions | async" [value]="requirement.name"
                     (click)="AutocompletActivity(requirement.id)">
@@ -71,8 +72,10 @@
             <td mat-cell *matCellDef="let element">
                 <div class="cont">
                     <!-- <div class="edit" (click)="openEdit(element)"></div> -->
-                    <div class="delete" (click)="delete(element.id)"></div>
-                </div>
+  <button [disabled]="this.serviceProcess.IDP.status==='A'" color="warn" mat-icon-button (click)="delete(element.id)">
+    <mat-icon>delete</mat-icon>
+
+  </button>                </div>
             </td>
         </ng-container>
 

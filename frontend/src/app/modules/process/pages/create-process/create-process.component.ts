@@ -20,8 +20,8 @@ export class CreateProcessComponent implements OnInit {
 
   constructor(
     private service: ProcessService,
-        private router: Router,
-        private activatedroute: ActivatedRoute,
+    private router: Router,
+    private activatedroute: ActivatedRoute,
     private toast: ToastrService) { }
 
   ngOnInit(): void {
@@ -32,17 +32,18 @@ public goBack() {
   createProcess(form: FormGroup) {
 
     const url = `${this.api}process`;
- 
+
     if (!form.invalid) {
-       const PROCESS:Process={
+       const PROCESS: Process = {
       // id:this.service.ID.id,
       name: form.value.name,
-      description: form.value.description
+      description: form.value.description,
+      status: form.value.status
+    };
 
-    }
-      this.showSpinner = true;
-      this.service.create(url,PROCESS).subscribe(
-        response => {
+       this.showSpinner = true;
+       this.service.create(url, PROCESS).subscribe(
+        () => {
           this.toast.success('Proceso creado correctamente', 'Éxito');
           this.showSpinner = false;
           this.goBack();

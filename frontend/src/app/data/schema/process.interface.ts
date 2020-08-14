@@ -4,13 +4,14 @@ export interface Process {
     id?: number;
     name: string;
     description?: string;
+    status?: string;
+
 }
 
 export interface ProcessDetails {
     id?: string;
     process: number;
     element: number;
-
 }
 
 export interface PermissiveR {

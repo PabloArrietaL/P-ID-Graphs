@@ -24,19 +24,33 @@ export class EditElementComponent implements OnInit {
   constructor(
     private service: ElementService,
     private toast: ToastrService,
-       private router: Router,
-        private activatedroute: ActivatedRoute,
+    private router: Router,
+    private activatedroute: ActivatedRoute,
     ) { }
 
   ngOnInit(): void {
 
     if (this.service.ID === undefined) {
       this.goBack();
-      
-    }else{
+
+    } else {
 
       this.getStatus();
-    this.FormElement.setValue({
+      if (this.service.ID.third_status === null) {
+            this.FormElement.setValue({
+      id: this.service.ID.id,
+      name: this.service.ID.name,
+      first_status: this.service.ID.first_status.id,
+      second_status: this.service.ID.second_status.id,
+            third_status: null,
+
+      initial_condition: this.service.ID.initial_condition,
+      type: this.service.ID.type,
+      description: this.service.ID.description,
+      img: this.service.ID.img
+    });
+      } else {
+      this.FormElement.setValue({
       id: this.service.ID.id,
       name: this.service.ID.name,
       first_status: this.service.ID.first_status.id,
@@ -47,9 +61,9 @@ export class EditElementComponent implements OnInit {
       description: this.service.ID.description,
       img: this.service.ID.img
     });
-  }
-      this.FormElement.get('first_status').disable();
-      this.FormElement.get('initial_condition').disable();
+  }}
+    this.FormElement.get('first_status').disable();
+    this.FormElement.get('initial_condition').disable();
 
 }
 public goBack() {
@@ -73,10 +87,10 @@ public goBack() {
   }
 
       filterStatus3(status: Status) {
-      
+
     this.thirdStatus = this.Status.filter((x: Status) => x.id !== +status.id);
     this.thirdStatus = this.secondStatus.filter((x: Status) => x.id !== +status.id);
-    this.thirdStatusFinal=this.thirdStatus;
+    this.thirdStatusFinal = this.thirdStatus;
     this.FormElement.get('third_status').enable();
   }
 
@@ -86,8 +100,21 @@ public goBack() {
     const url = `${this.api}element`;
 
     if (!form.invalid) {
-            const ELEMENTO:ElementEdit={
-      id:this.service.ID.id,
+               const ELEMENTOW3: ElementEdit = {
+      id: this.service.ID.id,
+        // id?: string;
+     name:  form.value.name,
+    description:  form.value.description,
+   first_status: this.service.ID.first_status.id,
+      second_status: this.service.ID.second_status.id,
+      third_status: null,
+    initial_condition:  form.value.initial_condition,
+    type:  form.value.type,
+    img:  form.value.img,
+    };
+
+               const ELEMENTO: ElementEdit = {
+      id: this.service.ID.id,
         // id?: string;
      name:  form.value.name,
     description:  form.value.description,
@@ -97,19 +124,37 @@ public goBack() {
     initial_condition:  form.value.initial_condition,
     type:  form.value.type,
     img:  form.value.img,
-    }
-      this.service.edit(url,ELEMENTO).subscribe(
+    };
+
+               if (this.service.ID.third_status === null) {
+            this.service.edit(url,ELEMENTOW3).subscribe(
         response => {
           this.toast.success('Elemento editado correctamente', 'Éxito');
           this.showSpinner = false;
-this.goBack();        },
+          this.goBack();        },
         error => {
           this.showSpinner = false;
           this.toast.error(error.error.message, 'Error');
         }
       );
+    } else {
+            this.service.edit(url, ELEMENTO).subscribe(
+        response => {
+          this.toast.success('Elemento editado correctamente', 'Éxito');
+          this.showSpinner = false;
+          this.goBack();        },
+        error => {
+          this.showSpinner = false;
+          this.toast.error(error.error.message, 'Error');
+        }
+      );
+
     }
- 
+
+
+    }
+
   }
 
 }
+

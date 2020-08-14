@@ -23,21 +23,20 @@ export class PermissiveRelationshipComponent implements OnInit {
   public showSpinner: boolean;
     public Form: FormGroup = new ProcessModel().PermissiveRelations();
 
-
   public controlled: Array<Element> = [];
   public actuator: Array<Element> = [];
         public statuses: Array<any> = [];
 
   public dataSource: MatTableDataSource<any>;
-public displayedColumns: Array<string> = [ 'actuator', 'controlled', 'event','status', 'actions'];
+public displayedColumns: Array<string> = [ 'actuator', 'controlled', 'event', 'status', 'actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-public create=false;
+public create = false;
   public api = environment.api;
   constructor(
     // public service: ElementService,
     private serviceElement: ElementService,
     private service: RelationService,
-    private Processservice: ProcessService,
+    public Processservice: ProcessService,
 
     private toast: ToastrService,
     private router: Router,
@@ -47,16 +46,16 @@ public create=false;
   ngOnInit(): void {
     this.getElementsActuators();
     this.getElementsControlled();
-    if (this.Processservice.IDP!= null) {
+    if (this.Processservice.IDP !== undefined) {
           this.getPermissiveR();
-
     }
   }
 
-  Status(id){
+  Status(id) {
 
-    this.statuses= [];
+    this.statuses = [];
     const RESULT: Array<Element> = this.actuator.filter(
+      // tslint:disable-next-line: no-shadowed-variable
       (element) => element.id === +id.value.id
     );
     this.statuses = RESULT;

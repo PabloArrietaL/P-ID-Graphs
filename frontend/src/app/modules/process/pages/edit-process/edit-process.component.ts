@@ -29,12 +29,13 @@ export class EditProcessComponent implements OnInit {
 
       if (this.service.IDP === undefined) {
       this.goBack();
-      
+
     }else{
     this.FormProcess.setValue({
       id: this.service.IDP.id,
       name: this.service.IDP.name,
-      description: this.service.IDP.description
+      description: this.service.IDP.description,
+      status: this.service.IDP.status
     });
   }
   }
@@ -44,7 +45,7 @@ public goBack() {
   editProcess(form: FormGroup) {
 
     const url = `${this.api}process`;
-  
+
     if (!form.invalid) {
       this.showSpinner = true;
       this.service.edit(url, form.value).subscribe(

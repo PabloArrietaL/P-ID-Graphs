@@ -35,11 +35,11 @@ public displayedColumns: Array<string> = [ 'element', 'first_status', 'second_st
   constructor(
     private route: Router,
     private service: RelationService,
-    public serviceProcess:ProcessService,
+    public serviceProcess: ProcessService,
     private toast: ToastrService,
     private dialog: MatDialog,
-        private router: Router,
-        private activatedroute: ActivatedRoute,
+    private router: Router,
+    private activatedroute: ActivatedRoute,
     ) { }
 
   ngOnInit(): void {
@@ -52,12 +52,17 @@ public displayedColumns: Array<string> = [ 'element', 'first_status', 'second_st
       if (this.serviceProcess.IDP === undefined) {
               this.Name = false;
 
-      this.goBack();
+              this.goBack();
 
 
-    }else{this.getDetail();
+    } else {this.getDetail();
 
-        this.service.allElement(`${this.api}element`).subscribe(res => {
+            if (this.serviceProcess.IDP.status === 'A') {
+                  this.myControl.disable();
+
+
+      }
+            this.service.allElement(`${this.api}element`).subscribe(res => {
       this.listAll = res;
       this.filteredOptions = this.myControl.valueChanges
         .pipe(
@@ -109,15 +114,15 @@ public goBack() {
 
     const url = `${this.api}process-detail`;
 
-       const DETALLE:ProcessDetails={
+    const DETALLE:ProcessDetails={
       // id:this.service.ID.id,
     process: this.serviceProcess.IDP.id,
 
       element:this.element
 
     }
-      this.showSpinner = true;
-      this.service.create(url,DETALLE).subscribe(
+    this.showSpinner = true;
+    this.service.create(url,DETALLE).subscribe(
         response => {
           this.getDetail();
           this.toast.success('Elemento añadido correctamente', 'Éxito');

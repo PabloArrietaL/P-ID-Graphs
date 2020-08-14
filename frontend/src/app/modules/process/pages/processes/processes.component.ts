@@ -15,7 +15,7 @@ import { RelationService } from '@data/service/relation.service';
 })
 export class ProcessesComponent implements OnInit {
 
-  public displayedColumns: Array<string> = ['name', 'description', 'actions'];
+  public displayedColumns: Array<string> = ['name', 'description','status', 'actions'];
   public dataSource: MatTableDataSource<any>;
   public deviceInfo = null;
   public showSpinner: boolean;
@@ -61,7 +61,7 @@ export class ProcessesComponent implements OnInit {
   Create() {
       this.router.navigateByUrl('process/add');
 
-   
+
   }
   Edit(id):void {
     this.service.IDP = id;
@@ -72,7 +72,7 @@ export class ProcessesComponent implements OnInit {
 
   Relations(id):void {
     this.service.IDP = id;
-    
+
     this.router.navigate(['/process/tabs'], { relativeTo: this.activatedroute });
   }
   delete(id: number) {

@@ -29,13 +29,13 @@ export class SynchronousRelationshipComponent implements OnInit {
   public dataSource: MatTableDataSource<any>;
 public displayedColumns: Array<string> = [ 'initial_controlled', 'end_controlled', 'event', 'actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-public create=false;
+public create = false;
   public api = environment.api;
   constructor(
     // public service: ElementService,
     private serviceElement: ElementService,
     private service: RelationService,
-    private Processservice: ProcessService,
+    public Processservice: ProcessService,
 
     private toast: ToastrService,
     private router: Router,
@@ -44,7 +44,7 @@ public create=false;
 
   ngOnInit(): void {
     this.getElementsControlled();
-    if (this.Processservice.IDP!= null) {
+    if (this.Processservice.IDP != null) {
           this.getSynchronousR();
 
     }

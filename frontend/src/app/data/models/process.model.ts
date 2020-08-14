@@ -15,6 +15,9 @@ export class ProcessModel {
             description: new FormControl('', {
                 validators: [Validators.maxLength(45)]
             }),
+               status: new FormControl('I', {
+                validators: [Validators.maxLength(45)]
+            }),
         });
     }
         PermissiveRelations() {
