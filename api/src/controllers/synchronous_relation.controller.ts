@@ -12,9 +12,9 @@ export class SynchronousController {
         this.dataService = Container.get(DataService);
     }
 
-    @Get("/synchronous")
-    async getAll() {
-        const data = await this.dataService.synchronousRelationService.getAllSynchronous();
+    @Get("/synchronous/:id")
+    async getAll(@Param("id") id: number) {
+        const data = await this.dataService.synchronousRelationService.getAllSynchronous(id);
         return data;
     }
 

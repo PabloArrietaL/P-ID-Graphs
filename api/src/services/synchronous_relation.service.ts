@@ -1,4 +1,4 @@
-import { getManager } from "typeorm";
+import { getManager, getRepository } from "typeorm";
 import { Singleton } from "typescript-ioc";
 import { Response } from "express";
 import { ISynchronousRelation } from "../models/interfaces/ISynchronousRelation";
@@ -12,7 +12,18 @@ export class SynchronousRelationService{
         return getManager().getRepository(SynchronousRelation).save(synchronous);
     }
 
-    getAllSynchronous(): Promise<SynchronousRelation[]>{        
+    async getAllSynchronous(id: number): Promise<SynchronousRelation[]>{        
+
+        const query = await getRepository(SynchronousRelation).createQueryBuilder("synchronous")
+        .where("synchronous.process = :process")
+        .leftJoinAndSelect("synchronous.process", "process")
+        .leftJoinAndSelect("synchronous.initial_controlled", "initial_controlled")
+        .leftJoinAndSelect("synchronous.end_controlled", "end_controlled")
+        .setParameter('process', id)
+        .getMany();
+        
+        return query;
+
         return getManager().getRepository(SynchronousRelation).find()
     }
 
