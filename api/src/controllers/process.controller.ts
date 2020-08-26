@@ -26,6 +26,12 @@ export class ProcessController {
         return data;
     }
 
+    @Get("/process/:id")
+    async getGraph(@Param("id") id: number) {
+        const data = await this.dataService.processService.getGraphData(id);
+        return data;
+    }
+
     @Put("/process/:id")
     put(@Param("id") id: number, @Body() process: IProcess) {
         return this.dataService.processService.updateProcess(id, process).then( data => {

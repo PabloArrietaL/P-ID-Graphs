@@ -6,7 +6,8 @@ import {  Process, RelationEdit, ProcessDetails, PermissiveR } from '@data/schem
   providedIn: 'root'
 })
 export class RelationService {
-public ID : ProcessDetails;
+
+  public ID: ProcessDetails;
 
   public process: Process;
 
@@ -23,10 +24,10 @@ public ID : ProcessDetails;
     const path = `${API}/${ID}`;
     return this.http.get<any>(path);
   }
-  create(url: string, data:ProcessDetails ) {
+  create(url: string, data: ProcessDetails ) {
     return this.http.post(url, data);
   }
-  createPermissiveR(url: string, data:PermissiveR ) {
+  createPermissiveR(url: string, data: PermissiveR ) {
     return this.http.post(url, data);
   }
   edit(url: string, data: RelationEdit) {

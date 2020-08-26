@@ -6,7 +6,8 @@ import { Process } from '@data/schema/process.interface';
   providedIn: 'root'
 })
 export class ProcessService {
-public IDP : Process;
+
+  public IDP: Process;
 
   constructor(private http: HttpClient) { }
 
