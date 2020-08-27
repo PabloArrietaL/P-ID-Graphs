@@ -54,7 +54,8 @@ export class ProcessService{
                 source: element.actuator.id,
                 target: element.controlled.id,
                 style: {
-                    'line-style': 'solid'
+                    'line-style': 'solid',
+                    'target-arrow-shape': 'triangle'
                 }
             })
         });
@@ -129,6 +130,7 @@ interface Edge {
     target: number;
     style: {
         'line-style': string;
+        'target-arrow-shape'?: string;
     };
 }
 

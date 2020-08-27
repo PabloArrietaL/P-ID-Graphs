@@ -80,8 +80,7 @@ export class ViewProcessComponent implements OnInit {
         {
           selector: 'edge',
           css: {
-            'curve-style': 'unbundled-bezier',
-            'target-arrow-shape': 'triangle',
+            'curve-style': 'straight',
             'line-color': '#481620',
             'target-arrow-color': '#481620',
             'target-arrow-fill': 'filled',

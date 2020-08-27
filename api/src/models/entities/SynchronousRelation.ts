@@ -16,7 +16,7 @@ export class SynchronousRelation {
     @PrimaryGeneratedColumn()
     public id!: number;
 
-    @ManyToOne(type => Process)
+    @ManyToOne(type => Process,  {onDelete: 'CASCADE'})
     public process!: Process;
 
     @ManyToOne(type => Element)
