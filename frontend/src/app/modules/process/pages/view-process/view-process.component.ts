@@ -80,7 +80,7 @@ export class ViewProcessComponent implements OnInit {
         {
           selector: 'edge',
           css: {
-            'curve-style': 'straight',
+            'curve-style': 'bezier',
             'line-color': '#481620',
             'target-arrow-color': '#481620',
             'target-arrow-fill': 'filled',
@@ -93,6 +93,9 @@ export class ViewProcessComponent implements OnInit {
     graph.layout({
       name: 'cose'
     }).run();
+
+    graph.on('click', 'node', (event) => {
+    });
   }
 
 }
