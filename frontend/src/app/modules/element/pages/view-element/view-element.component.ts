@@ -1,6 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
-import { Element } from '@data/schema/element.interface';
 import { environment } from '@env/environment';
 import { ElementService } from '@data/service/element.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -13,34 +12,29 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class ViewElementComponent implements OnInit {
 
   public api = environment.api;
-  public Name =true;
-    public Desc =true;
-        public IMG =true;
-
+  public Name = true;
+  public Desc = true;
+  public IMG = true;
 
   constructor(
-           private router: Router,
-        private activatedroute: ActivatedRoute,
-        public service: ElementService,
-
-    
-    ) { }
+    private router: Router,
+    private activatedroute: ActivatedRoute,
+    public service: ElementService
+  ) { }
 
   ngOnInit(): void {
-      if (this.service.ID === undefined) {
+    if (this.service.ID === undefined) {
       this.goBack();
-      this.Name=false;
-      this.Desc=false;
-      this.IMG=false;
-
+      this.Name = false;
+      this.Desc = false;
+      this.IMG = false;
     }
-     if (this.service.ID.img === null) {
-      this.IMG=false;
-
+    if (this.service.ID.img === null) {
+      this.IMG = false;
     }
-    
   }
-public goBack() {
+
+  public goBack() {
     this.router.navigateByUrl('/element', { relativeTo: this.activatedroute });
   }
 }

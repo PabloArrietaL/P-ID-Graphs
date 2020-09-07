@@ -2,14 +2,6 @@ import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
 import { Element } from "./Element";
 import { Process } from "./Process";
 
-enum EVENTS {
-    PtoA = 'PtoA',
-    AtoP = 'AtoP',
-    EtoF = 'EtoF',
-    FtoE = 'FtoE'
-}
-
-
 @Entity('Synchronous_Relations')
 export class SynchronousRelation {
 
@@ -25,7 +17,10 @@ export class SynchronousRelation {
     @ManyToOne(type => Element)
     public end_controlled!: Element;
 
-    @Column({type: 'enum', enum: EVENTS})
-    public event!: string;
+    @Column()
+    public initial_event!: string;
+
+    @Column()
+    public end_event!: string;
 
 }

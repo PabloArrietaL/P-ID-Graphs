@@ -3,14 +3,6 @@ import { Element } from "./Element";
 import { Status } from "./Status";
 import { Process } from "./Process";
 
-enum EVENTS {
-    PtoA = 'PtoA',
-    AtoP = 'AtoP',
-    EtoF = 'EtoF',
-    FtoE = 'FtoE'
-}
-
-
 @Entity('Permissive_Relations')
 export class PermissiveRelation {
 
@@ -29,7 +21,7 @@ export class PermissiveRelation {
     @ManyToOne(type => Status)
     public status!: Status;
 
-    @Column({type: 'enum', enum: EVENTS})
+    @Column()
     public event!: string;
 
 }
