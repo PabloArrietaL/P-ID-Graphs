@@ -107,12 +107,26 @@ public goBack() {
     description:  form.value.description,
    first_status: this.service.ID.first_status.id,
       second_status: this.service.ID.second_status.id,
-      third_status: null,
+
     initial_condition:  form.value.initial_condition,
     type:  form.value.type,
     img:  form.value.img,
     };
 
+               if (this.service.ID.third_status === null) {
+
+
+            this.service.edit(url, ELEMENTOW3).subscribe(
+        response => {
+          this.toast.success('Elemento editado correctamente', 'Éxito');
+          this.showSpinner = false;
+          this.goBack();        },
+        error => {
+          this.showSpinner = false;
+          this.toast.error(error.error.message, 'Error');
+        }
+      );
+    } else {
                const ELEMENTO: ElementEdit = {
       id: this.service.ID.id,
         // id?: string;
@@ -126,19 +140,7 @@ public goBack() {
     img:  form.value.img,
     };
 
-               if (this.service.ID.third_status === null) {
-            this.service.edit(url,ELEMENTOW3).subscribe(
-        response => {
-          this.toast.success('Elemento editado correctamente', 'Éxito');
-          this.showSpinner = false;
-          this.goBack();        },
-        error => {
-          this.showSpinner = false;
-          this.toast.error(error.error.message, 'Error');
-        }
-      );
-    } else {
-            this.service.edit(url, ELEMENTO).subscribe(
+               this.service.edit(url, ELEMENTO).subscribe(
         response => {
           this.toast.success('Elemento editado correctamente', 'Éxito');
           this.showSpinner = false;

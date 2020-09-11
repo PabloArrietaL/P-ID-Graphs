@@ -1,15 +1,15 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
+import { MatPaginator, MatTableDataSource } from '@angular/material';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ProcessModel } from '@data/models/process.model';
-import { MatTableDataSource, MatPaginator } from '@angular/material';
-import { environment } from '@env/environment';
+import { Element } from '@data/schema/element.interface';
+import { SynchronousR } from '@data/schema/process.interface';
 import { ElementService } from '@data/service/element.service';
-import { RelationService } from '@data/service/relation.service';
 import { ProcessService } from '@data/service/process.service';
+import { RelationService } from '@data/service/relation.service';
+import { environment } from '@env/environment';
 import { ToastrService } from 'ngx-toastr';
-import { Router, ActivatedRoute } from '@angular/router';
-import { PermissiveR, SynchronousR } from '@data/schema/process.interface';
-import { Element, Status, ElementStatus } from '@data/schema/element.interface';
 
 @Component({
   selector: 'app-synchronous-relationship',
@@ -25,9 +25,11 @@ export class SynchronousRelationshipComponent implements OnInit {
   public controlled: Array<Element> = [];
   public controlled2: Array<Element> = [];
         public statuses: Array<any> = [];
+public EventssI = [];
+public EventssF = [];
 
   public dataSource: MatTableDataSource<any>;
-public displayedColumns: Array<string> = [ 'initial_controlled', 'end_controlled', 'event', 'actions'];
+public displayedColumns: Array<string> = [ 'initial_controlled', 'end_controlled', 'eventI','eventF', 'actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 public create = false;
   public api = environment.api;
@@ -48,8 +50,20 @@ public create = false;
           this.getSynchronousR();
 
     }
+
   }
 
+   EventsI(controlled){
+
+this.EventssI = this.serviceElement.proccesElement(controlled);
+return this.EventssI;
+  }
+    EventsF(controlled){
+
+
+this.EventssF = this.serviceElement.proccesElement(controlled);
+return this.EventssF;
+  }
  Create() {
  this.create = true;
  }
@@ -84,8 +98,9 @@ public create = false;
     if (!form.invalid) {
       const PERMISSIVE: SynchronousR = {
          initial_controlled: form.value.initial_controlled.id,
-    end_controlled: form.value.end_controlled,
-    event: form.value.event,
+    end_controlled: form.value.end_controlled.id,
+    initial_event: form.value.initial_event,
+        end_event: form.value.initial_event,
     process: this.Processservice.IDP.id,
       };
 

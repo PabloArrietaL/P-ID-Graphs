@@ -28,8 +28,8 @@ export interface SynchronousR {
     initial_controlled?: Element;
     end_controlled?: Element;
     process?: number;
-    event?: string;
-
+    initial_event?: string;
+end_event?: string;
 }
 
 export interface RelationEdit {

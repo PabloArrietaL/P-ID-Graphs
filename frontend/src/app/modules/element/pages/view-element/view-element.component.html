@@ -43,7 +43,7 @@
                 <p style="text-align: center" *ngIf="this.Desc===true" class="text-description ">{{this.service.ID.description}}</p>
          <br>
             </div>
-            <div align="center" class="image col-md-6 col-lg-6 pb-1">
+            <div class="image col-md-6 col-lg-6 pb-1">
                 <img  *ngIf="this.IMG===true" [src]="api+'image/'+this.service.ID.img" alt="" srcset="">
                 <h3 *ngIf="this.IMG===false" style="text-align: center">El elemento no tiene imagen</h3>
 

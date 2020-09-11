@@ -23,10 +23,11 @@ export class PermissiveRelationshipComponent implements OnInit {
   public showSpinner: boolean;
     public Form: FormGroup = new ProcessModel().PermissiveRelations();
 
-  public controlled: Array<Element> = [];
+  public controlled: Array<Element> ;
   public actuator: Array<Element> = [];
         public statuses: Array<any> = [];
 
+public Eventss = [];
   public dataSource: MatTableDataSource<any>;
 public displayedColumns: Array<string> = [ 'actuator', 'controlled', 'event', 'status', 'actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -34,7 +35,7 @@ public create = false;
   public api = environment.api;
   constructor(
     // public service: ElementService,
-    private serviceElement: ElementService,
+    public serviceElement: ElementService,
     private service: RelationService,
     public Processservice: ProcessService,
 
@@ -63,6 +64,7 @@ public create = false;
 
   }
 
+
  Create() {
  this.create = true;
  }
@@ -90,6 +92,11 @@ public create = false;
 
   }
 
+  Events(controlled){
+
+this.Eventss = this.serviceElement.proccesElement(controlled);
+return this.Eventss;
+  }
     Post(form: FormGroup) {
 
     const url = `${this.api}permissive`;
@@ -97,7 +104,7 @@ public create = false;
     if (!form.invalid) {
       const PERMISSIVE: PermissiveR = {
          actuator: form.value.actuator.id,
-    controlled: form.value.controlled,
+    controlled: form.value.controlled.id,
     event: form.value.event,
     process: this.Processservice.IDP.id,
     status: form.value.status,
@@ -159,6 +166,7 @@ public create = false;
        this.serviceElement.getAll(`${this.api}element/type/controlled`).subscribe(
       response => {
         this.controlled = response;
+
 
       },
       error => {

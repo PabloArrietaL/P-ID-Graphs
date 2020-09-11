@@ -27,12 +27,10 @@ export class ProcessModel {
           actuator: new FormControl('', {
                 validators: [Validators.required, Validators.nullValidator]
             }),
-            controlled: new FormControl('', {
+            controlled: new FormControl(0, {
                 validators: [Validators.required, Validators.nullValidator]
             }),
-               type: new FormControl('', {
-                validators: [Validators.required, Validators.nullValidator]
-            }),
+
             event: new FormControl('', {
                 validators: [Validators.required, Validators.nullValidator]
             }),
@@ -51,13 +49,13 @@ export class ProcessModel {
             end_controlled: new FormControl('', {
                 validators: [Validators.required, Validators.nullValidator]
             }),
-    type: new FormControl('', {
-                validators: [Validators.required, Validators.nullValidator]
-            }),
-            event: new FormControl('', {
-                validators: [Validators.required, Validators.nullValidator]
-            }),
 
+            initial_event: new FormControl('', {
+                validators: [Validators.required, Validators.nullValidator]
+            }),
+            end_event: new FormControl('', {
+                validators: [Validators.required, Validators.nullValidator]
+            }),
         });
     }
 }

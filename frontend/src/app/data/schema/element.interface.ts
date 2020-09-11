@@ -9,16 +9,16 @@ export interface Element {
   detail?: {
     id?: number;
     first_status?: {
-      second_status?: { status: { id?: number }; checked: boolean };
-      third_status?: { status: { id?: number }; checked: boolean };
+      second_status?: { status: { id?: Status }; checked: boolean };
+      third_status?: { status: { id?: Status }; checked: boolean };
     };
     second_status?: {
-      first_status?: { status: { id?: number }; checked: boolean };
-      third_status?: { status: { id?: number }; checked: boolean };
+      first_status?: { status: { id?: Status }; checked: boolean };
+      third_status?: { status: { id?: Status }; checked: boolean };
     };
     third_status?: {
-      first_status?: { status: { id?: number }; checked: boolean };
-      second_status?: { status: { id?: number }; checked: boolean };
+      first_status?: { status: { id?: Status }; checked: boolean };
+      second_status?: { status: { id?: Status }; checked: boolean };
     };
   };
   type?: string;
@@ -51,16 +51,16 @@ export interface ElementDetail {
 
         id?:number;
     first_status?:{
-         second_status?: {status: {id?:number}, checked: boolean};
-         third_status?: {status: {id?:number}, checked: boolean};
+         second_status?: {status: {id?:Status}, checked: boolean};
+         third_status?: {status: {id?:Status}, checked: boolean};
     }
    second_status?:{
-         first_status?: {status: {id?:number}, checked: boolean};
-         third_status?: {status: {id?:number}, checked: boolean};
+         first_status?: {status: {id?:Status}, checked: boolean};
+         third_status?: {status: {id?:Status}, checked: boolean};
     }
  third_status?:{
-         first_status?: {status: {id?:number}, checked: boolean};
-         second_status?: {status: {id?:number}, checked: boolean};
+         first_status?: {status: {id?:Status}, checked: boolean};
+         second_status?: {status: {id?:Status}, checked: boolean};
 
 
     };

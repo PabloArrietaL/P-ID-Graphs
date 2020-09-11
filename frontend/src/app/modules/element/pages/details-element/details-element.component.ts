@@ -140,14 +140,14 @@ export class DetailsElementComponent implements OnInit {
             id: this.service.ID.detail.id,
             first_status: {
               second_status: {
-                status: { id: this.service.ID.second_status.id },
+                status: { id: this.service.ID.second_status },
                 checked: this.FormDetail3s.value.estado1estado2,
               },
 
             },
             second_status: {
               first_status: {
-                status: { id: this.service.ID.first_status.id },
+                status: { id: this.service.ID.first_status },
                 checked: this.FormDetail3s.value.estado2estado1,
               },
 
@@ -176,31 +176,31 @@ export class DetailsElementComponent implements OnInit {
                      id: this.service.ID.detail.id,
                      first_status: {
                        second_status: {
-                         status: { id: this.service.ID.second_status.id },
+                         status: { id: this.service.ID.second_status },
                          checked: this.FormDetail3s.value.estado1estado2,
                        },
                        third_status: {
-                         status: { id: this.service.ID.third_status.id },
+                         status: { id: this.service.ID.third_status },
                          checked: this.FormDetail3s.value.estado1estado3,
                        },
                      },
                      second_status: {
                        first_status: {
-                         status: { id: this.service.ID.first_status.id },
+                         status: { id: this.service.ID.first_status },
                          checked: this.FormDetail3s.value.estado2estado1,
                        },
                        third_status: {
-                         status: { id: this.service.ID.second_status.id },
+                         status: { id: this.service.ID.second_status },
                          checked: this.FormDetail3s.value.estado2estado3,
                        },
                      },
                      third_status: {
                        first_status: {
-                         status: { id: this.service.ID.first_status.id },
+                         status: { id: this.service.ID.first_status },
                          checked: this.FormDetail3s.value.estado3estado1,
                        },
                        second_status: {
-                         status: { id: this.service.ID.second_status.id },
+                         status: { id: this.service.ID.second_status },
                          checked: this.FormDetail3s.value.estado3estado2,
                        },
                      },

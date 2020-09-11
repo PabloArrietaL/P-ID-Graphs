@@ -9,20 +9,14 @@
         </ol>
     </nav>
     <div style="display: flex; ">
-        <!-- <a (click)="goBack()" style="cursor: pointer; margin-top: 4px;"><svg xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24" fill="#444044" width="18px" height="18px">
-                <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z" />
-                <path d="M0 0h24v24H0z" fill="none" />
-            </svg>
 
-        </a> -->
         <h3 style="margin-left: 28px; margin-top: 8px;" class="sub-title"> Detalle elemento </h3>
     </div>
     <body>
         <br>
         <div *ngIf="this.service.ID.third_status!==null">
     <form [formGroup]="FormDetail3s">
-        
+
 <table  class="egt">
 
     <tr>
@@ -78,77 +72,77 @@
 </div>
     <div *ngIf="this.service.ID.third_status===null">
     <form [formGroup]="FormDetail2s">
-    
+
         <table class="egt">
-    
+
             <tr>
-    
+
                 <th *ngIf="this.Name===true" scope="row">{{this.service.ID.name}}</th>
-    
+
                 <th *ngIf="this.Fstatus===true">{{this.service.ID.first_status.name}}</th>
-    
+
                 <th *ngIf="this.Sstatus===true">{{this.service.ID.second_status.name}}</th>
-    
-              
-    
+
+
+
             </tr>
-    
+
             <tr>
-    
+
                 <th>{{this.service.ID.first_status.name}}</th>
-    
+
                 <td>
                     <mat-checkbox color="primary" [disabled]="this.sameElement===true" type="checkbox" id="estado1-estado1">
                         <br></mat-checkbox>
                 </td>
-    
+
                 <td>
                     <mat-checkbox color="primary" [disabled]="this.disabled===false" type="checkbox"
                         formControlName="estado1estado2" (change)="Status1_2($event)" id="estado1estado2"> <br>
                     </mat-checkbox>
                 </td>
-    
-             
-    
+
+
+
             </tr>
-    
+
             <tr>
-    
+
                 <th>{{this.service.ID.second_status.name}}</th>
-    
+
                 <td>
                     <mat-checkbox color="primary" [disabled]="this.disabled===false" (change)="Status2_1($event)"
                         id="estado2estado1" formControlName="estado2estado1"> <br></mat-checkbox>
                 </td>
-    
+
                 <td>
                     <mat-checkbox color="primary" [disabled]="this.sameElement===true" id="estado2estado2"> <br>
                     </mat-checkbox>
                 </td>
-    
-           
-    
+
+
+
             </tr>
-    
-            <!-- <tr>
-    
+
+            <tr>
+
                 <th *ngIf="this.service.ID.third_status!==null && this.Tstatus===true">{{this.service.ID.third_status.name}}
                 </th>
-    
+
                 <td *ngIf="this.service.ID.third_status!==null && this.Tstatus===true">
                     <mat-checkbox color="primary" (change)="Status3_1($event)" formControlName="estado3estado1"
                         [disabled]="this.disabled===false" id="estado3estado1"> <br></mat-checkbox>
                 </td>
-    
+
                 <td *ngIf="this.service.ID.third_status!==null && this.Tstatus===true">
                     <mat-checkbox color="primary" (change)="Status3_2($event)" formControlName="estado3estado2"
                         [disabled]="this.disabled===false" id="estado3estado2"> <br></mat-checkbox>
                 </td>
-    
-            
-    
-            </tr> -->
-    
+
+
+
+            </tr>
+
         </table>
     </form>
     </div>
@@ -161,7 +155,7 @@
         <button *ngIf="this.disabled===true" mat-stroked-button  (click)="abledCheckbox()" class="button-modal"  color="warn">
             Cancelar
         </button>
-       
+
         <button *ngIf="this.disabled===false" mat-stroked-button  (click)="disabledCheckbox()" class="button-modal" color="primary">
             Actualizar
         </button>

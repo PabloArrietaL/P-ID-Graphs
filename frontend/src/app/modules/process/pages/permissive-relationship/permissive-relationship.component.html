@@ -48,30 +48,21 @@
     <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Variable de control</mat-label>
-        <mat-select formControlName="controlled">
-          <mat-option [value]="element.id" *ngFor="let element of controlled">
+        <mat-select formControlName="controlled"  (selectionChange)="this.Events($event)">
+          <mat-option [value]="element"  *ngFor="let element of controlled">
             {{ element.name }}
           </mat-option>
         </mat-select>
       </mat-form-field>
     </div>
-  <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
-    <mat-form-field appearance="outline" class="form-field">
-      <mat-label>Tipo</mat-label>
-      <mat-select formControlName="type">
-        <mat-option value="PA">Presencia - Ausencia</mat-option>
-        <mat-option value="EF">Lleno - vacio</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
+
     <div class="col-lg-6 col-md-6 col-sm-6 mt-2">
       <mat-form-field appearance="outline" class="form-field">
         <mat-label>Evento</mat-label>
-        <mat-select formControlName="event">
-          <mat-option *ngIf="Form.value.type==='PA'" value="PtoA">P to A</mat-option>
-          <mat-option *ngIf="Form.value.type==='PA'"  value="AtoP">A to P</mat-option>
-          <mat-option *ngIf="Form.value.type==='EF'"  value="EtoF">E to F</mat-option>
-          <mat-option *ngIf="Form.value.type==='EF'" value="FtoE">F to E</mat-option>
+        <mat-select formControlName="event"  >
+    <mat-option [value]="event" *ngFor="let event of Eventss">
+      {{ event }}
+    </mat-option>
 
         </mat-select>
       </mat-form-field>

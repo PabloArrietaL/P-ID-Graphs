@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Element, ElementEdit, ElementDetail } from '@data/schema/element.interface';
+import { Element, ElementEdit, ElementDetail, Status } from '@data/schema/element.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +30,99 @@ export class ElementService {
   delete(url: string, id: number) {
     const path = `${url}/${id}`;
     return this.http.delete(path);
+  }
+
+
+
+  proccesElement(controlled: any) {
+let select1to2;
+let select2to1;
+let select1to3;
+let select2to3;
+let select3to2;
+let select3to1;
+const arrW2 = [];
+const arrW3 = [];
+
+const status1 = controlled.value.first_status.name ;
+const status2 = controlled.value.second_status.name ;
+
+
+const status1FL = status1.slice(0, 1);
+const status2FL = status2.slice(0, 1);
+
+if (controlled.value.detail.third_status === null) {
+
+
+if (controlled.value.detail.first_status.second_status.checked === true) {
+   select1to2 = status1FL.toUpperCase() + 'to' + status2FL.toUpperCase();
+   arrW2.push(select1to2);
+
+}
+
+if (controlled.value.detail.second_status.first_status.checked === true) {
+   select2to1 = status2FL.toUpperCase() + 'to' + status1FL.toUpperCase();
+   arrW2.push(select2to1);
+
+}
+
+
+
+
+
+
+return arrW2;
+
+} if (controlled.value.detail.third_status !== null) {
+
+    // tslint:disable-next-line: align
+    const status3 = controlled.value.third_status.name ;
+    const status3FL = status3.slice(0, 1);
+   // tslint:disable-next-line: align
+
+    if (controlled.value.detail.first_status.second_status.checked === true) {
+   select1to2 = status1FL.toUpperCase() + 'to' + status2FL.toUpperCase();
+   arrW3.push(select1to2);
+
+}
+
+    if (controlled.value.detail.second_status.first_status.checked === true) {
+   select2to1 = status2FL.toUpperCase() + 'to' + status1FL.toUpperCase();
+   arrW3.push(select2to1);
+
+}
+
+    if (controlled.value.detail.third_status.first_status.checked === true) {
+   select3to1 = status3FL.toUpperCase() + 'to' + status1FL.toUpperCase();
+   arrW3.push(select3to1);
+
+}
+
+    if (controlled.value.detail.third_status.second_status.checked === true) {
+   select3to2 = status3FL.toUpperCase() + 'to' + status2FL.toUpperCase();
+   arrW3.push(select3to2);
+
+}
+
+    if (controlled.value.detail.first_status.third_status.checked === true) {
+   select1to3 = status1FL.toUpperCase() + 'to' + status3FL.toUpperCase();
+   arrW3.push(select1to3);
+
+}
+
+    if (controlled.value.detail.second_status.third_status.checked === true) {
+   select2to3 = status2FL.toUpperCase() + 'to' + status3FL.toUpperCase();
+   arrW3.push(select2to3);
+
+}
+
+
+
+    return arrW3;
+
+  }
+
+
   }
 
 }
