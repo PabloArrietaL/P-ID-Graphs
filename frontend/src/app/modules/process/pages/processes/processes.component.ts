@@ -15,7 +15,7 @@ import { RelationService } from '@data/service/relation.service';
 })
 export class ProcessesComponent implements OnInit {
 
-  public displayedColumns: Array<string> = ['name', 'description','status', 'actions'];
+  public displayedColumns: Array<string> = ['name', 'description', 'status', 'actions'];
   public dataSource: MatTableDataSource<any>;
   public deviceInfo = null;
   public showSpinner: boolean;
@@ -28,10 +28,9 @@ export class ProcessesComponent implements OnInit {
     private details: RelationService,
     private service: ProcessService,
     private toast: ToastrService,
-        private router: Router,
-        private activatedroute: ActivatedRoute,
-
-    ) { }
+    private router: Router,
+    private activatedroute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
     this.getProcess();
@@ -59,27 +58,28 @@ export class ProcessesComponent implements OnInit {
     );
   }
   Create() {
-      this.router.navigateByUrl('process/add');
-
-
+    this.router.navigateByUrl('process/add');
   }
-  Edit(id):void {
-    this.service.IDP = id;
-    // console.log(  this.requirementService.IPreqI );
 
+  Edit(id: Process): void {
+    this.service.IDP = id;
     this.router.navigate(['/process/edit'], { relativeTo: this.activatedroute });
   }
 
-  Relations(id):void {
+  Relations(id: Process): void {
     this.service.IDP = id;
-
     this.router.navigate(['/process/tabs'], { relativeTo: this.activatedroute });
   }
+
+  View(id: string): void {
+    window.open('/view/' + id, '_blank');
+  }
+
   delete(id: number) {
     this.service.delete(`${this.api}process`, id).subscribe(
       _ => {
         this.toast.success('Proceso eliminado correctamente', 'Éxito');
-        const data = this.dataSource.data.filter( (x: Process) => x.id !== id);
+        const data = this.dataSource.data.filter((x: Process) => x.id !== id);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
       },

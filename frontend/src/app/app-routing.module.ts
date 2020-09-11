@@ -3,6 +3,7 @@ import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 import { ContentLayoutComponent } from './layout/modules/content-layout/content-layout.component';
 import { HomeLayoutComponent } from './layout/modules/home-layout/home-layout.component';
+import { ViewProcessComponent } from '@module/process/pages/view-process/view-process.component';
 
 
 const routes: Routes = [
@@ -11,6 +12,10 @@ const routes: Routes = [
     path: '',
     redirectTo: 'home',
     pathMatch: 'full'
+  },
+  {
+    path: 'view/:id',
+    component: ViewProcessComponent
   },
   {
     path: '',

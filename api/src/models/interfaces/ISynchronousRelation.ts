@@ -7,5 +7,6 @@ export interface ISynchronousRelation{
     process: IProcess;
     initial_controlled: IElement;
     end_controlled: IElement
-    event: string;
+    initial_event: string;
+    end_event: string;
 }

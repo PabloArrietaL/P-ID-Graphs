@@ -24,46 +24,37 @@ export class RelationsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
-    private route: Router,
     private service: RelationService,
-    private serviceProcess:ProcessService,
+    private serviceProcess: ProcessService,
     private toast: ToastrService,
-    private dialog: MatDialog,
-        private router: Router,
-        private activatedroute: ActivatedRoute,
-    ) { }
+    private router: Router,
+    private activatedroute: ActivatedRoute
+  ) { }
 
   ngOnInit(): void {
-    // if (this.service.process === undefined) {
-    //   this.route.navigate(['/graphs']);
-    // }
-    // this.graph = this.service.process;
-    // this.getEdges();
 
-      if (this.serviceProcess.IDP === undefined) {
+    if (this.serviceProcess.IDP === undefined) {
       this.goBack();
-      
-    }else{this.getRelation();
-    
+
+    } else {
+      this.getRelation();
+
     }
 
-
   }
 
-public goBack() {
+  goBack() {
     this.router.navigateByUrl('/process', { relativeTo: this.activatedroute });
   }
-  
+
 
   openCreate() {
-        this.router.navigateByUrl('process/details/add');
+    this.router.navigateByUrl('process/details/add');
 
   }
 
-  openEdit(id) :void{
+  openEdit(id: ProcessDetails): void {
     this.service.ID = id;
-    // console.log(  this.requirementService.IPreqI );
-
     this.router.navigate(['/process/details/edit'], { relativeTo: this.activatedroute });
   }
 
@@ -72,7 +63,7 @@ public goBack() {
     this.service.delete(`${this.api}relation`, id).subscribe(
       _ => {
         this.toast.success('Relación eliminada correctamente', 'Éxito');
-        const data = this.dataSource.data.filter( (x: ProcessDetails) => x.id !== id);
+        const data = this.dataSource.data.filter((x: ProcessDetails) => x.id !== id);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
       },
@@ -85,16 +76,16 @@ public goBack() {
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-  } 
-  
-  getRelation():void {
+  }
+
+  getRelation() {
     this.showSpinner = true;
-    this.service.getByID(`${this.api}relation`,this.serviceProcess.IDP.id).subscribe(
+    this.service.getByID(`${this.api}relation`, this.serviceProcess.IDP.id).subscribe(
       response => {
-          this.dataSource = new MatTableDataSource(response.reverse());
-          this.dataSource.paginator = this.paginator;
-          this.showSpinner = false;
-            console.log(this.dataSource.data);
+        this.dataSource = new MatTableDataSource(response.reverse());
+        this.dataSource.paginator = this.paginator;
+        this.showSpinner = false;
+        console.log(this.dataSource.data);
 
       },
       _ => {
@@ -102,4 +93,4 @@ public goBack() {
       }
     );
   }
-  }
+}

@@ -23,8 +23,6 @@ export class SynchronousRelationService{
         .getMany();
         
         return query;
-
-        return getManager().getRepository(SynchronousRelation).find()
     }
 
     deleteSynchronous(id: number, res: Response): Promise<Response> | Response{

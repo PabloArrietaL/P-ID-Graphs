@@ -95,6 +95,7 @@ export class ElementService {
         .leftJoinAndSelect("element.first_status", "first_status")
         .leftJoinAndSelect("element.second_status", "second_status")
         .leftJoinAndSelect("element.third_status", "third_status")
+        .leftJoinAndSelect("element.detail", "detail")
         .setParameter('type', type)
         .getMany();
         
