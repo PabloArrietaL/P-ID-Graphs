@@ -13,35 +13,32 @@ import { Process } from '@data/schema/process.interface';
   styleUrls: ['./create-status.component.scss']
 })
 export class CreateStatusComponent implements OnInit {
- public FormStatus: FormGroup = new StatusModel().StatusModel();
+  public FormStatus: FormGroup = new StatusModel().StatusModel();
   public showSpinner = false;
   public api = environment.api;
 
   constructor(
     private service: StatusService,
-        private router: Router,
-        private activatedroute: ActivatedRoute,
+    private router: Router,
+    private activatedroute: ActivatedRoute,
     private toast: ToastrService) { }
 
   ngOnInit(): void {
   }
-public goBack() {
-    this.router.navigateByUrl('/status', { relativeTo: this.activatedroute });
+  goBack() {
+    this.router.navigate(['../'], { relativeTo: this.activatedroute });
   }
+
   createStatus(form: FormGroup) {
-
     const url = `${this.api}status`;
- 
     if (!form.invalid) {
-       const PROCESS:Process={
-      // id:this.service.ID.id,
-      name: form.value.name,
-      description: form.value.description
-
-    }
+      const PROCESS: Process = {
+        name: form.value.name,
+        description: form.value.description
+      };
       this.showSpinner = true;
-      this.service.create(url,PROCESS).subscribe(
-        response => {
+      this.service.create(url, PROCESS).subscribe(
+        () => {
           this.toast.success('Estado creado correctamente', 'Éxito');
           this.showSpinner = false;
           this.goBack();

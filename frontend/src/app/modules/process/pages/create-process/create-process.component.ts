@@ -26,23 +26,19 @@ export class CreateProcessComponent implements OnInit {
 
   ngOnInit(): void {
   }
-public goBack() {
-    this.router.navigateByUrl('/process', { relativeTo: this.activatedroute });
+  goBack() {
+    this.router.navigate(['../'], { relativeTo: this.activatedroute });
   }
   createProcess(form: FormGroup) {
-
     const url = `${this.api}process`;
-
     if (!form.invalid) {
-       const PROCESS: Process = {
-      // id:this.service.ID.id,
-      name: form.value.name,
-      description: form.value.description,
-      status: form.value.status
-    };
-
-       this.showSpinner = true;
-       this.service.create(url, PROCESS).subscribe(
+      const PROCESS: Process = {
+        name: form.value.name,
+        description: form.value.description,
+        status: form.value.status
+      };
+      this.showSpinner = true;
+      this.service.create(url, PROCESS).subscribe(
         () => {
           this.toast.success('Proceso creado correctamente', 'Éxito');
           this.showSpinner = false;
@@ -55,5 +51,4 @@ public goBack() {
       );
     }
   }
-
 }

@@ -1,8 +1,7 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { environment } from '@env/environment';
 import { FormGroup } from '@angular/forms';
 import { RelationModel } from '@data/models/relation.model';
-import { RelationService } from '@data/service/relation.service';
 import { ToastrService } from 'ngx-toastr';
 import { ElementService } from '@data/service/element.service';
 import { Element } from '@data/schema/element.interface';
@@ -42,7 +41,7 @@ export class EditRelationComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('/process/details', { relativeTo: this.activatedroute });
+    this.router.navigate(['details'], { relativeTo: this.activatedroute });
   }
 
   getElements() {

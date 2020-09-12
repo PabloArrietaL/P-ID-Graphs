@@ -35,33 +35,28 @@ export class RelationsComponent implements OnInit {
 
     if (this.serviceProcess.IDP === undefined) {
       this.goBack();
-
     } else {
       this.getRelation();
-
     }
-
   }
 
   goBack() {
-    this.router.navigateByUrl('/process', { relativeTo: this.activatedroute });
+    this.router.navigate(['../'], { relativeTo: this.activatedroute });
   }
 
 
   openCreate() {
-    this.router.navigateByUrl('process/details/add');
-
+    this.router.navigate(['add'], { relativeTo: this.activatedroute });
   }
 
   openEdit(id: ProcessDetails): void {
     this.service.ID = id;
-    this.router.navigate(['/process/details/edit'], { relativeTo: this.activatedroute });
+    this.router.navigate(['edit'], { relativeTo: this.activatedroute });
   }
-
 
   delete(id: string) {
     this.service.delete(`${this.api}relation`, id).subscribe(
-      _ => {
+      () => {
         this.toast.success('Relación eliminada correctamente', 'Éxito');
         const data = this.dataSource.data.filter((x: ProcessDetails) => x.id !== id);
         this.dataSource = new MatTableDataSource(data);
@@ -88,7 +83,7 @@ export class RelationsComponent implements OnInit {
         console.log(this.dataSource.data);
 
       },
-      _ => {
+      () => {
         this.showSpinner = false;
       }
     );

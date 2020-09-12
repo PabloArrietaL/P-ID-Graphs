@@ -18,36 +18,31 @@ export class EditStatusComponent implements OnInit {
 
   constructor(
     private service: StatusService,
-            private router: Router,
-        private activatedroute: ActivatedRoute,
-    private toast: ToastrService,
-   ) { }
+    private router: Router,
+    private activatedroute: ActivatedRoute,
+    private toast: ToastrService
+  ) { }
 
   ngOnInit(): void {
-
-
-      if (this.service.ID === undefined) {
+    if (this.service.ID === undefined) {
       this.goBack();
-      
-    }else{
-    this.FormStatus.setValue({
-      id: this.service.ID.id,
-      name: this.service.ID.name,
-      description: this.service.ID.description
-    });
+    } else {
+      this.FormStatus.setValue({
+        id: this.service.ID.id,
+        name: this.service.ID.name,
+        description: this.service.ID.description
+      });
+    }
   }
-  }
-public goBack() {
-    this.router.navigateByUrl('/status', { relativeTo: this.activatedroute });
+  goBack() {
+    this.router.navigate(['../'], { relativeTo: this.activatedroute });
   }
   editStatus(form: FormGroup) {
-
     const url = `${this.api}status`;
-  
     if (!form.invalid) {
       this.showSpinner = true;
       this.service.edit(url, form.value).subscribe(
-        response => {
+        () => {
           this.toast.success('Estado editado correctamente', 'Éxito');
           this.showSpinner = false;
           this.goBack();
@@ -58,7 +53,6 @@ public goBack() {
         }
       );
     }
-
   }
 
 }

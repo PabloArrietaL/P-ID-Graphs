@@ -28,19 +28,13 @@ export class ElementsComponent implements OnInit {
     private service: ElementService,
     private toast: ToastrService,
     private router: Router,
-        private activatedroute: ActivatedRoute,
+    private activatedroute: ActivatedRoute,
 
-    ) { }
+  ) { }
 
   ngOnInit(): void {
     this.getElements();
-    
-
-
-    }
-    
-  
-
+  }
 
   getElements() {
     this.showSpinner = true;
@@ -50,7 +44,7 @@ export class ElementsComponent implements OnInit {
           this.dataSource = new MatTableDataSource(response.reverse());
           this.dataSource.paginator = this.paginator;
         }
-          this.showSpinner = false;
+        this.showSpinner = false;
 
       },
       _ => {
@@ -58,43 +52,36 @@ export class ElementsComponent implements OnInit {
       }
     );
   }
-  detailsE(id):void {
-    this.service.ID = id;
-    
-    this.router.navigate(['/element/details'], { relativeTo: this.activatedroute });
-  }
-  openView(id) {
-    this.service.ID = id;
-    // console.log(  this.requirementService.IPreqI );
 
-    this.router.navigate(['/element/view'], { relativeTo: this.activatedroute });
+  detailsE(id: Element): void {
+    this.service.ID = id;
+    this.router.navigate(['details'], { relativeTo: this.activatedroute });
   }
-public goBack() {
-    this.router.navigateByUrl('/element', { relativeTo: this.activatedroute });
+
+  goBack() {
+    this.router.navigate(['../'], { relativeTo: this.activatedroute });
   }
+
   openCreate() {
-      this.router.navigateByUrl('element/add');
-
+    this.router.navigate(['add'], { relativeTo: this.activatedroute });
   }
 
-  openEdit(id):void {
+  openEdit(id: Element): void {
     this.service.ID = id;
-    // console.log(  this.requirementService.IPreqI );
-
-    this.router.navigate(['/element/edit'], { relativeTo: this.activatedroute });
+    this.router.navigate(['edit'], { relativeTo: this.activatedroute });
   }
 
 
 
-   
 
-  
+
+
 
   delete(id: number) {
     this.service.delete(`${this.api}element`, id).subscribe(
       _ => {
         this.toast.success('Elemento eliminado correctamente', 'Éxito');
-        const data = this.dataSource.data.filter( (x: Element) => x.id !== id);
+        const data = this.dataSource.data.filter((x: Element) => x.id !== id);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
       },

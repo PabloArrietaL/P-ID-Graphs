@@ -18,12 +18,11 @@ import { Element } from '@data/schema/element.interface';
 })
 export class ProcessDetailComponent implements OnInit {
 
-public displayedColumns: Array<string> = [ 'element', 'first_status', 'second_status', 'third_status', 'actions'];
+  public displayedColumns: Array<string> = ['element', 'first_status', 'second_status', 'third_status', 'actions'];
   public dataSource: MatTableDataSource<any>;
   public deviceInfo = null;
   public showSpinner: boolean;
   public api = environment.api;
-  // public graph: Process;
   public Name = true;
   myControl = new FormControl();
   filteredOptions: Observable<Element[]>;
@@ -33,74 +32,49 @@ public displayedColumns: Array<string> = [ 'element', 'first_status', 'second_st
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   constructor(
-    private route: Router,
     private service: RelationService,
-    public serviceProcess:ProcessService,
+    public serviceProcess: ProcessService,
     private toast: ToastrService,
-    private dialog: MatDialog,
-        private router: Router,
-        private activatedroute: ActivatedRoute,
-    ) { }
+    private router: Router,
+    private activatedroute: ActivatedRoute,
+  ) { }
 
   ngOnInit(): void {
-    // if (this.service.process === undefined) {
-    //   this.route.navigate(['/graphs']);
-    // }
-    // this.graph = this.service.process;
-    // this.getEdges();
-
-      if (this.serviceProcess.IDP === undefined) {
-              this.Name = false;
-
+    if (this.serviceProcess.IDP === undefined) {
+      this.Name = false;
       this.goBack();
-
-      
-    }else{this.getDetail();
-
-        this.service.allElement(`${this.api}element`).subscribe(res => {
-      this.listAll = res;
-      this.filteredOptions = this.myControl.valueChanges
-        .pipe(
-          startWith(''),
-          map(state => state ? this._filter(state) : this.listAll.slice())
-        );
-    });
+    } else {
+      this.getDetail();
+      this.service.allElement(`${this.api}element`).subscribe(res => {
+        this.listAll = res;
+        this.filteredOptions = this.myControl.valueChanges
+          .pipe(
+            startWith(''),
+            map(state => state ? this._filter(state) : this.listAll.slice())
+          );
+      });
     }
 
 
   }
-public _filter(value: string): Element[] {
+  _filter(value: string): Element[] {
     const filterValue = value.toLowerCase();
     return this.listAll.filter(state => state.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
-  public AutocompletActivity(id): void {
+  AutocompletActivity(id: any): void {
     this.element = id;
   }
 
-public goBack() {
-    this.router.navigateByUrl('/process', { relativeTo: this.activatedroute });
+  goBack() {
+    this.router.navigate(['../'], { relativeTo: this.activatedroute });
   }
-  
-
-  openCreate() {
-        this.router.navigateByUrl('process/details/add');
-
-  }
-
-  // openEdit(id) :void{
-  //   this.service.ID = id;
-  //   // console.log(  this.requirementService.IPreqI );
-
-  //   this.router.navigate(['/process/details/edit'], { relativeTo: this.activatedroute });
-  // }
-
 
   delete(id: string) {
     this.service.delete(`${this.api}process-detail`, id).subscribe(
-      _ => {
+      () => {
         this.toast.success('Elemento eliminado correctamente', 'Éxito');
-        const data = this.dataSource.data.filter( (x: ProcessDetails) => x.id !== id);
+        const data = this.dataSource.data.filter((x: ProcessDetails) => x.id !== id);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
       },
@@ -110,77 +84,36 @@ public goBack() {
     );
   }
 
-  // applyFilter(event: Event) {
-  //   const filterValue = (event.target as HTMLInputElement).value;
-  //   this.dataSource.filter = filterValue.trim().toLowerCase();
-  // } 
-  //   public postRequirementxtype() {
-  //   // console.log('requirement', this.Requirement);
-  //   // console.log('request', this.requirementxtypeService.IPTypeAcademic);
-  //   this.requirementxtypeservice.postRequiremenxtype({
-  //     requirement: {
-  //       id: +this.Requirement
-  //     },
-  //     requestType: {
-  //       id: +this.requirementxtypeservice.IPTypeAcademic
-  //     },
-
-  //   }).subscribe(response => {
-  //     this.requirementxtypeservice.JSONRxT.push(response);
-  //     this.requirementxtypeservice.dataSource.data = this.requirementxtypeservice.JSONRxT;
-  //     this.formRequirementxtype.reset();
-  //     this.toast.createToastSuccess();
-  //     // this.routes();
-  //     this.loading = false;
-  //   },
-  //     error => {
-  //       this.loading = false;
-
-  //       this.toast.toastError(this.translate.instant(`error.${error.error.message}`));
-
-  //     }
-  //   );
-
-  // }
-    createProcessDetail() {
-
+  createProcessDetail() {
     const url = `${this.api}process-detail`;
- 
-       const DETALLE:ProcessDetails={
-      // id:this.service.ID.id,
-    process: this.serviceProcess.IDP.id,
-   
-      element:this.element
-      
-    }
-      this.showSpinner = true;
-      this.service.create(url,DETALLE).subscribe(
-        response => {
-          this.getDetail();
-          this.toast.success('Elemento añadido correctamente', 'Éxito');
-          this.showSpinner = false;
-          // this.goBack();
-        },
-        error => {
-          this.showSpinner = false;
-          this.toast.error(error.error.message, 'Error');
-        }
-      );
-    
-  }
-  getDetail():void {
+    const DETALLE: ProcessDetails = {
+      process: this.serviceProcess.IDP.id,
+      element: this.element
+    };
     this.showSpinner = true;
-    this.service.getByID(`${this.api}process-detail`,this.serviceProcess.IDP.id).subscribe(
-      response => {
-          this.dataSource = new MatTableDataSource(response.reverse());
-          this.dataSource.paginator = this.paginator;
-          this.showSpinner = false;
-            // console.log(this.dataSource.data);
-
+    this.service.create(url, DETALLE).subscribe(
+      () => {
+        this.getDetail();
+        this.toast.success('Elemento añadido correctamente', 'Éxito');
+        this.showSpinner = false;
       },
-      _ => {
+      error => {
+        this.showSpinner = false;
+        this.toast.error(error.error.message, 'Error');
+      }
+    );
+  }
+  getDetail(): void {
+    this.showSpinner = true;
+    this.service.getByID(`${this.api}process-detail`, this.serviceProcess.IDP.id).subscribe(
+      response => {
+        this.dataSource = new MatTableDataSource(response.reverse());
+        this.dataSource.paginator = this.paginator;
+        this.showSpinner = false;
+      },
+      () => {
         this.showSpinner = false;
       }
     );
   }
-  }
+}

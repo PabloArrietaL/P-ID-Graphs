@@ -6,9 +6,10 @@ import { Element, ElementDetail } from '@data/schema/element.interface';
   providedIn: 'root'
 })
 export class ElementDetailsService {
-public IDED : Element;
+  public IDED: Element;
   constructor(private http: HttpClient) { }
-    getAll(url: string) {
+
+  getAll(url: string) {
     return this.http.get<Array<ElementDetail>>(url);
   }
 
@@ -16,10 +17,6 @@ public IDED : Element;
     return this.http.post(url, data);
   }
 
-  // edit(url: string, data: ElementEdit) {
-  //   const path = `${url}/${data.id}`;
-  //   return this.http.put(path, data);
-  // }
 
   delete(url: string, id: number) {
     const path = `${url}/${id}`;

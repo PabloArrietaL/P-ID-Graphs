@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {  Process, RelationEdit, ProcessDetails, PermissiveR } from '@data/schema/process.interface';
+import { Process, RelationEdit, ProcessDetails, PermissiveR } from '@data/schema/process.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -20,21 +20,21 @@ export class RelationService {
     const path = `${API}`;
     return this.http.get<any>(path);
   }
-   getByID(API: string, ID: number) {
+  getByID(API: string, ID: number) {
     const path = `${API}/${ID}`;
     return this.http.get<any>(path);
   }
-  create(url: string, data: ProcessDetails ) {
+  create(url: string, data: ProcessDetails) {
     return this.http.post(url, data);
   }
-  createPermissiveR(url: string, data: PermissiveR ) {
+  createPermissiveR(url: string, data: PermissiveR) {
     return this.http.post(url, data);
   }
   edit(url: string, data: RelationEdit) {
     const path = `${url}/${data.id}`;
     return this.http.put(path, data);
   }
- public allElement(url: string) {
+  allElement(url: string) {
     const path = `${url}`;
     return this.GetAll(path);
   }

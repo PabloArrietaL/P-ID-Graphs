@@ -1,7 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { ActivatedRoute, Router } from '@angular/router';
 import { ProcessModel } from '@data/models/process.model';
 import { Element } from '@data/schema/element.interface';
 import { SynchronousR } from '@data/schema/process.interface';
@@ -19,55 +18,47 @@ import { ToastrService } from 'ngx-toastr';
 export class SynchronousRelationshipComponent implements OnInit {
   public deviceInfo = null;
   public showSpinner: boolean;
-    public Form: FormGroup = new ProcessModel().SynchronousRelations();
+  public Form: FormGroup = new ProcessModel().SynchronousRelations();
 
 
   public controlled: Array<Element> = [];
   public controlled2: Array<Element> = [];
-        public statuses: Array<any> = [];
-public EventssI = [];
-public EventssF = [];
+  public statuses: Array<any> = [];
+  public EventssI = [];
+  public EventssF = [];
 
   public dataSource: MatTableDataSource<any>;
-public displayedColumns: Array<string> = [ 'initial_controlled', 'end_controlled', 'eventI','eventF', 'actions'];
+  public displayedColumns: Array<string> = ['initial_controlled', 'end_controlled', 'eventI', 'eventF', 'actions'];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-public create = false;
+  public create = false;
   public api = environment.api;
   constructor(
-    // public service: ElementService,
     private serviceElement: ElementService,
     private service: RelationService,
     public Processservice: ProcessService,
-
-    private toast: ToastrService,
-    private router: Router,
-    private activatedroute: ActivatedRoute
-  ) {}
+    private toast: ToastrService
+  ) { }
 
   ngOnInit(): void {
     this.getElementsControlled();
     if (this.Processservice.IDP != null) {
-          this.getSynchronousR();
-
+      this.getSynchronousR();
     }
-
   }
 
-   EventsI(controlled){
-
-this.EventssI = this.serviceElement.proccesElement(controlled);
-return this.EventssI;
+  EventsI(controlled: any) {
+    this.EventssI = this.serviceElement.proccesElement(controlled);
+    return this.EventssI;
   }
-    EventsF(controlled){
 
-
-this.EventssF = this.serviceElement.proccesElement(controlled);
-return this.EventssF;
+  EventsF(controlled: any) {
+    this.EventssF = this.serviceElement.proccesElement(controlled);
+    return this.EventssF;
   }
- Create() {
- this.create = true;
- }
-  // tslint:disable-next-line: align
+  Create() {
+    this.create = true;
+  }
+
   getSynchronousR() {
     this.showSpinner = true;
     this.service.getByID(`${this.api}synchronous`, this.Processservice.IDP.id).subscribe(
@@ -75,65 +66,54 @@ return this.EventssF;
         if (response.length > 0) {
           this.dataSource = new MatTableDataSource(response.reverse());
           this.dataSource.paginator = this.paginator;
-
         }
         this.showSpinner = false;
-
       },
-      _ => {
+      () => {
         this.showSpinner = false;
       }
     );
-
-  }
-   Cancel() {
- this.create = false;
-
   }
 
-    Post(form: FormGroup) {
-
+  Cancel() {
+    this.create = false;
+  }
+  Post(form: FormGroup) {
     const url = `${this.api}synchronous`;
-
     if (!form.invalid) {
       const PERMISSIVE: SynchronousR = {
-         initial_controlled: form.value.initial_controlled.id,
-    end_controlled: form.value.end_controlled.id,
-    initial_event: form.value.initial_event,
+        initial_controlled: form.value.initial_controlled.id,
+        end_controlled: form.value.end_controlled.id,
+        initial_event: form.value.initial_event,
         end_event: form.value.initial_event,
-    process: this.Processservice.IDP.id,
+        process: this.Processservice.IDP.id,
       };
-
       this.showSpinner = true;
-        // tslint:disable-next-line: align
-        this.service.createPermissiveR(url, PERMISSIVE).subscribe(
-          (response) => {
-            this.toast.success('Relación sincrona creada correctamente', 'Éxito');
-            this.Cancel();
-            this.getSynchronousR();
-
-            this.showSpinner = false;
-          },
-          (error) => {
-            this.showSpinner = false;
-            this.toast.error(error.error.message, 'Error');
-          }
-        );
-
+      this.service.createPermissiveR(url, PERMISSIVE).subscribe(
+        () => {
+          this.toast.success('Relación sincrona creada correctamente', 'Éxito');
+          this.Cancel();
+          this.getSynchronousR();
+          this.showSpinner = false;
+        },
+        error => {
+          this.showSpinner = false;
+          this.toast.error(error.error.message, 'Error');
+        }
+      );
     }
   }
 
   filterControlled(controlled: Element) {
     this.controlled2 = this.controlled.filter((x: Element) => x.id !== +controlled.id);
-
     this.Form.get('end_controlled').enable();
   }
 
   delete(id: string) {
     this.service.delete(`${this.api}synchronous`, id).subscribe(
-      _ => {
+      () => {
         this.toast.success('Relación sincrona eliminada correctamente', 'Éxito');
-        const data = this.dataSource.data.filter( (x: any) => x.id !== id);
+        const data = this.dataSource.data.filter((x: any) => x.id !== id);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
       },
@@ -142,18 +122,15 @@ return this.EventssF;
       }
     );
   }
-    applyFilter(event: Event) {
+  applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-
-    getElementsControlled() {
-
-       this.serviceElement.getAll(`${this.api}element/type/controlled`).subscribe(
+  getElementsControlled() {
+    this.serviceElement.getAll(`${this.api}element/type/controlled`).subscribe(
       response => {
         this.controlled = response;
-
       },
       error => {
         this.toast.error(error.error.message, 'Error');

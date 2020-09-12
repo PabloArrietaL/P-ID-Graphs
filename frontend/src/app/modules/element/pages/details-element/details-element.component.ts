@@ -27,26 +27,26 @@ export class DetailsElementComponent implements OnInit {
   public cancel = false;
   public finish = false;
   public sameElement = true;
-    // tslint:disable-next-line: variable-name
+  // tslint:disable-next-line: variable-name
   public cheked1_2: any;
-    // tslint:disable-next-line: variable-name
+  // tslint:disable-next-line: variable-name
   public cheked1_3: any;
   // tslint:disable-next-line: variable-name
   public cheked2_1: any;
-    // tslint:disable-next-line: variable-name
+  // tslint:disable-next-line: variable-name
   public cheked2_3: any;
   // tslint:disable-next-line: variable-name
   public cheked3_1: any;
-   // tslint:disable-next-line: variable-name
+  // tslint:disable-next-line: variable-name
   public cheked3_2: any;
-  // public IMG =true;
+
   constructor(
     public service: ElementService,
     public serviceD: ElementDetailsService,
     private toast: ToastrService,
     private router: Router,
     private activatedroute: ActivatedRoute
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     if (this.service.ID === undefined) {
@@ -60,175 +60,153 @@ export class DetailsElementComponent implements OnInit {
       console.log(this.service.ID.third_status);
 
       if (this.service.ID.third_status === null) {
-          this.FormDetail2s.setValue({
-            estado1estado2: this.service.ID.detail.first_status.second_status
-              .checked,
+        this.FormDetail2s.setValue({
+          estado1estado2: this.service.ID.detail.first_status.second_status
+            .checked,
 
-            estado2estado1: this.service.ID.detail.second_status.first_status
-              .checked,
-          });
+          estado2estado1: this.service.ID.detail.second_status.first_status
+            .checked,
+        });
       } else {
-      this.FormDetail3s.setValue({
-        estado1estado2: this.service.ID.detail.first_status.second_status
-          .checked,
-        estado1estado3: this.service.ID.detail.first_status.third_status
-          .checked,
-        estado2estado1: this.service.ID.detail.second_status.first_status
-          .checked,
-        estado2estado3: this.service.ID.detail.second_status.third_status
-          .checked,
-        estado3estado1: this.service.ID.detail.third_status.first_status
-          .checked,
-        estado3estado2: this.service.ID.detail.third_status.second_status
-          .checked,
-      });
-    }
+        this.FormDetail3s.setValue({
+          estado1estado2: this.service.ID.detail.first_status.second_status
+            .checked,
+          estado1estado3: this.service.ID.detail.first_status.third_status
+            .checked,
+          estado2estado1: this.service.ID.detail.second_status.first_status
+            .checked,
+          estado2estado3: this.service.ID.detail.second_status.third_status
+            .checked,
+          estado3estado1: this.service.ID.detail.third_status.first_status
+            .checked,
+          estado3estado2: this.service.ID.detail.third_status.second_status
+            .checked,
+        });
+      }
     }
   }
-  public goBack() {
-    this.router.navigateByUrl('/element', { relativeTo: this.activatedroute });
+  goBack() {
+    this.router.navigate(['../'], { relativeTo: this.activatedroute });
   }
-  public disabledCheckbox() {
+  disabledCheckbox() {
     this.disabled = true;
     this.cancel = true;
     this.finish = true;
   }
-  public abledCheckbox() {
+  abledCheckbox() {
     this.disabled = false;
     this.cancel = false;
     this.finish = false;
   }
 
   // tslint:disable-next-line: variable-name
-  public Status1_2(cheked1_2: any) {
+  Status1_2(cheked1_2: any) {
     this.FormDetail3s.value.estado1estado2 = cheked1_2.checked;
   }
 
   // tslint:disable-next-line: variable-name
-  public Status1_3(cheked1_3: any) {
+  Status1_3(cheked1_3: any) {
     this.FormDetail3s.value.estado1estado3 = cheked1_3.checked;
   }
   // tslint:disable-next-line: variable-name
-  public Status2_1(cheked2_1: any) {
+  Status2_1(cheked2_1: any) {
     this.FormDetail3s.value.estado2estado1 = cheked2_1.checked;
   }
 
   // tslint:disable-next-line: variable-name
-  public Status2_3(cheked2_3: any) {
+  Status2_3(cheked2_3: any) {
     this.FormDetail3s.value.estado2estado3 = cheked2_3.checked;
   }
   // tslint:disable-next-line: variable-name
-  public Status3_1(cheked3_1: any) {
+  Status3_1(cheked3_1: any) {
     this.FormDetail3s.value.estado3estado1 = cheked3_1.checked;
   }
 
   // tslint:disable-next-line: variable-name
-  public Status3_2(cheked3_2: any) {
+  Status3_2(cheked3_2: any) {
     this.FormDetail3s.value.estado3estado2 = cheked3_2.checked;
   }
 
-  public Detail(form: FormGroup) {
+  Detail(form: FormGroup) {
     this.showSpinner = true;
     const url = `${this.api}element-details`;
 
     if (!form.invalid) {
-
-          const ELEMENTOW2s: ElementDetail = {
-            //  id: this.service.ID.id,
-            // id?: string;
-
-            id: this.service.ID.detail.id,
+      const ELEMENTOW2s: ElementDetail = {
+        id: this.service.ID.detail.id,
+        first_status: {
+          second_status: {
+            status: { id: this.service.ID.second_status },
+            checked: this.FormDetail3s.value.estado1estado2,
+          }
+        },
+        second_status: {
+          first_status: {
+            status: { id: this.service.ID.first_status },
+            checked: this.FormDetail3s.value.estado2estado1,
+          }
+        },
+        third_status: null
+      };
+      if (this.service.ID.third_status === null) {
+        this.showSpinner = true;
+        this.service.Detail(url, ELEMENTOW2s).subscribe(
+          () => {
+            this.toast.success('Detalle editado correctamente', 'Éxito');
+            this.abledCheckbox();
+            this.showSpinner = false;
+          },
+          error => {
+            this.showSpinner = false;
+            this.toast.error(error.error.message, 'Error');
+          }
+        );
+      } else {
+        const ELEMENTOW3s: ElementDetail = {
+          id: this.service.ID.detail.id,
+          first_status: {
+            second_status: {
+              status: { id: this.service.ID.second_status },
+              checked: this.FormDetail3s.value.estado1estado2,
+            },
+            third_status: {
+              status: { id: this.service.ID.third_status },
+              checked: this.FormDetail3s.value.estado1estado3,
+            },
+          },
+          second_status: {
             first_status: {
-              second_status: {
-                status: { id: this.service.ID.second_status },
-                checked: this.FormDetail3s.value.estado1estado2,
-              },
-
+              status: { id: this.service.ID.first_status },
+              checked: this.FormDetail3s.value.estado2estado1,
+            },
+            third_status: {
+              status: { id: this.service.ID.second_status },
+              checked: this.FormDetail3s.value.estado2estado3,
+            },
+          },
+          third_status: {
+            first_status: {
+              status: { id: this.service.ID.first_status },
+              checked: this.FormDetail3s.value.estado3estado1,
             },
             second_status: {
-              first_status: {
-                status: { id: this.service.ID.first_status },
-                checked: this.FormDetail3s.value.estado2estado1,
-              },
-
+              status: { id: this.service.ID.second_status },
+              checked: this.FormDetail3s.value.estado3estado2,
             },
-            third_status: null
-          };
-          if ( this.service.ID.third_status === null ) {
-
-            this.showSpinner = true;
-            this.service.Detail(url, ELEMENTOW2s).subscribe(
-              (response) => {
-                this.toast.success('Detalle editado correctamente', 'Éxito');
-                this.abledCheckbox();
-                this.showSpinner = false;
-              },
-              (error) => {
-                this.showSpinner = false;
-                this.toast.error(error.error.message, 'Error');
-              }
-            );
-          } else {
-                   const ELEMENTOW3s: ElementDetail = {
-                     //  id: this.service.ID.id,
-                     // id?: string;
-
-                     id: this.service.ID.detail.id,
-                     first_status: {
-                       second_status: {
-                         status: { id: this.service.ID.second_status },
-                         checked: this.FormDetail3s.value.estado1estado2,
-                       },
-                       third_status: {
-                         status: { id: this.service.ID.third_status },
-                         checked: this.FormDetail3s.value.estado1estado3,
-                       },
-                     },
-                     second_status: {
-                       first_status: {
-                         status: { id: this.service.ID.first_status },
-                         checked: this.FormDetail3s.value.estado2estado1,
-                       },
-                       third_status: {
-                         status: { id: this.service.ID.second_status },
-                         checked: this.FormDetail3s.value.estado2estado3,
-                       },
-                     },
-                     third_status: {
-                       first_status: {
-                         status: { id: this.service.ID.first_status },
-                         checked: this.FormDetail3s.value.estado3estado1,
-                       },
-                       second_status: {
-                         status: { id: this.service.ID.second_status },
-                         checked: this.FormDetail3s.value.estado3estado2,
-                       },
-                     },
-                   };
-                   this.showSpinner = true;
-                   this.service.Detail(url, ELEMENTOW3s).subscribe(
-              (response) => {
-                this.toast.success('Detalle editado correctamente', 'Éxito');
-                this.abledCheckbox();                this.showSpinner = false;
-              },
-              (error) => {
-                this.showSpinner = false;
-                this.toast.error(error.error.message, 'Error');
-              }
-            );
+          },
+        };
+        this.showSpinner = true;
+        this.service.Detail(url, ELEMENTOW3s).subscribe(
+          () => {
+            this.toast.success('Detalle editado correctamente', 'Éxito');
+            this.abledCheckbox(); this.showSpinner = false;
+          },
+          error => {
+            this.showSpinner = false;
+            this.toast.error(error.error.message, 'Error');
           }
-      // this.service.Detail(url, ELEMENTOW3s).subscribe(
-      //   (response) => {
-      //     this.toast.success("Detalle editado correctamente", "Éxito");
-      //     this.showSpinner = false;
-      //     // this.goBack();
-      //     this.abledCheckbox();
-      //   },
-      //   (error) => {
-      //     this.showSpinner = false;
-      //     this.toast.error(error.error.message, "Error");
-      //   }
-      // );
+        );
+      }
     }
   }
 }

@@ -9,21 +9,18 @@ import { CreateRelationComponent } from './create-relation/create-relation.compo
 
 const routes: Routes = [
 
-
-{
+  {
     path: 'relation',
     redirectTo: '',
     pathMatch: 'full'
-},
-
-
+  },
   {
     path: '',
     children: [
-       {
-            path: '',
-            component: RelationsComponent
-        },
+      {
+        path: '',
+        component: RelationsComponent
+      },
       {
         path: 'add',
         component: CreateRelationComponent

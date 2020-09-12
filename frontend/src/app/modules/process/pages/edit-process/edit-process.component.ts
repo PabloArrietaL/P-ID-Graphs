@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ProcessModel } from '@data/models/process.model';
 import { environment } from '@env/environment';
@@ -19,37 +19,33 @@ export class EditProcessComponent implements OnInit {
 
   constructor(
     private service: ProcessService,
-            private router: Router,
-        private activatedroute: ActivatedRoute,
+    private router: Router,
+    private activatedroute: ActivatedRoute,
     private toast: ToastrService,
-   ) { }
+  ) { }
 
   ngOnInit(): void {
-
-
-      if (this.service.IDP === undefined) {
+    if (this.service.IDP === undefined) {
       this.goBack();
+    } else {
+      this.FormProcess.setValue({
+        id: this.service.IDP.id,
+        name: this.service.IDP.name,
+        description: this.service.IDP.description,
+        status: this.service.IDP.status
+      });
+    }
+  }
 
-    }else{
-    this.FormProcess.setValue({
-      id: this.service.IDP.id,
-      name: this.service.IDP.name,
-      description: this.service.IDP.description,
-      status: this.service.IDP.status
-    });
-  }
-  }
-public goBack() {
-    this.router.navigateByUrl('/process', { relativeTo: this.activatedroute });
+  goBack() {
+    this.router.navigate(['../'], { relativeTo: this.activatedroute });
   }
   editProcess(form: FormGroup) {
-
     const url = `${this.api}process`;
-
     if (!form.invalid) {
       this.showSpinner = true;
       this.service.edit(url, form.value).subscribe(
-        response => {
+        () => {
           this.toast.success('Proceso editado correctamente', 'Éxito');
           this.showSpinner = false;
           this.goBack();
@@ -60,7 +56,5 @@ public goBack() {
         }
       );
     }
-
   }
-
 }

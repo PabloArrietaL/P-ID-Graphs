@@ -36,7 +36,7 @@ export class CreateRelationComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('/process/details', { relativeTo: this.activatedroute });
+    this.router.navigate(['details'], { relativeTo: this.activatedroute });
   }
 
   getElements() {

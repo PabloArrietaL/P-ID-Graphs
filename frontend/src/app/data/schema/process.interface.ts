@@ -1,11 +1,10 @@
-import { Element, Status } from '@data/schema/element.interface';
+import { Element } from '@data/schema/element.interface';
 
 export interface Process {
     id?: number;
     name: string;
     description?: string;
     status?: string;
-
 }
 
 export interface ProcessDetails {
@@ -29,7 +28,7 @@ export interface SynchronousR {
     end_controlled?: Element;
     process?: number;
     initial_event?: string;
-end_event?: string;
+    end_event?: string;
 }
 
 export interface RelationEdit {

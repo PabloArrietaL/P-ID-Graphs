@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StatusService {
-public ID : Status;
+  public ID: Status;
 
   constructor(private http: HttpClient) { }
 
@@ -27,6 +27,5 @@ public ID : Status;
     const path = `${url}/${id}`;
     return this.http.delete(path);
   }
-
 
 }

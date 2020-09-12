@@ -26,50 +26,49 @@ export class EditElementComponent implements OnInit {
     private toast: ToastrService,
     private router: Router,
     private activatedroute: ActivatedRoute,
-    ) { }
+  ) { }
 
   ngOnInit(): void {
 
     if (this.service.ID === undefined) {
       this.goBack();
-
     } else {
-
       this.getStatus();
       if (this.service.ID.third_status === null) {
-            this.FormElement.setValue({
-      id: this.service.ID.id,
-      name: this.service.ID.name,
-      first_status: this.service.ID.first_status.id,
-      second_status: this.service.ID.second_status.id,
-            third_status: null,
+        this.FormElement.setValue({
+          id: this.service.ID.id,
+          name: this.service.ID.name,
+          first_status: this.service.ID.first_status.id,
+          second_status: this.service.ID.second_status.id,
+          third_status: null,
 
-      initial_condition: this.service.ID.initial_condition,
-      type: this.service.ID.type,
-      description: this.service.ID.description,
-      img: this.service.ID.img
-    });
+          initial_condition: this.service.ID.initial_condition,
+          type: this.service.ID.type,
+          description: this.service.ID.description,
+          img: this.service.ID.img
+        });
       } else {
-      this.FormElement.setValue({
-      id: this.service.ID.id,
-      name: this.service.ID.name,
-      first_status: this.service.ID.first_status.id,
-      second_status: this.service.ID.second_status.id,
-      third_status: this.service.ID.third_status.id,
-      initial_condition: this.service.ID.initial_condition,
-      type: this.service.ID.type,
-      description: this.service.ID.description,
-      img: this.service.ID.img
-    });
-  }}
+        this.FormElement.setValue({
+          id: this.service.ID.id,
+          name: this.service.ID.name,
+          first_status: this.service.ID.first_status.id,
+          second_status: this.service.ID.second_status.id,
+          third_status: this.service.ID.third_status.id,
+          initial_condition: this.service.ID.initial_condition,
+          type: this.service.ID.type,
+          description: this.service.ID.description,
+          img: this.service.ID.img
+        });
+      }
+    }
     this.FormElement.get('first_status').disable();
     this.FormElement.get('initial_condition').disable();
 
-}
-public goBack() {
-    this.router.navigateByUrl('/element', { relativeTo: this.activatedroute });
   }
-   getStatus() {
+  public goBack() {
+    this.router.navigate(['../'], { relativeTo: this.activatedroute });
+  }
+  getStatus() {
     this.service.getAll(`${this.api}status`).subscribe(
       response => {
         this.Status = response;
@@ -80,14 +79,12 @@ public goBack() {
     );
   }
 
-    filterStatus2(status: Status) {
+  filterStatus2(status: Status) {
     this.secondStatus = this.Status.filter((x: Status) => x.id !== +status.id);
-
     this.FormElement.get('second_status').enable();
   }
 
-      filterStatus3(status: Status) {
-
+  filterStatus3(status: Status) {
     this.thirdStatus = this.Status.filter((x: Status) => x.id !== +status.id);
     this.thirdStatus = this.secondStatus.filter((x: Status) => x.id !== +status.id);
     this.thirdStatusFinal = this.thirdStatus;
@@ -95,68 +92,58 @@ public goBack() {
   }
 
   editElement(form: FormGroup) {
-
     this.showSpinner = true;
     const url = `${this.api}element`;
 
     if (!form.invalid) {
-               const ELEMENTOW3: ElementEdit = {
-      id: this.service.ID.id,
-        // id?: string;
-     name:  form.value.name,
-    description:  form.value.description,
-   first_status: this.service.ID.first_status.id,
-      second_status: this.service.ID.second_status.id,
+      const ELEMENTOW3: ElementEdit = {
+        id: this.service.ID.id,
+        name: form.value.name,
+        description: form.value.description,
+        first_status: this.service.ID.first_status.id,
+        second_status: this.service.ID.second_status.id,
+        initial_condition: form.value.initial_condition,
+        type: form.value.type,
+        img: form.value.img,
+      };
 
-    initial_condition:  form.value.initial_condition,
-    type:  form.value.type,
-    img:  form.value.img,
-    };
-
-               if (this.service.ID.third_status === null) {
-
-
-            this.service.edit(url, ELEMENTOW3).subscribe(
-        response => {
-          this.toast.success('Elemento editado correctamente', 'Éxito');
-          this.showSpinner = false;
-          this.goBack();        },
-        error => {
-          this.showSpinner = false;
-          this.toast.error(error.error.message, 'Error');
-        }
-      );
-    } else {
-               const ELEMENTO: ElementEdit = {
-      id: this.service.ID.id,
-        // id?: string;
-     name:  form.value.name,
-    description:  form.value.description,
-   first_status: this.service.ID.first_status.id,
-      second_status: this.service.ID.second_status.id,
-      third_status: this.service.ID.third_status.id,
-    initial_condition:  form.value.initial_condition,
-    type:  form.value.type,
-    img:  form.value.img,
-    };
-
-               this.service.edit(url, ELEMENTO).subscribe(
-        response => {
-          this.toast.success('Elemento editado correctamente', 'Éxito');
-          this.showSpinner = false;
-          this.goBack();        },
-        error => {
-          this.showSpinner = false;
-          this.toast.error(error.error.message, 'Error');
-        }
-      );
-
+      if (this.service.ID.third_status === null) {
+        this.service.edit(url, ELEMENTOW3).subscribe(
+          () => {
+            this.toast.success('Elemento editado correctamente', 'Éxito');
+            this.showSpinner = false;
+            this.goBack();
+          },
+          error => {
+            this.showSpinner = false;
+            this.toast.error(error.error.message, 'Error');
+          }
+        );
+      } else {
+        const ELEMENTO: ElementEdit = {
+          id: this.service.ID.id,
+          name: form.value.name,
+          description: form.value.description,
+          first_status: this.service.ID.first_status.id,
+          second_status: this.service.ID.second_status.id,
+          third_status: this.service.ID.third_status.id,
+          initial_condition: form.value.initial_condition,
+          type: form.value.type,
+          img: form.value.img,
+        };
+        this.service.edit(url, ELEMENTO).subscribe(
+          () => {
+            this.toast.success('Elemento editado correctamente', 'Éxito');
+            this.showSpinner = false;
+            this.goBack();
+          },
+          error => {
+            this.showSpinner = false;
+            this.toast.error(error.error.message, 'Error');
+          }
+        );
+      }
     }
-
-
-    }
-
   }
-
 }
 

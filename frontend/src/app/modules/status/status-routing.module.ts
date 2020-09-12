@@ -5,30 +5,29 @@ import { CreateStatusComponent } from './pages/create-status/create-status.compo
 import { EditStatusComponent } from './pages/edit-status/edit-status.component';
 
 
-const routes: Routes = [{
+const routes: Routes = [
+  {
     path: 'status',
     redirectTo: '',
     pathMatch: 'full'
-},
-
-
+  },
   {
     path: '',
     children: [
-       {
-            path: '',
-            component: StatusComponent
-        },
+      {
+        path: '',
+        component: StatusComponent
+      },
       {
         path: 'add',
         component: CreateStatusComponent
       },
-  
+
       {
         path: 'edit',
         component: EditStatusComponent
       }
-    
+
     ]
   }
 ];

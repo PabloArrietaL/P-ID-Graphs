@@ -4,8 +4,6 @@ import cytoscape from 'cytoscape';
 import { environment } from '@env/environment';
 import { ToastrService } from 'ngx-toastr';
 import { ProcessService } from '@data/service/process.service';
-import { url } from 'inspector';
-
 
 @Component({
   selector: 'app-view-process',

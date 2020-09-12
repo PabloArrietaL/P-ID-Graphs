@@ -1,30 +1,30 @@
 <div class="mt-2">
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a routerLink="/home">Inicio</a></li>
-            <li class="breadcrumb-item active"><a routerLink="/process">Proceso</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Tabs</li>
-
-        </ol>
-    </nav>
-    <div style="display: flex; ">
-        <a (click)="goBack()" style="cursor: pointer; margin-top: 14px;"><svg xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24" fill="#444044" width="18px" height="18px">
-                <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z" />
-                <path d="M0 0h24v24H0z" fill="none" />
-            </svg>
-
-        </a>
-        <h3 style="margin-left: 10px; margin-top: 8px;" *ngIf="this.Name===true" class="sub-title">
-            {{this.serviceProcess.IDP.name}}</h3>
-    </div>
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a routerLink="/home">Inicio</a></li>
+      <li class="breadcrumb-item active"><a routerLink="/process">Proceso</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Tabs</li>
+    </ol>
+  </nav>
+  <div style="display: flex; ">
+    <a (click)="goBack()" style="cursor: pointer; margin-top: 14px;"><svg xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24" fill="#444044" width="18px" height="18px">
+        <path d="M11.67 3.87L9.9 2.1 0 12l9.9 9.9 1.77-1.77L3.54 12z" />
+        <path d="M0 0h24v24H0z" fill="none" />
+      </svg>
+    </a>
+    <h3 style="margin-left: 10px; margin-top: 8px;" *ngIf="this.Name===true" class="sub-title">
+      {{this.serviceProcess.IDP.name}}</h3>
+  </div>
 </div>
 <mat-tab-group>
-    <mat-tab label="Añadir elemento">
-
-        <app-process-detail></app-process-detail>
-    </mat-tab>
-    <mat-tab label="Relaciones permisivas"> <app-permissive-relationship></app-permissive-relationship> </mat-tab>
-        <mat-tab label="Relaciones sincronas"><app-synchronous-relationship></app-synchronous-relationship></mat-tab>
-
+  <mat-tab label="Añadir elemento">
+    <app-process-detail></app-process-detail>
+  </mat-tab>
+  <mat-tab label="Relaciones permisivas">
+    <app-permissive-relationship></app-permissive-relationship>
+  </mat-tab>
+  <mat-tab label="Relaciones sincronas">
+    <app-synchronous-relationship></app-synchronous-relationship>
+  </mat-tab>
 </mat-tab-group>
