@@ -47,7 +47,7 @@ export class ElementsComponent implements OnInit {
         this.showSpinner = false;
 
       },
-      _ => {
+      () => {
         this.showSpinner = false;
       }
     );
@@ -71,15 +71,9 @@ export class ElementsComponent implements OnInit {
     this.router.navigate(['edit'], { relativeTo: this.activatedroute });
   }
 
-
-
-
-
-
-
   delete(id: number) {
     this.service.delete(`${this.api}element`, id).subscribe(
-      _ => {
+      () => {
         this.toast.success('Elemento eliminado correctamente', 'Éxito');
         const data = this.dataSource.data.filter((x: Element) => x.id !== id);
         this.dataSource = new MatTableDataSource(data);

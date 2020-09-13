@@ -17,7 +17,7 @@ export class ElementService {
         this.detail = Container.get(ElementDetailService);
     }
 
-    async createElement({ element, file, res }: { element: IElement; file: any; res: Response; }): Promise<Response<any>|(IElement & Element)|UpdateResult> {
+    async createElement({ element, file, res }: { element: IElement; file: any; res: Response; }) {
 
         const toSaveElement: IElement = _.pick(element, [
             "name",
@@ -57,7 +57,7 @@ export class ElementService {
 
     }
 
-    async getAllElements(): Promise<Element[]> {
+    async getAllElements() {
         const query = await getRepository(Element).createQueryBuilder("element")
         .leftJoinAndSelect("element.first_status", "first_status")
         .leftJoinAndSelect("element.second_status", "second_status")
@@ -102,25 +102,21 @@ export class ElementService {
         return query;
     }
 
-    updateElement(id: number, element: IElement): Promise<UpdateResult> {
+    updateElement(id: number, element: IElement) {
         return getManager().getRepository(Element).update({ id: id }, element);
     }
 
-    getElementById(id: number): Promise<IElement[]> {
-        return getManager().getRepository(Element).find({
-            where: {
-                id: id
-            }
-        });
+    getElementById(id: number){
+        return getManager().getRepository(Element).findOne({id: id});
     }
 
-    deleteElement(id: number, res: Response): Promise<Response> | Response {
+    deleteElement(id: number, res: Response) {
 
-        return this.getElementById(id).then((element: IElement[]) => {
+        return this.getElementById(id).then((element: Element | undefined) => {
             try {
                 return getManager().getRepository(Element).delete({ id: id }).then(data => {
                     try{
-                        fs.unlink(path.resolve(__dirname, `../../uploads/${element[0].img}`));
+                        fs.unlink(path.resolve(__dirname, `../../uploads/${element?.img}`));
                     } catch(_){}
                     return res.status(200).json({ message: 'Elemento eliminado'});
                 }).catch(_ => {

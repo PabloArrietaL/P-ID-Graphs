@@ -1,0 +1,18 @@
+<h2 class="font-weight-bold text-primary m-2">
+  {{element?.name}}
+</h2>
+
+<hr>
+<div class="container mt-2">
+  <div class="col-md-10">
+    <div class="d-flex justify-content-center">
+      <img *ngIf="element.img" [src]="api+'image/'+element.img">
+      <h3 *ngIf="!element.img">El elemento no tiene imagen</h3>
+    </div>
+  </div>
+  <div class="d-flex justify-content-center">
+    <button mat-button class="btn-light button-modal" mat-dialog-close>
+      Cerrar
+    </button>
+  </div>
+</div>

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { SharedModule } from '@shared/shared.module';
 import { ProcessRoutingModule } from './process-routing.module';
+import { NgxFloatButtonModule } from 'ngx-float-button';
 
 // Components
 import { ProcessesComponent } from './pages/processes/processes.component';
@@ -14,6 +15,7 @@ import { ProcessDetailComponent } from './pages/process-detail/process-detail.co
 import { TabsComponent } from './pages/tabs/tabs.component';
 import { SynchronousRelationshipComponent } from './pages/synchronous-relationship/synchronous-relationship.component';
 import { PermissiveRelationshipComponent } from './pages/permissive-relationship/permissive-relationship.component';
+import { ViewElementComponent } from './pages/view-element/view-element.component';
 
 @NgModule({
   declarations: [
@@ -25,14 +27,16 @@ import { PermissiveRelationshipComponent } from './pages/permissive-relationship
     ProcessDetailComponent,
     TabsComponent,
     SynchronousRelationshipComponent,
-    PermissiveRelationshipComponent
+    PermissiveRelationshipComponent,
+    ViewElementComponent
   ],
   imports: [
     ReactiveFormsModule,
     CommonModule,
     FormsModule,
     SharedModule,
-    ProcessRoutingModule
+    ProcessRoutingModule,
+    NgxFloatButtonModule
   ],
 })
 export class ProcessModule { }

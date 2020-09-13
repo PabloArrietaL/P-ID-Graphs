@@ -32,6 +32,11 @@ export class ElementService {
     return this.http.delete(path);
   }
 
+  getByID(url: string, id: number) {
+    const path = `${url}/${id}`;
+    return this.http.get<any>(path);
+  }
+
   proccesElement(controlled: any) {
     let select1to2: any;
     let select2to1: any;

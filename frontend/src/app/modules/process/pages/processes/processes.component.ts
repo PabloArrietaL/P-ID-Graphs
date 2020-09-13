@@ -56,7 +56,7 @@ export class ProcessesComponent implements OnInit {
     );
   }
   Create() {
-    this.router.navigateByUrl('process/add');
+    this.router.navigate(['add'], { relativeTo: this.activatedroute });
   }
 
   Edit(id: Process): void {
@@ -70,7 +70,7 @@ export class ProcessesComponent implements OnInit {
   }
 
   View(id: string): void {
-    window.open('/view/' + id, '_blank');
+    this.router.navigate([`/view/${id}`]);
   }
   delete(id: number) {
     this.service.delete(`${this.api}process`, id).subscribe(

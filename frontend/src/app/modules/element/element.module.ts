@@ -8,7 +8,6 @@ import { ElementRoutingModule } from './element-routing.module';
 import { ElementsComponent } from './pages/elements/elements.component';
 import { CreateElementComponent } from './pages/create-element/create-element.component';
 import { EditElementComponent } from './pages/edit-element/edit-element.component';
-import { ViewElementComponent } from './pages/view-element/view-element.component';
 import { DetailsElementComponent } from './pages/details-element/details-element.component';
 
 
@@ -17,7 +16,6 @@ import { DetailsElementComponent } from './pages/details-element/details-element
     ElementsComponent,
     CreateElementComponent,
     EditElementComponent,
-    ViewElementComponent,
     DetailsElementComponent,
   ],
   imports: [

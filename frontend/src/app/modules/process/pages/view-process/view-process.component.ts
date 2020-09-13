@@ -4,6 +4,8 @@ import cytoscape from 'cytoscape';
 import { environment } from '@env/environment';
 import { ToastrService } from 'ngx-toastr';
 import { ProcessService } from '@data/service/process.service';
+import { MatDialog, MatDialogConfig } from '@angular/material';
+import { ViewElementComponent } from '../view-element/view-element.component';
 
 @Component({
   selector: 'app-view-process',
@@ -26,7 +28,8 @@ export class ViewProcessComponent implements OnInit {
     private actRoute: ActivatedRoute,
     private router: Router,
     private service: ProcessService,
-    private toast: ToastrService) { }
+    private toast: ToastrService,
+    private dialog: MatDialog) { }
 
   ngOnInit(): void {
 
@@ -35,7 +38,7 @@ export class ViewProcessComponent implements OnInit {
   }
 
   goBack() {
-    this.router.navigateByUrl('/process', { relativeTo: this.actRoute });
+    this.router.navigate(['process']);
   }
 
   getEdges() {
@@ -44,7 +47,7 @@ export class ViewProcessComponent implements OnInit {
         this.data = response;
         this.formatData();
       },
-      _ => {
+      () => {
         this.toast.error('Ha ocurrido un error', 'Error');
         this.route.navigate(['/process']);
       }
@@ -93,6 +96,15 @@ export class ViewProcessComponent implements OnInit {
     }).run();
 
     graph.on('click', 'node', (event) => {
+      const id = event.target.id();
+      const dialogConfig = new MatDialogConfig();
+      dialogConfig.disableClose = false;
+      dialogConfig.autoFocus = true;
+      dialogConfig.width = '40%';
+      dialogConfig.height = '40%';
+      dialogConfig.maxHeight = '60vh';
+      dialogConfig.data = id;
+      this.dialog.open(ViewElementComponent, dialogConfig);
     });
   }
 

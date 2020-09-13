@@ -3,43 +3,35 @@ import { Routes, RouterModule } from '@angular/router';
 import { ElementsComponent } from './pages/elements/elements.component';
 import { EditElementComponent } from './pages/edit-element/edit-element.component';
 import { CreateElementComponent } from './pages/create-element/create-element.component';
-import { ViewElementComponent } from './pages/view-element/view-element.component';
 import { DetailsElementComponent } from './pages/details-element/details-element.component';
 
 
 const routes: Routes = [{
-    path: 'element',
-    redirectTo: '',
-    pathMatch: 'full'
+  path: 'element',
+  redirectTo: '',
+  pathMatch: 'full'
 },
-
-
-  {
-    path: '',
-    children: [
-       {
-            path: '',
-            component: ElementsComponent
-        },
-      {
-        path: 'add',
-        component: CreateElementComponent
-      },
-  
-      {
-        path: 'edit',
-        component: EditElementComponent
-      },
-      {
-        path: 'view',
-        component: ViewElementComponent
-      },
-      {
-        path: 'details',
-        component: DetailsElementComponent
-      }
-    ]
-  }
+{
+  path: '',
+  children: [
+    {
+      path: '',
+      component: ElementsComponent
+    },
+    {
+      path: 'add',
+      component: CreateElementComponent
+    },
+    {
+      path: 'edit',
+      component: EditElementComponent
+    },
+    {
+      path: 'details',
+      component: DetailsElementComponent
+    }
+  ]
+}
 ];
 
 @NgModule({
