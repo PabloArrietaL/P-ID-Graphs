@@ -23,8 +23,8 @@ export class ViewElementComponent implements OnInit {
       name: '',
       description: '',
       type: '',
-      first_status: null,
-      second_status: null,
+      first_status: {name: ''},
+      second_status: {name: ''},
       third_status: null,
       img: null
     };

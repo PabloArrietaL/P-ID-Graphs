@@ -1,9 +1,10 @@
-.image{
-    text-align: center;
-    img{
-        width: 100%;
-    }
+.images_methods {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
-.text-description{
-    text-align: center;
+
+.images_methods img {
+    width: 25%;
 }

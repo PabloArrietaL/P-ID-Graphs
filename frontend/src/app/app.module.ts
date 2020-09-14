@@ -24,8 +24,7 @@ import { SharedModule } from '@shared/shared.module';
     HomeLayoutComponent,
     NavbarComponent,
     SidebarComponent,
-    FooterComponent,
-    
+    FooterComponent
   ],
   imports: [
     SharedModule,
