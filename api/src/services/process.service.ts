@@ -1,4 +1,4 @@
-import { getManager, UpdateResult, getRepository } from "typeorm";
+import { getManager, getRepository } from "typeorm";
 import { Process } from "../models/entities/Process";
 import { Singleton } from "typescript-ioc";
 import { IProcess } from "../models/interfaces/IProcess";
@@ -79,16 +79,55 @@ export class ProcessService{
         return {nodes: nodesData, edges: edgesData};
     }
 
-    updateProcess(id: number, process: IProcess): Promise<UpdateResult>{
+    async getPetriData(id: number){
+
+        const nodes: Array<IElement> = [];
+        const edges: Array<Edge> = [];
+
+        const permissive = await getRepository(PermissiveRelation).createQueryBuilder("permissive")
+        .where("permissive.process = :process")
+        .leftJoinAndSelect("permissive.actuator", "actuator")
+        .leftJoinAndSelect("actuator.detail", "actuator_detail")
+        .leftJoinAndSelect("permissive.controlled", "controlled")
+        .leftJoinAndSelect("controlled.detail", "controlled_detail")
+        .setParameter('process', id)
+        .getMany();
+
+        const synchronous = await getRepository(SynchronousRelation).createQueryBuilder("synchronous")
+        .where("synchronous.process = :process")
+        .leftJoinAndSelect("synchronous.initial_controlled", "initial_controlled")
+        .leftJoinAndSelect("initial_controlled.detail", "initial_detail")
+        .leftJoinAndSelect("synchronous.end_controlled", "end_controlled")
+        .leftJoinAndSelect("end_controlled.detail", "end_detail")
+        .setParameter('process', id)
+        .getMany();
+
+        permissive.forEach(element => {
+            nodes.push(element.actuator);
+            nodes.push(element.controlled);
+        });
+
+        synchronous.forEach(element => {
+            nodes.push(element.initial_controlled);
+            nodes.push(element.end_controlled);
+        });
+
+        const {nodesData, detailNodes} = this.deleteDuplicateNodesDetail(nodes);
+
+        return synchronous;
+    }
+
+    updateProcess(id: number, process: IProcess){
         return getManager().getRepository(Process).update({ id: id }, process);
     }
     
-    deleteProcess(id: number, res: Response): Promise<Response> | Response{
-        return getManager().getRepository(Process).delete({ id: id}).then( data => {
-            return res.status(200).json({ message: 'Proceso eliminado'});
-        }).catch( error => {
-            return res.status(500).json({ message: 'Ha ocurrido un error', data: error});
-        });
+    async deleteProcess(id: number, res: Response){
+        try {
+            const data = await getManager().getRepository(Process).delete({ id: id });
+            return res.status(200).json({ message: 'Proceso eliminado' });
+        } catch (error) {
+            return res.status(500).json({ message: 'Ha ocurrido un error', data: error });
+        }
     }
 
     deleteDuplicateNodes(nodes: Array<IElement>) {
@@ -104,6 +143,21 @@ export class ProcessService{
             }
         });
         return graphData;
+    }
+
+    deleteDuplicateNodesDetail(nodes: Array<IElement>) {
+        const nodesData: Array<Data> = [];
+        const noDuplicates: Array<IElement> = [];
+        nodes.forEach((element: IElement) => {
+            const aux = noDuplicates.filter((x: IElement) => x.id === element.id);
+            if (aux.length === 0) {
+                noDuplicates.push(element);
+                nodesData.push({
+                    data: { id: element.id, name: element.name }
+                });
+            }
+        });
+        return {nodesData, detailNodes: noDuplicates};
     }
 
     deleteDuplicateEdges(edges: Array<Edge>) {

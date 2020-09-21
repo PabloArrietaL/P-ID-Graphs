@@ -42,7 +42,7 @@ export class ViewProcessComponent implements OnInit {
   }
 
   getEdges() {
-    this.service.getAll(`${this.api}process/${this.processId}`).subscribe(
+    this.service.getAll(`${this.api}process/graph/${this.processId}`).subscribe(
       response => {
         this.data = response;
         this.formatData();

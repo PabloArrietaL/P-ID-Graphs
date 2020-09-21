@@ -26,17 +26,22 @@ export class ProcessController {
         return data;
     }
 
-    @Get("/process/:id")
+    @Get("/process/graph/:id")
     async getGraph(@Param("id") id: number) {
         const data = await this.dataService.processService.getGraphData(id);
         return data;
     }
 
+    @Get("/process/petri/:id")
+    async getPetri(@Param("id") id: number) {
+        const data = await this.dataService.processService.getPetriData(id);
+        return data;
+    }
+
     @Put("/process/:id")
-    put(@Param("id") id: number, @Body() process: IProcess) {
-        return this.dataService.processService.updateProcess(id, process).then( data => {
-            return data;
-        });
+     async put(@Param("id") id: number, @Body() process: IProcess) {
+        const data = await this.dataService.processService.updateProcess(id, process);
+        return data;
     }
 
     @Delete("/process/:id")

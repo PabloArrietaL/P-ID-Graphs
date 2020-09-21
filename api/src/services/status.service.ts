@@ -8,15 +8,16 @@ import { IStatus } from "../models/interfaces/IStatus";
 export class StatusService {
 
 
-    createStatus(status: IStatus, res: Response): Promise<Response<any> | (IStatus & Status)>{   
-        return getManager().getRepository(Status).save(status).then( data => {
+    async createStatus(status: IStatus, res: Response){   
+        try {
+            const data = await getManager().getRepository(Status).save(status);
             return data;
-        }).catch(error => {
-            return res.status(400).json({message: 'Ya hay un estado con este nombre', data: error});
-        });
+        } catch (error) {
+            return res.status(400).json({ message: 'Ya hay un estado con este nombre', data: error });
+        }
     }
 
-    getAllStatus(): Promise<Status[]> {
+    getAllStatus(){
         return getManager().getRepository(Status).find()
     }
 
@@ -28,12 +29,12 @@ export class StatusService {
         })
     }
 
-    updateStatus(id: number, status: IStatus): Promise<UpdateResult> {
+    updateStatus(id: number, status: IStatus){
         return getManager().getRepository(Status).update({ id: id }, status);
     }
 
 
-    async deleteStatus(id: number, res: Response): Promise<Response> {
+    async deleteStatus(id: number, res: Response) {
 
         try {
             const data = await getManager().getRepository(Status).delete(id);

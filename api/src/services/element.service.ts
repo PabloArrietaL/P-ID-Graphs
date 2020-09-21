@@ -110,24 +110,25 @@ export class ElementService {
         return getManager().getRepository(Element).findOne({id: id});
     }
 
-    deleteElement(id: number, res: Response) {
+    async deleteElement(id: number, res: Response) {
 
-        return this.getElementById(id).then((element: Element | undefined) => {
+        try {
+            const element = await this.getElementById(id);
             try {
                 return getManager().getRepository(Element).delete({ id: id }).then(data => {
-                    try{
+                    try {
                         fs.unlink(path.resolve(__dirname, `../../uploads/${element?.img}`));
-                    } catch(_){}
-                    return res.status(200).json({ message: 'Elemento eliminado'});
-                }).catch(_ => {
+                    } catch (_) { }
+                    return res.status(200).json({ message: 'Elemento eliminado' });
+                }).catch(__1 => {
                     return res.status(500).json({ message: "El elemento se está utilizando en un proceso" });
                 });
             }
             catch (error) {
                 return res.status(500).json({ message: "Ha ocurrido un error", data: error });
             }
-        }).catch((error) => {
-            return res.status(500).json({ message: "Ha ocurrido un error", data: error });
-        });
+        } catch (error_1) {
+            return res.status(500).json({ message: "Ha ocurrido un error", data: error_1 });
+        }
     }
 }

@@ -16,7 +16,7 @@ export class ElementDetailService{
         };
 
 
-        if(element.third_status !== undefined) {
+        if(element.third_status) {
             detail.first_status = {
                 second_status: {
                     checked: false,
