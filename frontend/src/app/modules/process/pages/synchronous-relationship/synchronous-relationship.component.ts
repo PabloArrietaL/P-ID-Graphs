@@ -1,25 +1,24 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { MatPaginator, MatTableDataSource } from '@angular/material';
-import { ProcessModel } from '@data/models/process.model';
-import { Element } from '@data/schema/element.interface';
-import { SynchronousR } from '@data/schema/process.interface';
-import { ElementService } from '@data/service/element.service';
-import { ProcessService } from '@data/service/process.service';
-import { RelationService } from '@data/service/relation.service';
-import { environment } from '@env/environment';
-import { ToastrService } from 'ngx-toastr';
+import { Component, OnInit, ViewChild } from "@angular/core";
+import { FormGroup } from "@angular/forms";
+import { MatPaginator, MatTableDataSource } from "@angular/material";
+import { ProcessModel } from "@data/models/process.model";
+import { Element } from "@data/schema/element.interface";
+import { SynchronousR } from "@data/schema/process.interface";
+import { ElementService } from "@data/service/element.service";
+import { ProcessService } from "@data/service/process.service";
+import { RelationService } from "@data/service/relation.service";
+import { environment } from "@env/environment";
+import { ToastrService } from "ngx-toastr";
 
 @Component({
-  selector: 'app-synchronous-relationship',
-  templateUrl: './synchronous-relationship.component.html',
-  styleUrls: ['./synchronous-relationship.component.scss']
+  selector: "app-synchronous-relationship",
+  templateUrl: "./synchronous-relationship.component.html",
+  styleUrls: ["./synchronous-relationship.component.scss"],
 })
 export class SynchronousRelationshipComponent implements OnInit {
   public deviceInfo = null;
   public showSpinner: boolean;
   public Form: FormGroup = new ProcessModel().SynchronousRelations();
-
 
   public controlled: Array<Element> = [];
   public controlled2: Array<Element> = [];
@@ -28,7 +27,13 @@ export class SynchronousRelationshipComponent implements OnInit {
   public EventssF = [];
 
   public dataSource: MatTableDataSource<any>;
-  public displayedColumns: Array<string> = ['initial_controlled', 'end_controlled', 'eventI', 'eventF', 'actions'];
+  public displayedColumns: Array<string> = [
+    "initial_controlled",
+    "end_controlled",
+    "eventI",
+    "eventF",
+    "actions",
+  ];
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   public create = false;
   public api = environment.api;
@@ -37,7 +42,7 @@ export class SynchronousRelationshipComponent implements OnInit {
     private service: RelationService,
     public Processservice: ProcessService,
     private toast: ToastrService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.getElementsControlled();
@@ -47,12 +52,12 @@ export class SynchronousRelationshipComponent implements OnInit {
   }
 
   EventsI(controlled: any) {
-    this.EventssI = this.serviceElement.proccesElement(controlled);
+    this.EventssI = this.serviceElement.proccesElement(controlled.value);
     return this.EventssI;
   }
 
   EventsF(controlled: any) {
-    this.EventssF = this.serviceElement.proccesElement(controlled);
+    this.EventssF = this.serviceElement.proccesElement(controlled.value);
     return this.EventssF;
   }
   Create() {
@@ -61,18 +66,20 @@ export class SynchronousRelationshipComponent implements OnInit {
 
   getSynchronousR() {
     this.showSpinner = true;
-    this.service.getByID(`${this.api}synchronous`, this.Processservice.IDP.id).subscribe(
-      response => {
-        if (response.length > 0) {
-          this.dataSource = new MatTableDataSource(response.reverse());
-          this.dataSource.paginator = this.paginator;
+    this.service
+      .getByID(`${this.api}synchronous`, this.Processservice.IDP.id)
+      .subscribe(
+        (response) => {
+          if (response.length > 0) {
+            this.dataSource = new MatTableDataSource(response.reverse());
+            this.dataSource.paginator = this.paginator;
+          }
+          this.showSpinner = false;
+        },
+        () => {
+          this.showSpinner = false;
         }
-        this.showSpinner = false;
-      },
-      () => {
-        this.showSpinner = false;
-      }
-    );
+      );
   }
 
   Cancel() {
@@ -91,34 +98,39 @@ export class SynchronousRelationshipComponent implements OnInit {
       this.showSpinner = true;
       this.service.createPermissiveR(url, PERMISSIVE).subscribe(
         () => {
-          this.toast.success('Relación sincrona creada correctamente', 'Éxito');
+          this.toast.success("Relación sincrona creada correctamente", "Éxito");
           this.Cancel();
           this.getSynchronousR();
           this.showSpinner = false;
         },
-        error => {
+        (error) => {
           this.showSpinner = false;
-          this.toast.error(error.error.message, 'Error');
+          this.toast.error(error.error.message, "Error");
         }
       );
     }
   }
 
   filterControlled(controlled: Element) {
-    this.controlled2 = this.controlled.filter((x: Element) => x.id !== +controlled.id);
-    this.Form.get('end_controlled').enable();
+    this.controlled2 = this.controlled.filter(
+      (x: Element) => x.id !== +controlled.id
+    );
+    this.Form.get("end_controlled").enable();
   }
 
   delete(id: string) {
     this.service.delete(`${this.api}synchronous`, id).subscribe(
       () => {
-        this.toast.success('Relación sincrona eliminada correctamente', 'Éxito');
+        this.toast.success(
+          "Relación sincrona eliminada correctamente",
+          "Éxito"
+        );
         const data = this.dataSource.data.filter((x: any) => x.id !== id);
         this.dataSource = new MatTableDataSource(data);
         this.dataSource.paginator = this.paginator;
       },
-      error => {
-        this.toast.error(error.error.message, 'Error');
+      (error) => {
+        this.toast.error(error.error.message, "Error");
       }
     );
   }
@@ -128,13 +140,17 @@ export class SynchronousRelationshipComponent implements OnInit {
   }
 
   getElementsControlled() {
-    this.serviceElement.getAll(`${this.api}element/type/controlled`).subscribe(
-      response => {
-        this.controlled = response;
-      },
-      error => {
-        this.toast.error(error.error.message, 'Error');
-      }
-    );
+    this.serviceElement
+      .getAll(
+        `${this.api}process-detail/${this.Processservice.IDP.id}/controlled`
+      )
+      .subscribe(
+        (response) => {
+          this.controlled = response;
+        },
+        (error) => {
+          this.toast.error(error.error.message, "Error");
+        }
+      );
   }
 }
