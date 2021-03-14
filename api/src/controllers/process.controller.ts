@@ -45,16 +45,14 @@ export class ProcessController {
   }
 
   @Put('/process/:id')
-  put(
+  async put(
     @Param('id') id: number,
     @Body() process: IProcess,
     @Res() res: Response
   ) {
-    return this.dataService.processService
-      .updateProcess(id, process, res)
-      .then((data) => {
-        return data;
-      });
+    const data = await this.dataService.processService
+      .updateProcess(id, process, res);
+    return data;
   }
 
   @Delete('/process/:id')

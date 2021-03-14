@@ -33,25 +33,24 @@ export class StatusService {
         },
       });
   }
-
-  updateStatus(
+  
+  async updateStatus(
     id: number,
     status: IStatus,
     res: Response
   ): Promise<Response<any>> {
-    return getManager()
-      .getRepository(Status)
-      .update({ id: id }, status)
-      .then(() => {
-        return res
-          .status(200)
-          .json({ message: 'Estado actualizado correctamente' });
-      })
-      .catch((error) => {
-        return res
-          .status(500)
-          .json({ message: 'Ha ocurrido un error', data: error.message });
-      });
+    try {
+      await getManager()
+        .getRepository(Status)
+        .update({ id: id }, status);
+      return res
+        .status(200)
+        .json({ message: 'Estado actualizado correctamente' });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ message: 'Ha ocurrido un error', data: error.message });
+    }
   }
 
   async deleteStatus(id: number, res: Response): Promise<Response> {

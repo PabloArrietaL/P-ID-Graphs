@@ -21,7 +21,7 @@ export class ImageController {
               
             });
           } catch (error) {
-            res.status(500).json({message: 'Ha ocurrido un error'});
+            res.status(500).json({message: 'Ha ocurrido un error', data: error.message});
             // throw new Error('No se encontró la imagen');
           }
 
