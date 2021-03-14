@@ -1,8 +1,5 @@
 import {
   getManager,
-  UpdateResult,
-  DeleteResult,
-  DeepPartial,
   getRepository,
 } from 'typeorm';
 import { Element } from '../models/entities/Element';

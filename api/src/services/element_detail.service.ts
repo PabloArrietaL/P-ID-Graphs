@@ -1,4 +1,4 @@
-import { getManager, UpdateResult } from 'typeorm';
+import { getManager } from 'typeorm';
 import { ElementDetail } from '../models/entities/ElementDetail';
 import { Singleton } from 'typescript-ioc';
 import { IElementDetail } from '../models/interfaces/IElementDetail';

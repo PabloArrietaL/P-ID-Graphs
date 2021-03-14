@@ -6,19 +6,18 @@ import { IStatus } from '../models/interfaces/IStatus';
 
 @Singleton
 export class StatusService {
-  createStatus(status: IStatus, res: Response): Promise<Response<any>> {
-    return getManager()
-      .getRepository(Status)
-      .save(status)
-      .then(() => {
-        return res.status(200).json({ message: 'Estado creado correctamente' });
-      })
-      .catch((error) => {
-        return res.status(500).json({
-          message: 'Ya hay un estado con este nombre',
-          data: error.message,
-        });
+  async createStatus(status: IStatus, res: Response): Promise<Response<any>> {
+    try {
+      await getManager()
+        .getRepository(Status)
+        .save(status);
+      return res.status(200).json({ message: 'Estado creado correctamente' });
+    } catch (error) {
+      return res.status(500).json({
+        message: 'Ya hay un estado con este nombre',
+        data: error.message,
       });
+    }
   }
 
   getAllStatus(): Promise<Status[]> {
